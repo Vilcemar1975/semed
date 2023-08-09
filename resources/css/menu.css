@@ -1,0 +1,237 @@
+#submenu {
+    display: flex;
+    position: relative;
+}
+
+.menuprinc {
+    display: flex;
+    position: relative;
+    text-transform: capitalize;
+}
+
+.menuprinc > li {
+
+}
+
+.menuprinc > li > a {
+    display: flex;
+    position: relative;
+    text-align: center;
+    letter-spacing: 0.05rem;
+    width: 100%;
+    padding: 8px 10px;
+    color: var(--azul-marinho);
+    border-bottom: 2px solid var(--azul-marinho);
+
+}
+
+.menuprinc > li > a:hover {
+    color: var(--azul);
+
+}
+
+
+.submenu ul {
+
+    position: relative;
+    min-width: 100%;
+    left: 10px;
+    padding-bottom: 5px;
+    background-color: var(--azul-marinho);
+    letter-spacing: 0.05rem;
+    color: var(--branco);
+    border-radius: 0px 0px 5px 5px;
+    animation:scale-up-ver-top .4s
+
+}
+
+.submenu ul > li {
+    -webkit-animation: scale-in-hor-center 0.5s;
+    animation: scale-in-hor-center 0.5s;
+}
+
+.submenu ul > li > a {
+    display: block;
+    text-transform: capitalize;
+    font-size: small;
+    font-weight: 500;
+    padding: 5px 10px;
+}
+
+.submenu ul > li > a:hover {
+    background-color: var(--azul);
+}
+
+.ico_seta {
+    margin-top: 3%;
+    width: 18px;
+    height: 18px;
+}
+
+.ico_user{
+    width: 24px;
+    height: 24px;
+}
+
+
+
+/* Efeito Animado */
+@-webkit-keyframes scale-in-hor-center {
+    0% {
+      -webkit-transform: scaleX(0);
+              transform: scaleX(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: scaleX(1);
+              transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+  @keyframes scale-in-hor-center {
+    0% {
+      -webkit-transform: scaleX(0);
+              transform: scaleX(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: scaleX(1);
+              transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-up-ver-top{0%{transform:scaleY(.4);transform-origin:100% 0}100%{transform:scaleY(1);transform-origin:100% 0}}
+
+  /* Menu mobil */
+
+  #menu-mobil {
+    display: none;
+    position: fixed;
+    width: 100%;
+    background-color: var(--branco);
+    border-bottom: 2px solid var(--azul-marinho);
+    box-shadow: 2px 1px 4px 8px #1111111e;
+  }
+
+  .mobil-logos{
+    width: 30%;
+    padding: 5px;
+
+  }
+
+  .mobil-hamburg {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 40px;
+
+  }
+
+  .mobil-hamburg > label {
+    display: block;
+    width: 25px;
+    height: 25px;
+    color: var(--azul-marinho);
+    margin-right: 10px;
+  }
+
+  .mobil-hamburg > label > svg {
+    display: block;
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  .mobil-hamburg > label > svg:hover {
+    background-color: var(--azul);
+    border-radius: 8px;
+  }
+
+  #mobil-hamburg-botao {
+    display: none;
+  }
+
+  #mobil-hamburg-botao:checked ~ .mobil-continer {
+    display: block;
+    visibility: visible;
+  }
+
+  .mobil-continer {
+    display: block;
+    position: absolute;
+    visibility: collapse;
+    top: 70px;
+    right: 0px;
+    color: var(--branco);
+    text-align: right;
+    background-color: var(--azul-marinho);
+  }
+
+  #mobil-menuprinc a {
+    display: flex;
+    text-transform: capitalize;
+    letter-spacing: 0.03rem;
+    padding: 5px 15px;
+  }
+
+  #mobil-menuprinc > li > a:hover {
+    background-color: var(--azul-escuro);
+  }
+
+  .submenu_mobil {
+    background-color: var(--azul);
+  }
+
+  .submenu_mobil a {
+    color: var(--branco);
+  }
+
+  .submenu_mobil > ul > li > a:hover {
+    background-color: var(--azul-dark);
+  }
+
+  /* Medição */
+  @media screen and (max-width: 900px) {
+
+    #menu-web {
+        display: none;
+    }
+
+    #menu-mobil {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+  }
+
+  @media screen and (max-width: 740px) {
+    #menu-web {
+        display: none;
+    }
+    #menu-mobil {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .mobil-logos{
+    width: 80%;
+    padding: 5px;
+
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    #menu-web {
+        display: none;
+    }
+    #menu-mobil {
+        display: flex;
+      }
+    .mobil-logos{
+    width: 100%;
+    padding: 5px;
+
+    }
+  }

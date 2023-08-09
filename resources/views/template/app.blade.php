@@ -9,15 +9,16 @@
         <!-- Fonts -->
 
         <!-- Styles -->
-        @vite('resources/css/app.css', 'resources/js/app.js')
+        @vite('resources/js/app.js')
+        @livewireStyles
         @yield('style')
 
         <!-- Script -->
         @yield('script')
 
     </head>
-    <body class="">
-      <nav class="d">
+    <body id="body_app" class="" style="background-image: url('{{asset('storage/padrao/fundotop.jpg')}}')">
+      <nav class="">
         @yield('menu')
       </nav>
       <section>
@@ -26,5 +27,8 @@
       <footer>
         @yield('footer')
       </footer>
+      @livewireScripts
+      @yield('scriptbottom')
+
     </body>
 </html>
