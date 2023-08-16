@@ -5,10 +5,10 @@ import typography from '@tailwindcss/typography';
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
-      './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-      './storage/framework/views/*.php',
-      "./resources/**/*.js",
-      './resources/views/**/*.blade.php',
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/**/*.js',
+        './resources/views/**/*.blade.php',
     ],
 
     theme: {
@@ -26,9 +26,9 @@ export default {
 
         extend: {
 
-          fontFamily: {
-              sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-          },
+            fontFamily: {
+                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            },
 
           colors: {
             'branco': '#fff',

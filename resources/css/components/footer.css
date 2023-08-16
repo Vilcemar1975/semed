@@ -1,0 +1,61 @@
+#menu-footer {
+    display: block;
+    position: relative;
+    padding: 10px 0px 0px 0px;
+    text-transform: capitalize;
+    background-color: var(--azul-marinho-transp);
+}
+
+.menuprinc-footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.menuprinc-footer > ul {
+
+}
+
+.menuprinc-footer > ul > li {
+
+}
+
+.menuprinc-footer a {
+    display: block;
+    position: relative;
+    width: 100%;
+    color: var(--azul-marinho);
+    font-size: 12pt;
+    font-weight: 700;
+    padding: 5px;
+}
+
+.menuprinc-footer a:hover {
+    font-weight: 800;
+}
+
+
+/* Sub menu */
+.submenu-footer {
+
+}
+
+.submenu-footer > ul {
+
+}
+
+.submenu-footer > ul > li {
+
+}
+
+.submenu-footer > ul > li > a {
+    margin-top: 5px;
+    font-size: 12pt;
+    font-weight: 500;
+    text-align: start;
+}
+
+.submenu-footer > ul > li > a:hover {
+    font-weight: 600;
+}

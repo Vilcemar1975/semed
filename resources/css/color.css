@@ -1,14 +1,20 @@
 :root {
     --azul: #76a8fc;
+    --azul-transp: #76a7fc7e;
     --azul-dark: #6f9ae4;
+    --azul-marinho-transp: #075ba994;
     --azul-marinho: #075AA9;
     --azul-escuro: #043f75;
     --azul-claro: #ebf2fc;
     --branco: #fff;
+    --branco-transp: #ffffff50;
     --cinza-claro: #dddddd;
     --cinza: #ccc;
     --cinza-escuro: #adadad;
+    --cinza-dark: #7e7e7e;
     --vermelho: #e31823;
+    --preto: #000;
+    --preto-traansp: #00000033;
 }
 
 

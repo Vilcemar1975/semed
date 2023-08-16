@@ -1,0 +1,117 @@
+.faixa-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: relative;
+    width: 100%;
+    background-color: var(--branco);
+    box-shadow: 0px 0px 4px 4px #0000001a;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-clip: content-box;
+}
+
+.faixa-prime {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.faixa-card {
+    display: block;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+    /* border: 2px solid var(--azul-marinho) ; */
+    border-radius: 20px;
+    box-shadow: 0px 0px 6px 4px #00000025;
+    border: 2px solid var(--branco);
+
+
+    -webkit-animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+.faixa-card:hover {
+    box-shadow: 0px 0px 4px 10px #00000025;
+    scale: 1.1;
+    transition: scale 0.5s;
+}
+
+.faixa-card h4 {
+    display: block;
+    position: relative;
+    top: 40%;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14pt;
+    font-weight: bold;
+    color: var(--branco);
+    text-shadow: 0px 0px 7px 1px var(--preto-traansp);
+
+
+}
+
+.link-cardbox{
+    margin: 0px !important;
+    padding: 0px !important;
+
+}
+
+/* Animação */
+@-webkit-keyframes scale-up-center {
+    0% {
+      -webkit-transform: scale(0.5);
+              transform: scale(0.5);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+  }
+  @keyframes scale-up-center {
+    0% {
+      -webkit-transform: scale(0.5);
+              transform: scale(0.5);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+  }
+
+
+/* Medição */
+@media screen and (max-width: 900px) {
+
+}
+
+@media screen and (max-width: 975px) {
+    .faixa-container {
+        flex-wrap: wrap;
+    }
+
+    .faixa-prime {
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 740px) {
+    .faixa-card {
+        width: 150px;
+        height: 150px;
+        margin: 10px;
+    }
+
+    .faixa-card h4 {
+        font-size: 10pt;
+    }
+}
+
+@media screen and (max-width: 350px) {
+
+}

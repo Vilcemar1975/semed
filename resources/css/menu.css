@@ -1,6 +1,15 @@
+.space-menu {
+    height: 80px;
+}
+
+#menu-web {
+    z-index: 200;
+}
+
 #submenu {
     display: flex;
     position: relative;
+
 }
 
 .menuprinc {
@@ -17,6 +26,7 @@
     display: flex;
     position: relative;
     text-align: center;
+    font-weight: 500;
     letter-spacing: 0.05rem;
     width: 100%;
     padding: 8px 10px;
@@ -104,7 +114,6 @@
   @keyframes scale-up-ver-top{0%{transform:scaleY(.4);transform-origin:100% 0}100%{transform:scaleY(1);transform-origin:100% 0}}
 
   /* Menu mobil */
-
   #menu-mobil {
     display: none;
     position: fixed;
@@ -112,6 +121,7 @@
     background-color: var(--branco);
     border-bottom: 2px solid var(--azul-marinho);
     box-shadow: 2px 1px 4px 8px #1111111e;
+    z-index: 200;
   }
 
   .mobil-logos{
@@ -173,6 +183,7 @@
     text-transform: capitalize;
     letter-spacing: 0.03rem;
     padding: 5px 15px;
+
   }
 
   #mobil-menuprinc > li > a:hover {
@@ -189,6 +200,67 @@
 
   .submenu_mobil > ul > li > a:hover {
     background-color: var(--azul-dark);
+  }
+
+  .menu-search {
+    display: flex;
+    position: relative;
+    margin-left: 20px;
+  }
+
+  /* Pesquisa */
+  .botao-search-input {
+    margin-top: 1px;
+    height: 29px;
+    background-color: #00000000;
+    border: 0px;
+    border-radius: 5px;
+  }
+
+  .botao-search-input::placeholder {
+    color: var(--azul-marinho);
+  }
+
+  .botao-search {
+    padding-left: 20px;
+  }
+
+  /* Pesquisa Mobil */
+
+  .botao-search-mobil {
+    display: block;
+    position: absolute;
+    top: 0px;
+    padding: 5px;
+  }
+
+  .botao-search-mobil:hover {
+    color: var(--branco);
+  }
+
+  .botao-search-input-mobil {
+    margin-top: 1px;
+    height: 29px;
+    background-color: #00000000;
+    border: 0px;
+    border-radius: 5px;
+    padding-left: 40px;
+  }
+
+  .botao-search-input-mobil::placeholder {
+    color: var(--azul);
+  }
+
+  .botao-search-mobil {
+    display: block;
+    position: absolute;
+    top: 32px;
+    left: 8px;
+    padding: 5px;
+  }
+
+  .botao-search-mobil:hover {
+    color: var(--branco);
   }
 
   /* Medição */

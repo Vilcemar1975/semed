@@ -20,23 +20,26 @@
 
                     <ul class="flex p-0 pl-2 gap-2 justify-between ">
 
-                        @forelse ( $icos as $ico)
-                        <li>
-                            <a href="#" class="">
+                        @forelse ( $dados['iconBootStrap'] as $ico)
+                            <li>
+                                <a href="{{ $ico['link'] }}" class="">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-instagram mt-1 p-1 border border-blue-100 hover:border-white rounded-sm hover:text-white" viewBox="0 0 16 16">
-                                    @foreach ($ico['d'] as $ic)
-                                        <path d="{{$ic}}"/>
-                                    @endforeach
-                                </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-instagram mt-1 p-1 border border-blue-100 hover:border-white rounded-sm hover:text-white" viewBox="0 0 16 16">
+                                        @foreach ($ico['d'] as $ic)
+                                            <path d="{{$ic}}"/>
+                                        @endforeach
+                                    </svg>
 
-                            </a>
-                        </li>
+                                </a>
+                            </li>
                         @empty
 
                         @endforelse
 
                     </ul>
+
+                    @include('components.menu.menu_seach')
+
 
                 </div>
 
@@ -45,7 +48,7 @@
 
             <div id="menu" class="col-span-3 auto-cols-max relative">
                 <ul id="menuprinc" class="menuprinc">
-                    @foreach ($menus as $menu)
+                    @foreach ($dados['menuPrincipal'] as $menu)
                         <li class="">
 
                             <a class="" @if ($menu['sub'] != []) href="#" onclick="AbrirMenu('icon_{{$menu['id']}}', 'submenu_{{$menu['id']}}')" @else href="{{route($menu['route'])}}" @endif>
@@ -108,7 +111,7 @@
 
                     <ul class="flex p-0 pl-2 gap-2 justify-between ">
 
-                        @forelse ( $icos as $ico)
+                        @forelse ( $dados['iconBootStrap'] as $ico)
                         <li>
                             <a href="#" class="">
 
@@ -130,8 +133,23 @@
 
 
             </div>
+
+            {{-- Pesquisar --}}
+            <form action="#" method="get">
+                @csrf
+                <div class="menu-search-mobil">
+                    <input type="search" id="botao-search-input-mobil" name="botao-search-input-mobil" class="botao-search-input-mobil"  placeholder="Pesquisar">
+                    <button type="submit" id="botao-search-mobil" class="botao-search-mobil" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
+            {{-- Menu --}}
             <ul id="mobil-menuprinc" class="mobil_menuprinc">
-                @foreach ($menus as $menu)
+                @foreach ($dados['menuPrincipal'] as $menu)
                     <li class="">
 
                         <a class="" @if ($menu['sub'] != []) href="#" onclick="AbrirMenu('icon_mobil{{$menu['id']}}', 'submenu_mobil{{$menu['id']}}')" @else href="{{route($menu['route'])}}" @endif>
@@ -148,7 +166,7 @@
                                 <ul class="">
                                     @foreach ( $menu['sub'] as $sub)
                                         <li>
-                                            <a href="{{ route($menu['route'])}}" >{{$sub['name']}}</a>
+                                            <a href="{{ route($sub['route'])}}" >{{$sub['name']}}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -166,3 +184,43 @@
 
 
 @include('js.menuchave',['idmenu' => "menu", 'idbody' => "body_app"])
+
+<script type="text/javascript">
+
+    let get= document.getElementById("botao-search-input");
+
+    get.addEventListener("keydown", (e) =>{
+
+    if(e.key == ""){
+
+        get.disabled = false;
+
+    }
+
+    else if(e.key == "Enter"){
+
+        get.disabled = true;
+
+    }
+
+    })
+
+    let getmobil = document.getElementById("botao-search-input-mobil");
+
+    getmobil.addEventListener("keydown", (e) =>{
+
+    if(e.key == ""){
+
+        getmobil.disabled = false;
+
+    }
+
+    else if(e.key == "Enter"){
+
+        getmobil.disabled = true;
+
+    }
+
+    })
+
+</script>
