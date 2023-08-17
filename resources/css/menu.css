@@ -210,19 +210,30 @@
 
   /* Pesquisa */
   .botao-search-input {
+    display: block;
     margin-top: 1px;
+    margin-left: 5px;
+    padding-left: 30px;
     height: 29px;
-    background-color: #00000000;
     border: 0px;
+    background-color: #00000000;
     border-radius: 5px;
   }
 
+  .botao-search-input:hover {
+    border: 1px solid var(--azul);
+  }
+
   .botao-search-input::placeholder {
-    color: var(--azul-marinho);
+    color: var(--azul);
   }
 
   .botao-search {
-    padding-left: 20px;
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 10px;
+
   }
 
   /* Pesquisa Mobil */

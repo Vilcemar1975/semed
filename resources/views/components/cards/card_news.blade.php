@@ -15,6 +15,10 @@
                     </p>
                     <h4 class="card_news_title">Concurso Entre Versos E Rimas Divulga Resultado Final Da Oitava Edição</h4>
                     <p class="card_news_texto">Neste Ano, A Competição Literária E Artística Contou Com Mais De 3.400 Inscrições E 84 Escolas Participantes.</p>
+
+                </div>
+                <div class="card_news_footer">
+                    @include('components.redesocial')
                 </div>
             </div>
         </a>

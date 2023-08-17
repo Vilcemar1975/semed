@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.mensagem {
+    display: block;
+    position: relative;
+    margin: 10px 0px;
+    padding: 8px 10px;
+    color: var(--azul-marinho);
+    text-align: justify;
+    font-size: 13pt;
+    font-weight: 600;
+    font-style: italic;
+    background-color: var(--azul-transp);
+    border:0.3rem solid var(--branco);
+}

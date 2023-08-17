@@ -11,6 +11,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    min-width: 16rem;
     max-width: 20rem;
     height: 24rem;
     margin-top: 5px;
@@ -22,6 +23,12 @@
     display: block;
     position: relative;
     padding: 8px;
+}
+
+.card_news_footer {
+    display: block;
+    position: relative;
+    padding: 0px 8px;
 }
 
 .card_news_link {
@@ -81,7 +88,7 @@
 .card_news_texto {
     font-size: smaller;
     text-align: justify;
-    height: 90px;
+    height: 50px;
     overflow: hidden;
 }
 

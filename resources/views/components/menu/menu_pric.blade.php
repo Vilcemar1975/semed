@@ -1,13 +1,21 @@
 <div id="menu-web" class="bg-white border-b-2 border-azul-100 shadow-lg fixed top-0 left-0 right-0 pb-2">
+    <div style="display:block; position: fixed; right: 0px;">
+        <div style="display: block; background-color: #075AA9;width: 300px; height: 32px; z-index: 202;"></div>
+    </div>
     <div class="container">
         <div class="grid grid-rows-2 grid-flow-col auto-rows-max h-16">
             <div class="row-span-3 p-2 text-right f">
-                <a href="{{ route('welcome')}}" class="flex justify-end pr-10">
-                    <img src="{{asset('logos/escolataon_escura.png')}}" alt="" width="120px" height="20px" class="pr-5">
-                    <img src="{{asset('logos/logosemed.png')}}" alt="" width="120px" height="20px" class="">
-                </a>
+                <div class="flex justify-end pr-10">
+                    <a href="{{ route('welcome')}}" >
+                        <img src="{{asset('logos/escolataon_escura.png')}}" alt="" width="120px" height="20px" class="pr-5">
+                    </a>
+                    <a href="https://www.vilavelha.es.gov.br/secretaria/educacao" target="_blank">
+                        <img src="{{asset('logos/logosemed.png')}}" alt="" width="120px" height="20px" class="">
+                    </a>
+                </div>
             </div>
-            <div class="col-span-3 bg-gradient-to-r  from-azul-100 rounded-bl-lg text-blue-200 h-8 text-right">
+            {{-- <div class="col-span-3 bg-gradient-to-r  from-azul-100 rounded-bl-lg text-blue-200 h-8 text-right"> --}}
+                <div class="col-span-3 bg-azul-100 rounded-bl-lg text-blue-200 h-8 text-right">
                 <div class="flex justify-between w-6/12">
 
                     <a href="#" class="flex justify-between mx-3 pt-1 pr-2  hover:text-white">
@@ -76,6 +84,7 @@
 
                     @endforeach
                 </ul>
+
             </div>
         </div>
 

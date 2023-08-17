@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var telegramLink = "https://telegram.me/share/url?url=" + url + "&text=" + title;
     document.getElementById("telegram-share-btt").href = telegramLink;
 
-    var linkedinLink = "https://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+titulo;
+    //var linkedinLink = "https://www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+titulo;
 
     //tenta obter o conteúdo da meta tag description
     var summary = document.querySelector("meta[name='description']");
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
         summary = (!!summary)? summary.getAttribute("content") : null;
     }
     //altera o link do botão
-    linkedinLink = (!!summary)? linkedinLink + "&summary=" + encodeURIComponent(summary) : linkedinLink;
-    document.getElementById("linkedin-share-btt").href = linkedinLink;
+    //linkedinLink = (!!summary)? linkedinLink + "&summary=" + encodeURIComponent(summary) : linkedinLink;
+    //document.getElementById("linkedin-share-btt").href = linkedinLink;
 
 }, false);
