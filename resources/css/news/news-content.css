@@ -7,16 +7,11 @@
 
 .news-body{
     display: flex;
-    position: relative;
     flex-direction: row;
     flex-wrap: wrap;
+    max-height: 600px;
     justify-content: space-between;
-    min-width: 16rem;
-    max-width: 20rem;
-    height: 24rem;
-    margin-top: 5px;
-    border-radius: 10px;
-    background-color: var(--branco);
+    overflow: auto;
 }
 
 .card_news_body {
@@ -32,7 +27,21 @@
 }
 
 .card_news_link {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    min-width: 16rem;
+    max-width: 16rem;
+    height: 18rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    background-color: var(--branco);
 
+}
+
+.card_news_link:hover {
+    border: 1px solid var(--azul-marinho);
 }
 
 .news-rotulo{
@@ -42,14 +51,12 @@
     text-transform: uppercase;
     letter-spacing: 0.1rem;
     font-size: 16pt;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--azul-marinho);
     background-color: var(--branco-transp);
 }
 
 .card_news_container {
-    display: block;
-    position: relative;
 
 }
 
@@ -57,9 +64,10 @@
     display: block;
     position: relative;
     width: 100%;
-    height: 170px;
-    margin-bottom: 10px;
+    /* height: 9rem; */
+    margin-bottom: 0px;
     border-radius: 8px 8px 0px 0px;
+
 }
 
 .card_news_data {
@@ -67,7 +75,7 @@
     position: relative;
     flex-direction: row;
     color: var(--cinza-dark);
-    font-size: 10pt;
+    font-size: 7pt;
 
 }
 
@@ -78,17 +86,17 @@
 .card_news_title {
     display: block;
     position: relative;
-    padding: 8px 0px;
     color: var(--azul-marinho);
-    font-size: 11pt;
-    font-weight: 600;
+    font-size: 8pt;
+    font-weight: 700;
     text-align: justify;
 }
 
 .card_news_texto {
     font-size: smaller;
     text-align: justify;
-    height: 50px;
+    height: 30px;
+    font-size: 7pt;
     overflow: hidden;
 }
 
