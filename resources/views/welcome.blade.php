@@ -1,7 +1,7 @@
 @extends('template.app')
 
 @section('title')
-    Notícias
+    Sejam Bemvindos!
 @endsection
 
 @section('menu')
@@ -34,7 +34,7 @@
 
 @section('container-slider')
     <div class="box-qrt"></div>
-        @include('components.sliders.slider',['dados' => $dados['sliderspreview']])
+    @include('components.sliders.slider',['dados' => $dados['sliderspreview']])
 @endsection
 
 @section('container-slider-bottom')
@@ -52,7 +52,7 @@
 
 @endsection
 
-@section('container-fixa')
+@section('container-faixa')
     @include('components.cards.cardbox',['dados' => $dados['cardBox']])
     @include('components.cards.card_news')
 @endsection

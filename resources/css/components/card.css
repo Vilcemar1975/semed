@@ -18,8 +18,9 @@
 }
 
 .card-container {
-    max-height: 670px;
+    height: 675px;
     margin-bottom: 5px;
+    overflow: hidden;
 }
 
 .card-container:hover{
@@ -41,6 +42,32 @@
     background: var(--azul);
 }
 
+/* Destaque Pequeno */
+.card-container-peq {
+    height: 380px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.card-container-peq:hover{
+    overflow-y: scroll;
+}
+.card-container-peq:hover::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-container-peq:hover::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background: var(--azul-transp);
+}
+
+.card-container-peq:hover::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    background: var(--azul);
+}
+/* -------------------------- */
 .card-body {
     display: block;
     position: relative;
@@ -127,8 +154,9 @@
 }
 
 .card-lastnews-container {
-    height: 470px;
+    height: 535px;
     margin-bottom: 5px;
+    overflow: hidden;
 
 }
 
@@ -211,6 +239,103 @@
     margin-left: 10px;
 }
 
+/* Card Ultma Noticias Pequeno */
+
+#card-lastnews-peq {
+    display: block;
+    position: relative;
+    background-color: var(--branco-transp);
+    margin: 5px;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.card-lastnews-container-peq {
+    height: 380px;
+    margin-bottom: 5px;
+    overflow: hidden;
+
+}
+
+.card-lastnews-container-peq:hover{
+    overflow-y: scroll;
+}
+
+.card-lastnews-container-peq::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-lastnews-container-peq::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background: var(--azul-transp);
+}
+
+.card-lastnews-container-peq::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    background: var(--azul);
+}
+
+.card-news-peq {
+    display: flex;
+    position: relative;
+    width: 95%;
+    min-width: 20rem;
+    color: var(--azul-escuro);
+    background-color: var(--branco);
+    padding: 8px;
+    margin:  10px auto;
+    border-radius: 8px;
+    box-shadow: 0px 0px 7px 1px var(--preto-traansp);
+}
+
+.card-news-peq img {
+    display: block;
+    width: 120px;
+    height: 100px;
+    margin-right: 5px;
+    border-radius: 8px;
+}
+
+.card-news-body-peq {
+    display: block;
+}
+
+.card-news-body-peq h4 {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 8.8pt;
+    font-weight: 600;
+    text-align: justify;
+    line-height: 13px;
+}
+
+.card-news-body-peq p {
+    display: block;
+    margin-bottom: 3px;
+    height: 30px;
+    font-size: 8pt;
+    font-weight: 400;
+    text-align: justify;
+    overflow: hidden;
+    line-height: 14px;
+
+}
+
+.card-news-footer-peq {
+    display: flex;
+    height: 19px;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 5px;
+    color: var(--azul);
+}
+
+.card-news-footer-peq p {
+    margin-left: 10px;
+}
+
 
 /* Card Links Externos */
 .card_links_externo {
@@ -279,6 +404,68 @@
         border-radius: 0px;
     }
 
+}
+
+.dest-card-contianer{
+    display: flex;
+    position: relative;
+    padding: 10px;
+    margin: 10px 0px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+
+}
+.dest-card {
+    display: flex;
+    position: relative;
+    width: 30rem;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background-color: var(--branco);
+    border-radius: 8px 8px 8px 8px;
+    border: 1px solid var(--branco);
+
+    overflow: hidden;
+}
+
+.dest-card:hover {
+    border: 1px solid var(--cinza);
+}
+
+.dest-card img {
+    display: block;
+    position: relative;
+    width: 12rem;
+
+}
+
+.dest-card-body {
+    padding: 10px;
+}
+
+.dest-card-body h3 {
+    font-size: 14pt;
+    font-weight: 700;
+    text-transform: capitalize;
+    color: var(--azul-marinho);
+}
+
+.dest-card-body p {
+    font-size: 10pt;
+    color: var(--cinza-dark);
+}
+
+.dest-card-footer {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.dest-card-footer p{
+    margin-left: 5px;
 }
 
 @media screen and (max-width: 740px) {

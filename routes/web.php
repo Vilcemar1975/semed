@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 }); */
 
 Route::get('/', [IndexController::class, 'index'])->name('welcome');
+Route::get('/noticias', [IndexController::class, 'noticias'])->name('noticias');
+Route::get('/ensinaon', [IndexController::class, 'ensinaon'])->name('ensinaon');
+Route::get('/nte', [IndexController::class, 'nte'])->name('nte');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

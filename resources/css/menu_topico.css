@@ -1,0 +1,40 @@
+.menu_topico {
+    display: block;
+    position: relative;
+    margin: 0px 10px;
+    padding: 5px;
+    background-color: var(--branco-transp);
+    height: 420px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.menu_topico > ul {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.menu_topico > ul > li {}
+
+.menu_topico > ul > li a {
+    display: block;
+    position: relative;
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    color: var(--azul);
+    font-size: larger;
+    background-color: var(--azul-marinho);
+    border-radius: 5px;
+}
+
+.menu_topico > ul > li a:hover {
+    color: var(--branco);
+    text-align: center;
+    background-color: var(--azul);
+    box-shadow: 0px 0px 8px 2px #0000004b;
+    transition: 1s;
+}

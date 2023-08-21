@@ -44,7 +44,7 @@
             </div>
         </div>
         <div id="container-fixa" class="block">
-            @yield('container-fixa')
+            @yield('container-faixa')
         </div>
       </section>
       <footer>

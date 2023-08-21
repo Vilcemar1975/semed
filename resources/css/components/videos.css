@@ -1,0 +1,51 @@
+.video_card {
+    display: flex;
+    position: relative;
+    width: 18rem;
+    height: 14rem;
+    margin-bottom: 10px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    overflow-y: hidden;
+}
+
+.video_card:hover .video_corpo {
+    top: 40%;
+    transition: 0.5s;
+}
+.video_card:hover {
+    box-shadow: 0px 0px 8px 2px #00000079 ;
+}
+
+.video_corpo {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 60%;
+    top: 110%;
+    padding: 0px 10px;
+    background-color: var(--azul-marinho);
+    box-shadow: 2px 2px 4px 8px #00000079;
+}
+
+.video_corpo h3, .video_corpo p {
+    display: block;
+    position: relative;
+    color: var(--branco);
+}
+
+.video_corpo h3 {
+    text-transform: uppercase;
+    font-size: 10pt;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.video_corpo p {
+    text-transform: capitalize;
+    font-size: 9pt;
+    font-weight: 500;
+
+}

@@ -59,7 +59,9 @@
                     @foreach ($dados['menuPrincipal'] as $menu)
                         <li class="">
 
-                            <a class="" @if ($menu['sub'] != []) href="#" onclick="AbrirMenu('icon_{{$menu['id']}}', 'submenu_{{$menu['id']}}')" @else href="{{route($menu['route'])}}" @endif>
+                            <a class="@if ($ativado == $menu['route'])
+                                ativar
+                            @endif" @if ($menu['sub'] != []) href="#" onclick="AbrirMenu('icon_{{$menu['id']}}', 'submenu_{{$menu['id']}}')" @else href="{{route($menu['route'])}}" @endif>
                                 <span class="break-words">{{$menu['name']}}</span>
                                 @if ($menu['sub'] != [])
                                     <svg id="icon_{{$menu['id']}}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" class="ico_seta">

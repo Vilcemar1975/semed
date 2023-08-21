@@ -274,6 +274,12 @@
     color: var(--branco);
   }
 
+  /* Item ativado */
+  .ativar {
+    font-weight: 800;
+    background-color: var(--azul-claro);
+  }
+
   /* Medição */
   @media screen and (max-width: 900px) {
 

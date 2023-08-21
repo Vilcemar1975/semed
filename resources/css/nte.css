@@ -1,0 +1,89 @@
+.missao_card_container {
+    display: block;
+    position: relative;
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.missao_total {
+    display: block;
+    position: relative;
+    width: 100%;
+    border: 1px solid var(--cinza);
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.missao_top > h3 {
+    font-size: 18pt;
+    font-weight: 700;
+}
+
+.missao_top > label {
+display: block;
+padding-top: 2px;
+   font-size: 16pt;
+   color: var(--azul);
+   font-weight: 700;
+}
+
+.missao_top > label:hover {
+    color: var(--azul-marinho);
+}
+
+.missao_top > input {
+  visibility: hidden;
+}
+
+.missao_top > input:checked ~ .missao_card {
+    border: 1px solid #0e0d0d;
+}
+
+.missao_card {
+    display: flex;
+    position: relative;
+    align-items: stretch;
+    margin: 10px auto;
+    padding: 10px;
+
+    color: var(--azul-marinho);
+    border-radius: 10px;
+    overflow: hidden;
+
+}
+
+.missao_card > img {
+    display: block;
+    position: relative;
+    width: 24rem;
+    height: 5rem;
+    padding-right: 10px;
+    background-position: center;
+    background-size: cover;
+}
+.missao_top {
+    display: flex;
+    position: relative;
+    padding: 0px 10px;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+
+.missao_top:hover {
+    box-shadow: 0px 0px 4px 2px #00000056;
+}
+
+.missao_corpo > p {
+    font-size: 10pt;
+    text-align: justify;
+}
+
+.missao_corpo > ol {
+    text-decoration-skip: unset;
+    list-style-type: square ;
+}
+
+.missao_corpo > ol > li {
+    margin-left: 30px;
+}

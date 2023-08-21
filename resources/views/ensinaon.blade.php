@@ -1,12 +1,12 @@
 @extends('template.app')
 
 @section('title')
-    Notícias
+    Ensina ON
 @endsection
 
 @section('menu')
     @include('components.menu.menu_pric')
-    @include('components.menu.titulo_princ',['title' => "Noticias"])
+    @include('components.menu.titulo_princ',['title' => "Ensina ON"])
 @endsection
 
 @section('container-left')
@@ -33,7 +33,7 @@
         @for ($r=0;$r < 3; $r++)
             <a href="#">
                 <div class="dest-card">
-                    <img src="{{asset('storage/padrao/img.jpeg')}}" alt="">
+                    <img src="{{asset('storage/padrao/videos_2.png')}}" alt="">
                     <div class="dest-card-body">
                         <h3>Titulo Destaques</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur. Dolor sit amet dolor sit amet.</p>
@@ -50,13 +50,27 @@
                 </div>
             </a>
         @endfor
-
     </div>
     <div class="faixa-prime">
         @include('components.cards.cardbox',['dados' => $dados['cardBox']])
         @include('components.cards.card_link_externo',['dados' => $dados['linksExternos']])
     </div>
-    @include('components.cards.card_news')
+    {{-- Todos os videos --}}
+    <div class="contaniner-padrao">
+        <h3 class="rotulo-padrao">Lista de Video</h3>
+        <div class="list-padrao">
+            @for ($h=0;$h < 10;$h++)
+            <a href="#">
+                <div class="video_card" style="background-image: url({{asset('storage/padrao/videos_2.png')}})">
+                    <div class="video_corpo">
+                        <h3>Titulo</h3>
+                        <p>descricao</p>
+                    </div>
+                </div>
+            </a>
+            @endfor
+        </div>
+    </div>
 @endsection
 @section('footer')
     @include('components.footer.menu_footer')

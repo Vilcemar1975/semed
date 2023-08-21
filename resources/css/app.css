@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+.tittulo-princ {
+    display: block;
+    position: relative;
+    top: 60px;
+    width: 70%;
+    height: 50px;
+    background-color: var(--azul-marinho);
+    border-radius: 0px 0px 8px 0px;
+    z-index: -1;
+}
+
+.tittulo-princ h3 {
+    display: block;
+    position: relative;
+    text-align: end;
+    font-size: 15pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    top: 5px;
+    letter-spacing: 0.1rem;
+    color: var(--branco);
+    padding-right: 10px;
+    padding-top: 10px;
+}
 .mensagem {
     display: block;
     position: relative;
@@ -14,4 +38,59 @@
     font-style: italic;
     background-color: var(--azul-transp);
     border:0.3rem solid var(--branco);
+}
+
+.box-qrt {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+}
+
+.contaniner-padrao {
+    display: block;
+    position: relative;
+    background-color: #819fbb83;
+    padding: 10px;
+}
+
+.list-padrao {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    max-height: 600px;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.list-padrao:hover{
+    overflow-y: scroll;
+}
+
+.list-padrao::-webkit-scrollbar {
+    width: 6px;
+}
+
+.list-padrao::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background: var(--azul-transp);
+}
+
+.list-padrao::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    background: var(--azul);
+}
+
+.rotulo-padrao {
+    display: block;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 16pt;
+    font-weight: 700;
+    color: var(--azul-marinho);
+    background-color: var(--branco-transp);
 }
