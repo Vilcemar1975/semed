@@ -34,4 +34,11 @@ class IndexController extends Controller
 
         return view('ensinaon', compact('dados','ativado'));
     }
+
+    public function atividadeEducacional() {
+        $ativado = "atividades";
+        $dados = CoreController::conjuntoVariaveis();
+
+        return view('atividades', compact('dados','ativado'));
+    }
 }

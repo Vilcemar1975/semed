@@ -46,7 +46,6 @@
                             <p>12/08/2023</p>
                         </div>
                     </div>
-
                 </div>
             </a>
         @endfor
@@ -58,32 +57,23 @@
         </p>
         <div class="missao_card_container">
 
-            <div class="missao_total">
-                <div class="missao_top">
-                    <h3>Nossa missão</h3>
-                    <input type="checkbox" id="botao_missao" name="botao_missao" class="botao_missao" onclick="abrirCardNTE('missao')">
-                    <label for="botao_missao">X</label>
-                </div>
-                <div id="missao" class="missao_card" style="display:none">
-                    <img src="{{asset('storage/padrao/img.jpeg')}}" alt="">
-                    <div class="missao_corpo">
-                        <p>Segundo Tajra (2002), o computador é definido dentro do ambiente escolar como uma ferramenta pedagógica capaz de potenciar a aprendizagem de campos conceituais nas diferentes áreas de conhecimento, de introduzir elementos contemporâneos na qualificação profissional e de modernização da gestão escolar. Contudo, o acesso às tecnologias da informação e comunicação não acontece simplesmente com a instalação dos laboratórios de informática, como são chamados na escola, mas pela necessidade de mediação de professores, por meio do desenvolvimento de hábitos e saberes docentes para acessar, trabalhar e interagir com essas tecnologias no cotidiano da escola.
+            @include('components.cards.card_colapser',[
+                'idcard' => "missao",
+                'title' => "Nossa missão",
+                'img' => "storage/padrao/img.jpeg",
+                'texto' => "Segundo Tajra (2002), o computador é definido dentro do ambiente escolar como uma ferramenta pedagógica capaz de potenciar a aprendizagem de campos conceituais nas diferentes áreas de conhecimento, de introduzir elementos contemporâneos na qualificação profissional e de modernização da gestão escolar. Contudo, o acesso às tecnologias da informação e comunicação não acontece simplesmente com a instalação dos laboratórios de informática, como são chamados na escola, mas pela necessidade de mediação de professores, por meio do desenvolvimento de hábitos e saberes docentes para acessar, trabalhar e interagir com essas tecnologias no cotidiano da escola.
                             O papel do aluno é utilizar o computador como uma ferramenta que contribui para o seu desenvolvimento no momento atual e no futuro. O aluno deixa de ser passivo para se tornar ativo no seu processo ensino aprendizagem. Ele passa a desenvolver competências e habilidades, como ter autonomia, pensar, criar, aprender e pesquisar.
-                            Para Valente (2002) a informática contribui como um recurso auxiliar no processo de ensino e aprendizagem, no qual o foco é o aluno. O enfoque da informática educativa não é o computador como objeto de estudo, mas como meio para adquirir conhecimentos.</p>
-                        <p>
-                            Deve promover a inclusão social e digital. Inclusão digital não pode ser considerada apenas o acesso ao computador ou às redes sociais, a inclusão digital envolve a inclusão social. O acesso às tecnologias pode ser considerado inclusão digital a partir do momento em que o usuário percebe esse instrumento como um aliado na solução dos seus problemas e consegue usá-lo para benefício próprio e do próximo.
-                        </p>
-                    </div>
-                </div>
-            </div>
+                            Para Valente (2002) a informática contribui como um recurso auxiliar no processo de ensino e aprendizagem, no qual o foco é o aluno. O enfoque da informática educativa não é o computador como objeto de estudo, mas como meio para adquirir conhecimentos., Deve promover a inclusão social e digital. Inclusão digital não pode ser considerada apenas o acesso ao computador ou às redes sociais, a inclusão digital envolve a inclusão social. O acesso às tecnologias pode ser considerado inclusão digital a partir do momento em que o usuário percebe esse instrumento como um aliado na solução dos seus problemas e consegue usá-lo para benefício próprio e do próximo."
+            ])
 
             <div class="missao_total">
-                <div class="missao_top">
-                    <h3>Na Tecnologia Educacional</h3>
-                    <input type="checkbox" id="botao_missao" name="botao_missao" class="botao_missao" onclick="abrirCardNTE('missao')">
-                    <label for="botao_missao">X</label>
+                <div class="missao_top" onclick="abrirCardNTE('tecnologia')">
+                    <h3>Tecnologia na Educacional</h3>
+                    <label for="botao_missao">
+                        <i id="ico_tecnologia" class="fa-solid fa-chevron-up fa-rotate-180"></i>
+                    </label>
                 </div>
-                <div id="missao" class="missao_card" style="display:none">
+                <div id="tecnologia" class="missao_card" style="display:none">
                     <img src="{{asset('storage/padrao/img.jpeg')}}" alt="">
                     <div class="missao_corpo">
                         <ol>
@@ -100,66 +90,37 @@
                 </div>
             </div>
 
-            <div class="missao_total">
-                <div class="missao_top">
-                    <h3>Na Tecnologia Educacional</h3>
-                    <input type="checkbox" id="botao_missao" name="botao_missao" class="botao_missao" onclick="abrirCardNTE('missao')">
-                    <label for="botao_missao">X</label>
-                </div>
-                <div id="missao" class="missao_card" style="display:none">
-                    <img src="{{asset('storage/padrao/img.jpeg')}}" alt="">
-                    <div class="missao_corpo">
-                        <ol>
-                            <li>Na Tecnologia Educacional</li>
-                            <li>O computador como recurso interdisciplinar e gerador de possibilidades e permissões eficientes que interferem no processo ensino-aprendizagem, estimulando o desenvolvimento cognitivo, afetivo e psicomotor do educando como agente construtor de seu conhecimento;</li>
-                            <li>As atividades são lúdicas, contextualizadas e organizadas estimulando a investigação, a comunicação e o espírito criativo.</li>
-                            <li>Ocorre a viabilização da integração curricular;</li>
-                            <li>Habilita para exercício da autonomia;</li>
-                            <li>Amplia-se o estímulo à pesquisa e à prática investigativa;</li>
-                            <li>Compartilhamento de saberes e frequente;</li>
-                            <li>Incentiva a integração entre pais / alunos / professores.</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-
-            <div class="missao_total">
-                <div class="missao_top">
-                    <h3>TIC's</h3>
-                    <input type="checkbox" id="botao_missao" name="botao_missao" class="botao_missao" onclick="abrirCardNTE('missao')">
-                    <label for="botao_missao">X</label>
-                </div>
-                <div id="missao" class="missao_card" style="display:none">
-                    {{-- <img src="{{asset('storage/padrao/img.jpeg')}}" alt=""> --}}
-                    <div class="missao_corpo">
-                       <p>
-                        O computador, através do uso de software educativo, possibilita o aluno a adquirir conhecimento e domínio sobre diversos assuntos, inclusive facilitando a aprendizagem de conteúdos que, de outra forma, teria mais dificuldades em assimilar.
-
-A tecnologia educacional busca atender aos objetivos educacionais previamente estabelecido visando aspectos pedagógicos e sociais na utilização da informática na aprendizagem.
-                       </p>
-                    </div>
-                </div>
-            </div>
-
-
+            @include('components.cards.card_colapser',[
+                'idcard' => "tics",
+                'title' => "TIC's",
+                'img' => "storage/padrao/img.jpeg",
+                'texto' => "O computador, através do uso de software educativo, possibilita o aluno a adquirir conhecimento e domínio sobre diversos assuntos, inclusive facilitando a aprendizagem de conteúdos que, de outra forma, teria mais dificuldades em assimilar.
+A tecnologia educacional busca atender aos objetivos educacionais previamente estabelecido visando aspectos pedagógicos e sociais na utilização da informática na aprendizagem.",
+            ])
 
         </div>
     </div>
 
-
-    {{-- Todos os videos --}}
-    <div class="contaniner-padrao">
-        <h3 class="rotulo-padrao">Eventos NTE</h3>
-        <div class="list-padrao">
-            @for ($h=0;$h < 10;$h++)
-            <a href="#">
+    {{-- <a href="#">
                 <div class="video_card" style="background-image: url({{asset('storage/padrao/videos_2.png')}})">
                     <div class="video_corpo">
                         <h3>Titulo</h3>
                         <p>descricao</p>
                     </div>
                 </div>
-            </a>
+            </a> --}}
+
+    {{-- Todos os videos --}}
+    <div class="contaniner-padrao">
+        <h3 class="rotulo-padrao">Eventos NTE</h3>
+        <div class="list-padrao">
+            @for ($h=0;$h < 10;$h++)
+                @include('components.cards.card_videos', [
+                    'idvideo' => "",
+                    'img' => "storage/padrao/img.jpeg",
+                    'title' => "Titulo",
+                    'texto' => "busca atender aos objetivos educacionais previamente estabelecido visando aspectos pedagógicos e sociais",
+                ])
             @endfor
         </div>
     </div>
@@ -176,13 +137,19 @@ A tecnologia educacional busca atender aos objetivos educacionais previamente es
 @section('scriptbottom')
     <script>
         function abrirCardNTE(value) {
+
             var card = document.getElementById(value);
+            var ico = document.getElementById('ico_'+value);
             var oculto = card.style.display;
 
             if(oculto == 'none'){
                 card.removeAttribute('style');
+                ico.removeAttribute('class');
+                ico.setAttribute('class', "fa-solid fa-chevron-up");
             }else{
                 card.setAttribute('style', "display:none;");
+                ico.removeAttribute('class');
+                ico.setAttribute('class', "fa-solid fa-chevron-up fa-rotate-180");
             }
 
         }

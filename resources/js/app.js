@@ -13,6 +13,9 @@ import '../css/components/card.css';
 import '../css/components/faixa.css';
 import '../css/components/footer.css';
 import '../css/components/videos.css';
+import '../css/fontawesome_free_642/css/all.css';
+
+
 
 import '../js/bootstrap.js';
 import '../js/botoes_rede_social_comp.js';

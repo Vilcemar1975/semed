@@ -60,14 +60,12 @@
         <h3 class="rotulo-padrao">Lista de Video</h3>
         <div class="list-padrao">
             @for ($h=0;$h < 10;$h++)
-            <a href="#">
-                <div class="video_card" style="background-image: url({{asset('storage/padrao/videos_2.png')}})">
-                    <div class="video_corpo">
-                        <h3>Titulo</h3>
-                        <p>descricao</p>
-                    </div>
-                </div>
-            </a>
+                @include('components.cards.card_videos', [
+                    'idvideo' => "",
+                    'img' => "storage/padrao/videos_2.png",
+                    'title' => "Titulo",
+                    'texto' => "busca atender aos objetivos educacionais previamente estabelecido visando aspectos pedagógicos e sociais",
+                ])
             @endfor
         </div>
     </div>

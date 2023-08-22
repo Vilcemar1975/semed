@@ -426,7 +426,7 @@
     background-color: var(--branco);
     border-radius: 8px 8px 8px 8px;
     border: 1px solid var(--branco);
-
+    margin-bottom: 8px;
     overflow: hidden;
 }
 

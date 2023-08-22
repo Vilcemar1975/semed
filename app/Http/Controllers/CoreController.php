@@ -38,7 +38,7 @@ class CoreController extends Controller
             ['id' => "1", 'name' => "Notícias",   'route' => "noticias", 'active' => true, 'icon' => "", 'sub' => [] ],
             ['id' => "2", 'name' => "NTE",        'route' => "nte",      'active' => true, 'icon' => "", 'sub' => [] ],
             ['id' => "3", 'name' => "Ensina ON",  'route' => "ensinaon", 'active' => true, 'icon' => "", 'sub' => [] ],
-            ['id' => "4", 'name' => "Atividades", 'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "4", 'name' => "Atividades", 'route' => "atividades", 'active' => true, 'icon' => "", 'sub' => [] ],
             ['id' => "5", 'name' => "Biblioteca", 'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
             ['id' => "6", 'name' => "Escolar",    'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
             ['id' => "7", 'name' => "Tutoriais",  'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],

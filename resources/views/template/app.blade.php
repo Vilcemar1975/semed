@@ -27,6 +27,9 @@
       </nav>
       <div class="space-menu"></div>
       <section>
+        <nav class="">
+            @yield('subtop')
+        </nav>
         <div class="flex flex-col lg:flex-row">
             <div id="container-left" class="basis-1/4">
                 @yield('container-left')
