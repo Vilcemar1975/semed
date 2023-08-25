@@ -5,8 +5,8 @@
         'texto' => "",
     ]) --}}
 <a href="#">
-    <div class="video_card" style="background-image: url({{asset($img)}})">
-        <div class="video_corpo">
+    <div class="livro_card" style="background-image: url({{asset($img)}})">
+        <div class="livro_corpo">
             <h3>{{$title}}</h3>
             <p>{{$texto}}</p>
         </div>

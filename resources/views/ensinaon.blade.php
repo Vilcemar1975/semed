@@ -30,26 +30,7 @@
 
 @section('container-faixa')
     <div class="dest-card-contianer">
-        @for ($r=0;$r < 3; $r++)
-            <a href="#">
-                <div class="dest-card">
-                    <img src="{{asset('storage/padrao/videos_2.png')}}" alt="">
-                    <div class="dest-card-body">
-                        <h3>Titulo Destaques</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur. Dolor sit amet dolor sit amet.</p>
-                        <div class="dest-card-footer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-event" viewBox="0 0 16 16">
-                                <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
-                                <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
-                            </svg>
-                            <p>12/08/2023</p>
-                        </div>
-                    </div>
-
-                </div>
-            </a>
-        @endfor
+        @include('components.cards.card_destaque',['dados' => $dados['ultimaNoticias']])
     </div>
     <div class="faixa-prime">
         @include('components.cards.cardbox',['dados' => $dados['cardBox']])

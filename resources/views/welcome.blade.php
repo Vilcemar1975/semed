@@ -13,7 +13,7 @@
 @endsection
 
 @section('container-right')
-    @include('components.cards.card_ultmas_noticias',['dados' => $dados['ultimaNoticias']])
+    @include('components.cards.card_ultmas_noticias',['title'=>"Ultmas Noticias",'dados' => $dados['ultimaNoticias']])
     {{-- Links Externo --}}
     <div class="mx-5 my-2 p-2 bg-azul-transp">
         <h4 class="card_title_link">
@@ -54,7 +54,7 @@
 
 @section('container-faixa')
     @include('components.cards.cardbox',['dados' => $dados['cardBox']])
-    @include('components.cards.card_news')
+    @include('components.cards.card_news',['title'=>"Noticias da Semana",'dados' => $dados['ultimaNoticias']])
 @endsection
 
 @section('footer')

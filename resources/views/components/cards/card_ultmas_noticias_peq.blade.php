@@ -1,5 +1,5 @@
 <div id="card-lastnews">
-    <p class="rotulo">Ultimas Notícias</p>
+    <p class="rotulo">{{$title ?? 'Ultimas Notícias'}}</p>
     <div class="card-lastnews-container-peq">
         @forelse ( $dados as $itens )
             @if ($itens['public'])

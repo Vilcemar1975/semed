@@ -13,6 +13,7 @@
     font-size: 16pt;
     font-weight: 700;
     text-align: center;
+    text-transform: uppercase;
     color: var(--azul-escuro);
     background-color: var(--branco-transp);
 }
@@ -144,7 +145,7 @@
 
 /* Card Ultma Noticias */
 
-#card-lastnews {
+#card-lastnews, #card-materias {
     display: block;
     position: relative;
     background-color: var(--branco-transp);
@@ -250,7 +251,7 @@
     border-radius: 8px;
 }
 
-.card-lastnews-container-peq {
+.card-lastnews-container-peq, .card-materias-container {
     height: 380px;
     margin-bottom: 5px;
     overflow: hidden;
@@ -443,18 +444,26 @@
 
 .dest-card-body {
     padding: 10px;
+    height: 100px;
 }
 
 .dest-card-body h3 {
-    font-size: 14pt;
+    font-size: 9pt;
     font-weight: 700;
+    height: 40px;
     text-transform: capitalize;
     color: var(--azul-marinho);
+    overflow: hidden;
+    text-overflow: "...";
 }
 
 .dest-card-body p {
-    font-size: 10pt;
+    font-size: 8pt;
+    text-align: justify;
     color: var(--cinza-dark);
+    height: 30px;
+    overflow: hidden;
+    text-overflow: "...";
 }
 
 .dest-card-footer {
@@ -464,10 +473,211 @@
     margin-top: 5px;
 }
 
+.dest-card-footer i {
+    margin-top: 1px;
+    font-size: 9pt;
+    color: var(--cinza-dark);
+}
+
 .dest-card-footer p{
     margin-left: 5px;
 }
 
+/* Lista Materias */
+.card-materias-container > ul {
+    display: block;
+    position: relative;
+    color: var(--azul-marinho);
+    font-size: 14pt;
+    font-weight: 500;
+
+}
+.card-materias-container > ul > li {
+
+}
+.card-materias-container > ul > li:hover {
+    background-color: var(--branco);
+}
+.card-materias-container > ul > li > a {
+    display: block;
+    position: relative;
+    padding: 5px 15px;
+}
+.card-materias-container > ul > li > a:hover {
+    color: var(--azul);
+}
+
+/* Card de Game */
+.card_game_container {
+    display: block;
+    position: relative;
+}
+
+.card_game {
+    display: block;
+    width: 25rem;
+    height: 12rem;
+    border: 2px solid var(--branco);
+    border-radius: 10px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.card_game-body {
+    display: block;
+    position: relative;
+    height: 13rem;
+    top: 12rem;
+    background-color: var(--azul-marinho);
+    padding: 10px;
+}
+
+.card_game-body h3, .card_game-body p {
+    text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--branco);
+}
+
+.card_game:hover .card_game-body {
+    top: 1rem;
+    transition: 0.5s;
+}
+
+.card_game-body h3 {
+    height: 60px;
+    font-size: 13pt;
+    font-weight: 700;
+}
+
+.card_game-body p {
+    margin-top: 10px;
+    height: 60px;
+    font-size: 10pt;
+
+}
+
+.card_game_container > a {
+    display: block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    bottom: 40px;
+    left: 75%;
+    color: var(--branco-transp);
+    text-align: center;
+    background-color: var(--azul-marinho);
+    border-radius: 100%;
+    font-size: 48pt;
+}
+
+.card_game_container > a:hover {
+    color: var(--branco);
+    border-radius: 8px;
+    box-shadow: 0px 0px 7px 1px var(--preto-traansp);
+    transition: 0.5s;
+
+
+}
+
+.card_game_container > a > i {
+    display: block;
+    position: relative;
+    padding-top: 8px;
+}
+
+/* Biblioteca */
+
+.card_ind_livro_contianer {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.card_ind_livro {
+    display: flex;
+    position: relative;
+    margin: 15px 20px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 24rem;
+    height: 12rem;
+    background-color: var(--azul-marinho);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.card_ind_livro:hover {
+    border: 2px solid var(--branco);
+
+    box-shadow: 0px 0px 7px 1px var(--preto);
+}
+
+.card_ind_livro:hover .card_ind_livro_img {
+    border: 2px solid var(--azul);
+    box-shadow: 0px 0px 7px 1px var(--preto);
+}
+
+.card_ind_livro_img {
+    display: block;
+    position: relative;
+    top: -2rem;
+    left: -1rem;
+    width: 30rem;
+    height: 12rem;
+    border: 2px solid var(--azul-marinho);
+    border-radius: 8px;
+    background-position: center;
+    background-size: auto;
+    z-index: 2;
+}
+
+.card_ind_livro h4 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: yellow;
+}
+
+.card_ind_livro h3 {
+    font-size: 16pt;
+    font-weight: 600;
+    color: var(--branco);
+}
+
+.card_ind_livro p {
+    text-align: justify;
+    font-size: 10pt;
+    font-weight: 400;
+    height: 5rem;
+    color: var(--branco);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card_ind_livro a {
+    display: block;
+    position: relative;
+    text-align: center;
+    font-size: larger;
+    font-weight: 500;
+    color: var(--azul-marinho);
+    background-color: var(--branco-transp);
+    padding: 2px 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+}
+.card_ind_livro a:hover{
+    color: var(--azul-marinho);
+    background-color: var(--branco);
+    box-shadow: 0px 0px 7px 1px var(--preto-traansp);
+
+}
 @media screen and (max-width: 740px) {
 
 }

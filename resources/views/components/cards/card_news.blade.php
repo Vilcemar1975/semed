@@ -1,5 +1,5 @@
 <div class="news-container">
-    <h3 class="news-rotulo">Notícias</h3>
+    <h3 class="news-rotulo">{{$title}}</h3>
     <div class="news-body">
         {{-- Loop --}}
         @for ($x=0; $x < 10; $x++)

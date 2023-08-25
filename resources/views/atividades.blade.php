@@ -11,22 +11,38 @@
 @endsection
 
 @section('subtop')
-    <div class="">
-        <ul class="flex flex-wrap lg:flex-nowrap justify-center gap-4">
-            <li>
-                <a class="" href="#">Projetos Educacionais</a>
-            </li>
-            <li>
-                <a href="#">Play Kids</a>
-            </li>
-            <li>
-                <a href="#">Simuladores de Prova</a>
-            </li>
-            <li>
-                <a href="#">Ranking</a>
-            </li>
-        </ul>
-    </div>
+<div class="menu_play">
+    <ul>
+        <li>
+            <a class="" href="#">
+                <i class="fa-sharp fa-solid fa-graduation-cap"></i>
+                <p>Projetos Educacionais</p>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa-solid fa-gamepad"></i>
+                <p>Play Kids</p>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa-solid fa-book-open-reader"></i>
+                <p>Simuladores</p>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa-solid fa-ranking-star"></i>
+                <p>Ranking</p>
+            </a>
+        </li>
+    </ul>
+</div>
+
+@include('components.pesquisa_materias', ['title' => "Pesquisar Matéria",'dados' => $dados['materias']])
+
+
 @endsection
 
 @section('container-left')
@@ -35,7 +51,8 @@
 @endsection
 
 @section('container-right')
-    @include('components.cards.card_ultmas_noticias_peq',['dados' => $dados['ultimaNoticias']])
+    {{-- @include('components.cards.card_categoria_edu',['materias' => $dados['materias']]) --}}
+    @include('components.cards.card_ultmas_noticias_peq',['title' => "Novos Jogos",'dados' => $dados['ultimaNoticias']])
 
 @endsection
 
@@ -60,25 +77,7 @@
 
 @section('container-faixa')
     <div class="dest-card-contianer">
-        @for ($r=0;$r < 3; $r++)
-            <a href="#">
-                <div class="dest-card">
-                    <img src="{{asset('storage/padrao/img.jpeg')}}" alt="">
-                    <div class="dest-card-body">
-                        <h3>Titulo Destaques</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur. Dolor sit amet dolor sit amet.</p>
-                        <div class="dest-card-footer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-event" viewBox="0 0 16 16">
-                                <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
-                                <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
-                            </svg>
-                            <p>12/08/2023</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        @endfor
+        @include('components.cards.card_game',['dados' => $dados['ultimaNoticias']])
     </div>
     <div class="bg-white shadow-lg p-5 text-azul-100 text-justify mt-5" >
         <h3 class="rotulo-padrao">Quem Somos?</h3>
@@ -182,6 +181,10 @@ A tecnologia educacional busca atender aos objetivos educacionais previamente es
                 ico.setAttribute('class', "fa-solid fa-chevron-up fa-rotate-180");
             }
 
+        }
+
+        function submitForm(id) {
+            document.getElementById(id).submit();
         }
     </script>
 @endsection

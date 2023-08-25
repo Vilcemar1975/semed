@@ -24,6 +24,9 @@ Route::get('/noticias', [IndexController::class, 'noticias'])->name('noticias');
 Route::get('/ensinaon', [IndexController::class, 'ensinaon'])->name('ensinaon');
 Route::get('/nte', [IndexController::class, 'nte'])->name('nte');
 Route::get('/atividades', [IndexController::class, 'atividadeEducacional'])->name('atividades');
+Route::get('/biblioteca', [IndexController::class, 'biblioteca'])->name('biblioteca');
+Route::get('/escolas', [IndexController::class, 'escolas'])->name('escolas');
+Route::get('/tutoriais', [IndexController::class, 'tutoriais'])->name('tutoriais');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

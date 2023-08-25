@@ -16,6 +16,7 @@ class CoreController extends Controller
             'ultimaNoticias' => CoreController::ultimaNoticias(),
             'linksExternos' => CoreController::linksExternos(),
             'cardBox' => CoreController::cardBox(),
+            'materias' => CoreController::categoriasMaterias(),
         ];
 
         return $dados;
@@ -39,9 +40,9 @@ class CoreController extends Controller
             ['id' => "2", 'name' => "NTE",        'route' => "nte",      'active' => true, 'icon' => "", 'sub' => [] ],
             ['id' => "3", 'name' => "Ensina ON",  'route' => "ensinaon", 'active' => true, 'icon' => "", 'sub' => [] ],
             ['id' => "4", 'name' => "Atividades", 'route' => "atividades", 'active' => true, 'icon' => "", 'sub' => [] ],
-            ['id' => "5", 'name' => "Biblioteca", 'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
-            ['id' => "6", 'name' => "Escolar",    'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
-            ['id' => "7", 'name' => "Tutoriais",  'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "5", 'name' => "Biblioteca", 'route' => "biblioteca", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "6", 'name' => "Escolar",    'route' => "escolas", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "7", 'name' => "Tutoriais",  'route' => "tutoriais", 'active' => true, 'icon' => "", 'sub' => [] ],
 
         ];
 
@@ -135,6 +136,7 @@ class CoreController extends Controller
         $dados = [
             [
                 'id' => "1",
+                'destaque' => true,
                 'title' => "Jovens atletas campões estaduais dos Jogos Escolares recebem homenagens",
                 'texto' => "Ensinar sobre a importância do cuidado com o meio ambiente e estimular a adoção de hábitos sustentáveis desde a infância. Com esse foco, a UMEI Maria Elisa Vereza Coutinho, localizada em São Conrado, tem desenvolvido uma série de atividades abordando temáticas relacionadas à Educação Ambiental.",
                 'route' => "welcome",
@@ -145,6 +147,7 @@ class CoreController extends Controller
 
             [
                 'id' => "2",
+                'destaque' => true,
                 'title' => "Educação ambiental: creche realiza caminhada ecológica, horta e coleta seletiva",
                 'texto' => "Ensinar sobre a importância do cuidado com o meio ambiente e estimular a adoção de hábitos sustentáveis desde a infância. Com esse foco, a UMEI Maria Elisa Vereza Coutinho, localizada em São Conrado, tem desenvolvido uma série de atividades abordando temáticas relacionadas à Educação Ambiental.",
                 'route' => "welcome",
@@ -155,6 +158,7 @@ class CoreController extends Controller
 
             [
                 'id' => "3",
+                'destaque' => true,
                 'title' => "Ações em escolas celebram avanços dos 17 anos da Lei Maria da Penha",
                 'texto' => "Ensinar sobre a importância do cuidado com o meio ambiente e estimular a adoção de hábitos sustentáveis desde a infância. Com esse foco, a UMEI Maria Elisa Vereza Coutinho, localizada em São Conrado, tem desenvolvido uma série de atividades abordando temáticas relacionadas à Educação Ambiental.",
                 'route' => "welcome",
@@ -164,7 +168,8 @@ class CoreController extends Controller
             ],
 
             [
-                'id' => "3",
+                'id' => "4",
+                'destaque' => false,
                 'title' => "Ações em escolas celebram avanços dos 17 anos da Lei Maria da Penha",
                 'texto' => "Ensinar sobre a importância do cuidado com o meio ambiente e estimular a adoção de hábitos sustentáveis desde a infância. Com esse foco, a UMEI Maria Elisa Vereza Coutinho, localizada em São Conrado, tem desenvolvido uma série de atividades abordando temáticas relacionadas à Educação Ambiental.",
                 'route' => "welcome",
@@ -218,5 +223,25 @@ class CoreController extends Controller
 
         return $dados;
 
+    }
+
+    public static function categoriasMaterias(){
+        $materias = [
+            ['id' => "0", 'name' => "Arte",              'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "1", 'name' => "Biologia",          'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "2", 'name' => "Ciência",           'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "3", 'name' => "Educação Física",   'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "4", 'name' => "Filosofia",         'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "5", 'name' => "Física",            'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "6", 'name' => "Geografia",         'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "7", 'name' => "Língua Inglesa",    'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "7", 'name' => "Língua Portuguesa", 'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "7", 'name' => "Matemática",        'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "7", 'name' => "Química",           'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "7", 'name' => "Sociologia",        'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "7", 'name' => "Informática",       'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
+        ];
+
+        return $materias;
     }
 }

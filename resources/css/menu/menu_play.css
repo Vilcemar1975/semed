@@ -1,0 +1,71 @@
+.menu_play {
+    display: block;
+    position: relative;
+    padding-bottom: 20px;
+    min-height: 150px;
+}
+.menu_play > ul {
+    display: flex;
+    position: relative;
+    width: 80%;
+    margin: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.menu_play > ul > li {
+
+}
+.menu_play > ul > li > a {
+    display: block;
+    position: relative;
+    width: 180px;
+    height: 100px;
+    padding: 5px;
+    margin-bottom: 10px;
+    color: var(--azul-marinho);
+    text-align: center;
+    background-color: var(--branco);
+    border: 2px solid var(--azul-marinho);
+    border-radius: 8px;
+}
+
+.menu_play > ul > li > a > i {
+    display: block;
+    position: relative;
+    font-size: 38pt;
+}
+
+.menu_play > ul > li > a > p {
+    font-size: 11pt;
+    font-weight: 800;
+    padding-top: 8px;
+}
+
+.menu_play > ul > li > a:hover {
+    color: var(--branco);
+    background-color: var(--azul);
+    border: 2px solid var(--branco);
+    box-shadow: 0px 0px 4px 2px #00000059;
+    width: 185px;
+    height: 105px;
+    z-index: 201;
+    transition: 0.4s;
+
+}
+
+
+
+
+/* Medição */
+@media screen and (max-width: 900px) {
+
+  }
+
+  @media screen and (max-width: 740px) {
+
+  }
+
+  @media screen and (max-width: 350px) {
+
+  }

@@ -26,10 +26,12 @@
     position: relative;
     width: 100%;
     color: var(--azul);
-    font-size: 12pt;
+    font-size: 9pt;
+    letter-spacing: 2px;
     font-weight: 600;
     padding: 5px;
     text-transform: uppercase;
+    border-bottom: 1px solid var(--azul);
 }
 
 .menuprinc-footer a:hover {

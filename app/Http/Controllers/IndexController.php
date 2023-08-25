@@ -41,4 +41,25 @@ class IndexController extends Controller
 
         return view('atividades', compact('dados','ativado'));
     }
+
+    public function biblioteca() {
+        $ativado = "biblioteca";
+        $dados = CoreController::conjuntoVariaveis();
+
+        return view('biblioteca', compact('dados','ativado'));
+    }
+
+    public function escolas() {
+        $ativado = "escolas";
+        $dados = CoreController::conjuntoVariaveis();
+
+        return view('escolas', compact('dados','ativado'));
+    }
+
+    public function tutoriais() {
+        $ativado = "tutoriais";
+        $dados = CoreController::conjuntoVariaveis();
+
+        return view('tutoriais', compact('dados','ativado'));
+    }
 }

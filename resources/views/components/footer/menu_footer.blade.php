@@ -6,7 +6,7 @@
                 <a class="" @if ($menu['sub'] != []) href="#" @else href="{{route($menu['route'])}}" @endif>
                     <span class="break-words">{{$menu['name']}}</span>
                 </a>
-                <hr style="border: 0.05rem solid #76a8fc; border-radius: 5px;">
+
                 @if ($menu['sub'] != [])
                     <div id="submenu_{{$menu['id']}}" class="submenu-footer">
                         <ul class="">
