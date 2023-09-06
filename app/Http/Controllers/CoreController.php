@@ -22,6 +22,15 @@ class CoreController extends Controller
         return $dados;
     }
 
+    public static function conjuntoVariaveisDashboard()
+    {
+        $dados = [
+            'menudashbord' => CoreController::menuDashbord(),
+        ];
+
+        return $dados;
+    }
+
     public static function iconBootStrap() {
 
         $icos = [
@@ -36,15 +45,53 @@ class CoreController extends Controller
     public static function menuPrincipal(){
         $menu = [
             ['id' => "0", 'name' => "Inicio",     'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
-            ['id' => "1", 'name' => "Notícias",   'route' => "noticias", 'active' => true, 'icon' => "", 'sub' => [] ],
-            ['id' => "2", 'name' => "NTE",        'route' => "nte",      'active' => true, 'icon' => "", 'sub' => [] ],
-            ['id' => "3", 'name' => "Ensina ON",  'route' => "ensinaon", 'active' => true, 'icon' => "", 'sub' => [] ],
-            ['id' => "4", 'name' => "Atividades", 'route' => "atividades", 'active' => true, 'icon' => "", 'sub' => [] ],
-            ['id' => "5", 'name' => "Biblioteca", 'route' => "biblioteca", 'active' => true, 'icon' => "", 'sub' => [] ],
-            ['id' => "6", 'name' => "Escolar",    'route' => "escolas", 'active' => true, 'icon' => "", 'sub' => [] ],
-            ['id' => "7", 'name' => "Tutoriais",  'route' => "tutoriais", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "1", 'name' => "Secretaria",     'route' => "secretaria", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "2", 'name' => "Notícias",   'route' => "noticias", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "3", 'name' => "NTE",        'route' => "nte",      'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "4", 'name' => "Ensina ON",  'route' => "ensinaon", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "5", 'name' => "Atividades", 'route' => "atividades", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "6", 'name' => "Biblioteca", 'route' => "biblioteca", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "7", 'name' => "Escolar",    'route' => "escolas", 'active' => true, 'icon' => "", 'sub' => [] ],
+            ['id' => "8", 'name' => "Tutoriais",  'route' => "tutoriais", 'active' => true, 'icon' => "", 'sub' => [] ],
 
         ];
+
+        return $menu;
+    }
+
+    public static function menuDashbord(){
+        $icon = [
+                'artigo' => "fa-newspaper p-2",
+                'atividades' => "fa-file-signature p-2",
+                'configuracao' => "fa-gears p-2",
+                'Dorcente' => "fa-chalkboard-user p-2",
+                'eventos' => "fa-calendar-check p-2",
+                'graficos' => "fa-chart-line p-2",
+                'home' => "fa-house p-2",
+                'jogos' => "fa-gamepad p-2",
+                'livros' => "fa-book p-2",
+                'processos' => "fa-folder-open p-2",
+                'usuarios' => "fa-users p-2",
+                'videos' => "fa-film p-2",
+
+            ];
+
+        $menu = [
+            ['id' => "0", 'name' => "Inicio",       'route' => "dashboard", 'active' => true, 'icon' =>  $icon['home'] ],
+            ['id' => "1", 'name' => "Artigo",       'route' => "dashartigo", 'active' => true, 'icon' =>  $icon['artigo'] ],
+            ['id' => "2", 'name' => "Videos",       'route' => "dashvideo", 'active' => true, 'icon' =>  $icon['videos'] ],
+            ['id' => "3", 'name' => "Atividade",    'route' => "dashatividade", 'active' => true, 'icon' =>  $icon['atividades'] ],
+            ['id' => "4", 'name' => "Eventos",      'route' => "dasheventos", 'active' => true, 'icon' =>  $icon['eventos'] ],
+            ['id' => "5", 'name' => "Graficos",     'route' => "dashgraficos", 'active' => true, 'icon' =>  $icon['graficos'] ],
+            ['id' => "6", 'name' => "Jogos",        'route' => "dashjogos", 'active' => true, 'icon' =>  $icon['jogos'] ],
+            ['id' => "7", 'name' => "livros",       'route' => "dashlivros", 'active' => true, 'icon' =>  $icon['livros'] ],
+            ['id' => "8", 'name' => "Processos",    'route' => "dashprocessos", 'active' => true, 'icon' =>  $icon['processos'] ],
+            ['id' => "9", 'name' => "Dorcente",     'route' => "dashdorcente", 'active' => true, 'icon' =>  $icon['Dorcente'] ],
+            ['id' => "10", 'name' => "Usuários",    'route' => "dashusuarios", 'active' => true, 'icon' =>  $icon['usuarios'] ],
+            ['id' => "11", 'name' => "Configurações",'route' => "dashconfig", 'active' => true, 'icon' =>  $icon['configuracao'] ],
+
+        ];
+
 
         return $menu;
     }

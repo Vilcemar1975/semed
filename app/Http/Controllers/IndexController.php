@@ -14,6 +14,13 @@ class IndexController extends Controller
         return view('welcome', compact('dados','ativado'));
     }
 
+    public function secretariaShow() {
+        $ativado = "secretaria";
+        $dados = CoreController::conjuntoVariaveis();
+
+        return view('secretaria', compact('dados','ativado'));
+    }
+
     public function noticias() {
         $ativado = "noticias";
         $dados = CoreController::conjuntoVariaveis();
@@ -62,4 +69,13 @@ class IndexController extends Controller
 
         return view('tutoriais', compact('dados','ativado'));
     }
+
+    public function showCalendarios() {
+        $ativado = "escolas";
+        $dados = CoreController::conjuntoVariaveis();
+
+        return view('sub_paginas.calendarios', compact('dados','ativado'));
+    }
+
+
 }

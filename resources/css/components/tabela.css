@@ -1,0 +1,19 @@
+
+.botao_calendário {
+    display: block;
+    position: relative;
+    width: 80%;
+    margin: 5px auto;
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: medium;
+    font-weight: 500;
+    color: var(--branco);
+    background-color: var(--azul);
+    border-radius: 5px;
+}
+
+.botao_calendário:hover {
+    background-color: var(--azul-marinho);
+}

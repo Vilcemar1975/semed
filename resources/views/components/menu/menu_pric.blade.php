@@ -7,8 +7,13 @@
             <div class="row-span-3 p-2 text-right f">
                 <div class="flex justify-end pr-10">
                     <a href="{{ route('welcome')}}" >
-                        <img src="{{asset('logos/escolataon_escura.png')}}" alt="" width="120px" height="20px" class="pr-5">
+                        <img src="{{asset('logos/escolataon_escura.png')}}" alt="" width="120px" height="20px" class="pr-3">
                     </a>
+                    @if ($ativado == "nte")
+                        <a href="#" target="_blank">
+                            <img src="{{asset('logos/logo_nte_colorida.svg')}}" alt="NTE" width="75px" height="20px" class="pr-3">
+                        </a>
+                    @endif
                     <a href="https://www.vilavelha.es.gov.br/secretaria/educacao" target="_blank">
                         <img src="{{asset('logos/logosemed.png')}}" alt="" width="120px" height="20px" class="">
                     </a>
@@ -18,7 +23,7 @@
                 <div class="col-span-3 bg-azul-100 rounded-bl-lg text-blue-200 h-8 text-right">
                 <div class="flex justify-between w-6/12">
 
-                    <a href="#" class="flex justify-between mx-3 pt-1 pr-2  hover:text-white">
+                    <a href="{{route('dashboard')}}" target="_blank" class="flex justify-between mx-3 pt-1 pr-2  hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="26" height="26" class="bi bi-person-circle" viewBox="0 0 20 20" >
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>

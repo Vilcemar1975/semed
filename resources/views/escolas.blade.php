@@ -66,11 +66,29 @@
 
     {{-- Lista de Livros --}}
     <div class="contaniner-padrao">
-        <h3 class="rotulo-padrao">Projeto nas Escolar</h3>
-        <p class="subrotulo-padrao">Projetos Realizados em escolas da rede.</p>
+        <h3 class="rotulo-padrao">Escola da Rede</h3>
+        <p class="subrotulo-padrao">Lista de unidades escolares de Vila Velha.</p>
+        <div class="flex flex-wrap justify-around p-2 rounded-lg shadow gap-2 text-azul-100 bg-white">
+            <div class="flex  gap-1">
+                <b>UMEI:</b>
+                <p>26 unid.</p>
+            </div>
+            <div class="flex gap-1">
+                <b>UMEF:</b>
+                <p>86 unid.</p>
+            </div>
+            <div class="flex gap-1">
+                <b>TOTAL:</b>
+                <p>112 unid.</p>
+            </div>
+            <div class="flex gap-1">
+                <b>Tempo Integral:</b>
+                <p>10 unid.</p>
+            </div>
+        </div>
         <div class="list-padrao">
             @for ($h=0;$h < 10;$h++)
-                @include('components.cards.card_livros', [
+                @include('components.cards.card_videos', [
                     'idLivro' => "",
                     'img' => "storage/padrao/img.jpeg",
                     'title' => "Titulo",
@@ -82,14 +100,45 @@
     <br>
     {{-- Datas comemorativas --}}
     <div class="contaniner-padrao" style="background-color: #76a7fc7e;">
-        <h3 class="rotulo-padrao">Datas Comemorativas</h3>
-        <p class="subrotulo-data">Janeiro</p>
+        <div class="flex flex-row justify-center lg:flex-nowrap gap-4 flex-wrap">
+            <div class="basis-[100%] lg:basis-[60%]">
+                <h3 class="rotulo-padrao">Datas Comemorativas</h3>
+                <p class="subrotulo-data">Janeiro</p>
+                <div class="list-padrao">
+                    @for ($h=0;$h < 10;$h++)
+                        @include('components.cards.card_dia_comemorativas', [
+                            'iddata' => "",
+                            'title' => "Feliz Pascoa Feliz Pascoa Feliz Pascoa",
+                            'dia' => "15",
+                        ])
+                    @endfor
+                </div>
+            </div>
+            <div class="basis-[100%] lg:basis-[40%] bg-white p-2 rounded-lg">
+                <h3 class="rotulo-padrao">Calendário Escolar</h3>
+                <br>
+                @include('components.cards.card_celular_mes', [
+                            'iddata' => "",
+                            'title' => "Janeiro",
+                            'dias' => [],
+                        ])
+                <a class="botao_calendário" href="{{route('calendarios')}}">
+                    Abrir Calendário
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="contaniner-padrao">
+        <h3 class="rotulo-padrao">Projeto nas Escolar</h3>
+        <p class="subrotulo-padrao">Projetos Realizados em escolas da rede.</p>
         <div class="list-padrao">
             @for ($h=0;$h < 10;$h++)
-                @include('components.cards.card_dia_comemorativas', [
-                    'iddata' => "",
-                    'title' => "Feliz Pascoa Feliz Pascoa Feliz Pascoa",
-                    'dia' => "15",
+                @include('components.cards.card_livros', [
+                    'idLivro' => "",
+                    'img' => "storage/padrao/img.jpeg",
+                    'title' => "Titulo",
+                    'texto' => "busca atender aos objetivos educacionais previamente estabelecido visando aspectos pedagógicos e sociais",
                 ])
             @endfor
         </div>

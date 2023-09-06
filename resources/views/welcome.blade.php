@@ -53,8 +53,8 @@
 @endsection
 
 @section('container-faixa')
-    @include('components.cards.cardbox',['dados' => $dados['cardBox']])
-    @include('components.cards.card_news',['title'=>"Noticias da Semana",'dados' => $dados['ultimaNoticias']])
+    @include('components.cards.cardbox', ['dados' => $dados['cardBox']])
+    @include('components.cards.card_news', ['title' => "Noticias da Semana",'dados' => $dados['ultimaNoticias']])
 @endsection
 
 @section('footer')

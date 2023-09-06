@@ -9,6 +9,7 @@ export default {
         './storage/framework/views/*.php',
         './resources/**/*.js',
         './resources/views/**/*.blade.php',
+        './node_modules/flowbite/**/*.js'
     ],
 
     theme: {
@@ -36,6 +37,7 @@ export default {
             'azul': '#76a8fc',
             'azul-100': '#075AA9',
             'azul-400': '#ebf2fc',
+            'azul-500': '#043f75',
           },
 
           boxShadow: {
@@ -46,5 +48,5 @@ export default {
 
     },
 
-    plugins: [forms, typography],
+    plugins: [forms, typography, require('flowbite/plugin')],
 };

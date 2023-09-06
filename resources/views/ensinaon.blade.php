@@ -32,13 +32,12 @@
     <div class="dest-card-contianer">
         @include('components.cards.card_destaque',['dados' => $dados['ultimaNoticias']])
     </div>
-    <div class="faixa-prime">
-        @include('components.cards.cardbox',['dados' => $dados['cardBox']])
-        @include('components.cards.card_link_externo',['dados' => $dados['linksExternos']])
-    </div>
     {{-- Todos os videos --}}
     <div class="contaniner-padrao">
         <h3 class="rotulo-padrao">Lista de Video</h3>
+        <br>
+        @include('components.pesquisa_materias', ['title' => "Pesquisar por Categoria",'dados' => $dados['materias']])
+
         <div class="list-padrao">
             @for ($h=0;$h < 10;$h++)
                 @include('components.cards.card_videos', [
@@ -50,7 +49,14 @@
             @endfor
         </div>
     </div>
+
+    <div class="faixa-prime">
+        @include('components.cards.cardbox',['dados' => $dados['cardBox']])
+        @include('components.cards.card_link_externo',['dados' => $dados['linksExternos']])
+    </div>
+
 @endsection
+
 @section('footer')
     @include('components.footer.menu_footer')
     @include('components.footer.logo_footer')

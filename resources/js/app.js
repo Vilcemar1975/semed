@@ -15,11 +15,20 @@ import '../css/components/faixa.css';
 import '../css/components/footer.css';
 import '../css/components/videos.css';
 import '../css/components/livro.css';
+import '../css/components/tabela.css';
 import '../css/components/data_comemorativa.css';
 import '../css/fontawesome_free_642/css/all.css';
+import '../css/fontawesome_free_642/css/brands.css';
+import '../css/fontawesome_free_642/css/fontawesome.css';
+import '../css/fontawesome_free_642/css/regular.css';
+import '../css/fontawesome_free_642/css/solid.css';
+import '../css/fontawesome_free_642/css/svg-with-js.css';
+import '../css/fontawesome_free_642/css/v4-font-face.css';
+import '../css/fontawesome_free_642/css/v4-shims.css';
+import '../css/fontawesome_free_642/css/v5-font-face.css';
 
 
-
+import 'flowbite';
 import '../js/bootstrap.js';
 import '../js/botoes_rede_social_comp.js';
 //import '../js/menuchaves.js';

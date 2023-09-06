@@ -182,9 +182,5 @@ A tecnologia educacional busca atender aos objetivos educacionais previamente es
             }
 
         }
-
-        function submitForm(id) {
-            document.getElementById(id).submit();
-        }
     </script>
 @endsection
