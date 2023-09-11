@@ -5,11 +5,11 @@
     </div>
     <div class="flex gap-2 justify-between">
         @include('components.backoffice.fildText', ['idname' => "author", 'label' => "Autor", 'max' => 0 , 'min' => 0])
-        @include('components.backoffice.fildselect', ['idname' => "category", 'label' => "Categoria", 'dados' => []])
+        @include('components.backoffice.fildselect', ['idname' => "category", 'label' => "Categoria", 'lista' => []])
     </div>
     <div class="flex gap-2 justify-between">
-        @include('components.backoffice.fildselect', ['idname' => "genero_literario", 'label' => "Genero Literário", 'dados' => []])
-        @include('components.backoffice.fildselect', ['idname' => "universo_leitura", 'label' => "Universo da Leitura", 'dados' => []])
+        @include('components.backoffice.fildselect', ['idname' => "genero_literario", 'label' => "Genero Literário", 'lista' => []])
+        @include('components.backoffice.fildselect', ['idname' => "universo_leitura", 'label' => "Universo da Leitura", 'lista' => []])
     </div>
 
     <div class="flex gap-2 w-full max-h-[25rem]  mt-2 rounded-lg overflow-hidden">
@@ -96,8 +96,8 @@
     <div class="flex gap-2 justify-between">
         @include('components.backoffice.fildcheck', ['idname' => "detach", 'label' => "Destacar"])
 
-        @include('components.backoffice.fildselect', ['idname' => "position_spasion", 'label' => "Posição Especial"])
-        @include('components.backoffice.fildselect', ['idname' => "acess", 'label' => "Acesso"])
+        @include('components.backoffice.fildselect', ['idname' => "position_spasion", 'label' => "Posição Especial", 'lista' => []])
+        @include('components.backoffice.fildselect', ['idname' => "acess", 'label' => "Acesso", 'lista' => []])
     </div>
     <div>
         @include('components.backoffice.fildText', ['idname' => "Url", 'label' => "Url Botão", 'max' => 0 , 'min' => 0])

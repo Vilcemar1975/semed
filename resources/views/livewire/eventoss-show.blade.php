@@ -1,5 +1,5 @@
 <div class="flex gap-1 mt-2" class="flex">
-    @include('components.botao.verde_a',['title' => "Evento", 'route' => "dashatividadeadd", 'icon' => "fa-solid fa-plus text-[12pt] pt-1 pr-2"])
+    @include('components.botao.verde_a',['title' => "Evento", 'route' => "dasheventosadd", 'icon' => "fa-solid fa-plus text-[12pt] pt-1 pr-2"])
     <div class="flex flex-nowrap w-full">
         <input type="search" name="pesquisa" id="pesquisa"
         class="w-full text-azul-100 py-2 px-3 border border-azul-100 rounded-s-md"
@@ -16,7 +16,10 @@
 
 <div class="block w-full  border border-azul-100 mt-2 p-3 rounded-lg overflow-hidden">
     <div class="flex bg-azul-400 rounded-md mt-2 text-azul-100">
-        <h3 class="block w-[9rem] self-center pl-3 font-semibold">Data</h3>
+        <h3 class="block w-[14rem] self-center pl-3 font-semibold">Data Inicial</h3>
+        <h3 class="block w-[11rem] self-center pl-3 font-semibold">Horário I</h3>
+        <h3 class="block w-[14rem] self-center pl-3 font-semibold">Data Final</h3>
+        <h3 class="block w-[11rem] self-center pl-3 font-semibold">Horário F</h3>
         <h3 class="block w-full  self-center pl-3 font-semibold">Titulo</h3>
         <h3 class="block w-[4rem]  self-center pl-3 font-semibold">Public</h3>
         <h3 class="block w-[4rem]  self-center pl-3 font-semibold">Editar</h3>
@@ -26,6 +29,9 @@
         @for ($b=0; $b < 12; $b++)
             <div class="flex border text-gray-500 hover:text-azul-100 hover:border-azul-100 hover:bg-azul-400 rounded-lg mt-2">
                 <h3 class="block w-[9rem]  self-center pl-3 font-semibold">01/02/2023</h3>
+                <h3 class="block w-[10rem]  self-center pl-3 font-semibold">07:00</h3>
+                <h3 class="block w-[10rem]  self-center pl-3 font-semibold">01/02/2023</h3>
+                <h3 class="block w-[10rem]  self-center pl-3 font-semibold">12:00</h3>
                 <h3 class="block w-full   self-center pl-3 font-semibold">Nome Completo</h3>
 
                 @if ($b % 2 == 1)

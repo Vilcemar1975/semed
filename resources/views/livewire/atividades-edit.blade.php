@@ -5,7 +5,7 @@
     </div>
     <div class="flex gap-2 justify-between">
         @include('components.backoffice.fildText', ['idname' => "subtitle", 'label' => "Subtitulo", 'max' => 0 , 'min' => 0])
-        @include('components.backoffice.fildselect', ['idname' => "category", 'label' => "Categoria", 'dados' => []])
+        @include('components.backoffice.fildselect', ['idname' => "category", 'label' => "Categoria", , 'lista' => []])
     </div>
     <div class="flex gap-2 justify-between w-full mt-2">
         @include('components.backoffice.label',['idname' => "",'label' => "Lista de Questões"])
@@ -82,8 +82,8 @@
     </div>
     <div class="flex gap-2 justify-between">
         @include('components.backoffice.fildcheck', ['idname' => "detach", 'label' => "Destacar"])
-        @include('components.backoffice.fildselect', ['idname' => "position_spasion", 'label' => "Posição Especial"])
-        @include('components.backoffice.fildselect', ['idname' => "acess", 'label' => "Acesso"])
+        @include('components.backoffice.fildselect', ['idname' => "position_spasion", 'label' => "Posição Especial", 'lista' => []])
+        @include('components.backoffice.fildselect', ['idname' => "acess", 'label' => "Acesso", 'lista' => []])
     </div>
     <br>
 </div>
