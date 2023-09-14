@@ -51,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dash/artigo/add/{id?}', [DashboardController::class, 'DashArtigoAdd'])->name('dashartigoadd');
     Route::get('/dash/video', [DashboardController::class, 'DashVideo'])->name('dashvideo');
     Route::get('/dash/video/add/{id?}', [DashboardController::class, 'DashVideoAdd'])->name('dashvideoadd');
+    Route::get('/dash/calendar', [DashboardController::class, 'DashCalendar'])->name('dashcalendar');
+    Route::get('/dash/calendar/add/{id?}', [DashboardController::class, 'DashCalendarAdd'])->name('dashcalendaradd');
     Route::get('/dash/atividade', [DashboardController::class, 'DashAtividade'])->name('dashatividade');
     Route::get('/dash/atividade/add/{id?}', [DashboardController::class, 'DashAtividadeAdd'])->name('dashatividadeadd');
     Route::get('/dash/eventos', [DashboardController::class, 'DashEventos'])->name('dasheventos');

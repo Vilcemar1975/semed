@@ -36,6 +36,20 @@ class DashboardController extends Controller
         return view('backoffice.dashvideoadd', compact(['dados', 'ativar']));
     }
 
+    public function DashCalendar()
+    {   $ativar = 'dashcalendar';
+        $dados = CoreController::conjuntoVariaveisDashboard();
+
+        return view('backoffice.dashcalendar', compact(['dados', 'ativar']));
+    }
+
+    public function DashCalendarAdd($id = null)
+    {   $ativar = 'dashcalendar';
+        $dados = CoreController::conjuntoVariaveisDashboard();
+
+        return view('backoffice.dashcalendaradd', compact(['dados', 'ativar']));
+    }
+
     public function DashAtividade()
     {   $ativar = 'dashatividade';
         $dados = CoreController::conjuntoVariaveisDashboard();

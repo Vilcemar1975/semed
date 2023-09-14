@@ -73,6 +73,7 @@ class CoreController extends Controller
                 'processos' => "fa-folder-open p-2",
                 'usuarios' => "fa-users p-2",
                 'videos' => "fa-film p-2",
+                'calendario' => "fa-calendar-days p-2",
 
             ];
 
@@ -80,15 +81,16 @@ class CoreController extends Controller
             ['id' => "0", 'name' => "Inicio",       'route' => "dashboard", 'active' => true, 'icon' =>  $icon['home'] ],
             ['id' => "1", 'name' => "Artigo",       'route' => "dashartigo", 'active' => true, 'icon' =>  $icon['artigo'] ],
             ['id' => "2", 'name' => "Videos",       'route' => "dashvideo", 'active' => true, 'icon' =>  $icon['videos'] ],
-            ['id' => "3", 'name' => "Atividade",    'route' => "dashatividade", 'active' => true, 'icon' =>  $icon['atividades'] ],
-            ['id' => "4", 'name' => "Eventos",      'route' => "dasheventos", 'active' => true, 'icon' =>  $icon['eventos'] ],
-            ['id' => "5", 'name' => "Graficos",     'route' => "dashgraficos", 'active' => true, 'icon' =>  $icon['graficos'] ],
-            ['id' => "6", 'name' => "Jogos",        'route' => "dashjogos", 'active' => true, 'icon' =>  $icon['jogos'] ],
-            ['id' => "7", 'name' => "livros",       'route' => "dashlivros", 'active' => true, 'icon' =>  $icon['livros'] ],
-            ['id' => "8", 'name' => "Processos",    'route' => "dashprocessos", 'active' => true, 'icon' =>  $icon['processos'] ],
-            ['id' => "9", 'name' => "Dorcente",     'route' => "dashdorcente", 'active' => true, 'icon' =>  $icon['Dorcente'] ],
-            ['id' => "10", 'name' => "Usuários",    'route' => "dashusuarios", 'active' => true, 'icon' =>  $icon['usuarios'] ],
-            ['id' => "11", 'name' => "Configurações",'route' => "dashconfig", 'active' => true, 'icon' =>  $icon['configuracao'] ],
+            ['id' => "3", 'name' => "Calendário",   'route' => "dashcalendar", 'active' => true, 'icon' =>  $icon['calendario'] ],
+            ['id' => "4", 'name' => "Atividade",    'route' => "dashatividade", 'active' => true, 'icon' =>  $icon['atividades'] ],
+            ['id' => "5", 'name' => "Eventos",      'route' => "dasheventos", 'active' => true, 'icon' =>  $icon['eventos'] ],
+            ['id' => "6", 'name' => "Graficos",     'route' => "dashgraficos", 'active' => true, 'icon' =>  $icon['graficos'] ],
+            ['id' => "7", 'name' => "Jogos",        'route' => "dashjogos", 'active' => true, 'icon' =>  $icon['jogos'] ],
+            ['id' => "8", 'name' => "livros",       'route' => "dashlivros", 'active' => true, 'icon' =>  $icon['livros'] ],
+            ['id' => "9", 'name' => "Processos",    'route' => "dashprocessos", 'active' => true, 'icon' =>  $icon['processos'] ],
+            ['id' => "10", 'name' => "Dorcente",     'route' => "dashdorcente", 'active' => true, 'icon' =>  $icon['Dorcente'] ],
+            ['id' => "11", 'name' => "Usuários",    'route' => "dashusuarios", 'active' => true, 'icon' =>  $icon['usuarios'] ],
+            ['id' => "12", 'name' => "Configurações",'route' => "dashconfig", 'active' => true, 'icon' =>  $icon['configuracao'] ],
 
         ];
 
