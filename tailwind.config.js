@@ -18,12 +18,23 @@ export default {
             center: true,
           },
 
+       /*  screens: {
+            sm: '480px',
+            md: '768px',
+            lg: '976px',
+            xl: '1440px',
+          }, */
+
         screens: {
             sm: '480px',
             md: '768px',
             lg: '976px',
             xl: '1440px',
-          },
+            'phone': {max: '375px'},
+            'tablet': {max: '640px'},
+            'laptop': {max: '1024px'},
+            'desktop': {max: '1280px'},
+        },
 
         extend: {
 
