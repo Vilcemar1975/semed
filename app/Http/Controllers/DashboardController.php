@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\ValidationException;
+use App\Models\Article;
 use App\Http\Controllers\CoreController;
+use Illuminate\Support\Str;
 
 
 class DashboardController extends Controller
@@ -15,11 +19,23 @@ class DashboardController extends Controller
         return view('backoffice.dashartigo', compact(['dados', 'ativar']));
     }
 
-    public function DashArtigoAdd($id = null)
-    {   $ativar = 'dashartigo';
+    public function DashArtigoAdd(Request $request, $id = null)
+    {
+
+        $validatedData = $request->validate([
+            'title' => ['required', 'max:255'],
+            'category' => ['required'],
+        ]);
+
+        $nickname = Str::slug(Str::lower($request->title), '-');
+
+        $idartigo = Article::create(['title' => $request->title, 'nickname' => $nickname, 'category' => $request->category]);
+        $artigo = Article::find($idartigo->id);
+
+        $ativar = 'dashartigo';
         $dados = CoreController::conjuntoVariaveisDashboard();
 
-        return view('backoffice.dashartigoadd', compact(['dados', 'ativar']));
+        return view('backoffice.dashartigoadd', compact(['dados', 'ativar', 'artigo']));
     }
 
     public function DashVideo()
@@ -45,6 +61,7 @@ class DashboardController extends Controller
 
     public function DashCalendarAdd($id = null)
     {   $ativar = 'dashcalendar';
+
         $dados = CoreController::conjuntoVariaveisDashboard();
 
         return view('backoffice.dashcalendaradd', compact(['dados', 'ativar']));
@@ -162,11 +179,40 @@ class DashboardController extends Controller
         return view('backoffice.dashusuariosadd', compact(['dados', 'ativar']));
     }
 
+    public function DashLinkExterno()
+    {   $ativar = 'dashlinkexterno';
+        $dados = CoreController::conjuntoVariaveisDashboard();
+
+        return view('backoffice.dashlinkexterno', compact(['dados', 'ativar']));
+    }
+
+    public function DashEscola()
+    {   $ativar = 'dashescola';
+        $dados = CoreController::conjuntoVariaveisDashboard();
+
+        return view('backoffice.dashescola', compact(['dados', 'ativar']));
+    }
+
+    public function DashEscolaAdd()
+    {   $ativar = 'dashescola';
+        $dados = CoreController::conjuntoVariaveisDashboard();
+
+        return view('backoffice.dashescolasadd', compact(['dados', 'ativar']));
+    }
+
     public function DashConfig()
     {   $ativar = 'dashconfig';
         $dados = CoreController::conjuntoVariaveisDashboard();
 
         return view('backoffice.dashconfig', compact(['dados', 'ativar']));
     }
+
+    public function DashGroup()
+    {   $ativar = 'dashconfig';
+        $dados = CoreController::conjuntoVariaveisDashboard();
+
+        return view('backoffice.dashgroup', compact(['dados', 'ativar']));
+    }
+
 }
 

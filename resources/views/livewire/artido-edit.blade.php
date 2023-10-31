@@ -1,10 +1,24 @@
 <div>
     <div class="flex gap-2 justify-between">
-        @include('components.backoffice.fildText', ['idname' => "title", 'label' => "Titulo", 'max' => 0 , 'min' => 0])
-        @include('components.backoffice.fildText', ['idname' => "subtitle", 'label' => "Subtitulo", 'max' => 0 , 'min' => 0])
+        <div>
+            <span>Id Grupo:</span>
+            <span>{{ $artigo->id_group }}</span>
+        </div>
+        <div>
+            <span>Id Usuário:</span>
+            <span>{{ $artigo->id_user }}</span>
+        </div>
+        <div>
+            <span>Apelido:</span>
+            <span>{{ $artigo->nickname }}</span>
+        </div>
     </div>
     <div class="flex gap-2 justify-between">
-        @include('components.backoffice.fildText', ['idname' => "author", 'label' => "Autor", 'max' => 0 , 'min' => 0])
+        @include('components.backoffice.fildText', ['idname' => "title", 'label' => "Titulo", 'value' => $artigo->title, 'max' => 0 , 'min' => 0])
+        @include('components.backoffice.fildText', ['idname' => "subtitle", 'label' => "Subtitulo", 'value' => $artigo->subtitle,'max' => 0 , 'min' => 0])
+    </div>
+    <div class="flex gap-2 justify-between">
+        @include('components.backoffice.fildText', ['idname' => "author", 'label' => "Autor", 'value' => $artigo->title, 'max' => 0 , 'min' => 0])
         @include('components.backoffice.fildselect', ['idname' => "category", 'label' => "Categoria", 'lista' => []])
     </div>
     <div class="flex gap-2 justify-between w-full mt-2">
@@ -12,7 +26,7 @@
         @include('components.botao.bt_modal', ['title' => "Adicionar", 'txtcor' => "white", 'bg' => "green", 'modal' => "AddArticleModal", 'icon' => "fa-regular fa-plus text-[16pt] pr-2"])
     </div>
 
-    <div class="block w-full max-h-[25rem] border border-azul-100 mt-2 p-3 rounded-lg overflow-hidden list-padrao-clear">
+{{--     <div class="block w-full max-h-[25rem] border border-azul-100 mt-2 p-3 rounded-lg overflow-hidden list-padrao-clear">
         @for ($b=0; $b < 10; $b++)
             <div class="flex border hover:border-azul-100 hover:bg-azul-400 rounded-lg mt-2">
                 <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" class="w-[80px] rounded-bl-lg rounded-tl-lg">
@@ -25,7 +39,27 @@
                 ><i class="fa-regular fa-trash-can"></i></button>
             </div>
         @endfor
-    </div>
+    </div> --}}
+
+    @livewire('plug.list-modulo', [
+        'heads' => ['id' => "id", "img" => 'Imagem', 'titulo' => 'Titulo',  'action' => "Publicado/Editar/Excluir"],
+        'lists' => [
+                    ['id' => "1", 'img' => "storage/padrao/img.jpeg", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "2", 'img' => "storage/padrao/img.jpeg", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "3", 'img' => "storage/padrao/img.jpeg", 'title' => "Texto composição teste para conferir", 'public'=> false],
+                    ['id' => "4", 'img' => "storage/padrao/img.jpeg", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "5", 'img' => "storage/padrao/img.jpeg", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "6", 'img' => "storage/padrao/img.jpeg", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "7", 'img' => "storage/padrao/img.jpeg", 'title' => "Texto composição teste para conferir", 'public'=> false],
+                    ['id' => "8", 'img' => "storage/padrao/img.jpeg", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "9", 'img' => "storage/padrao/img.jpeg", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "10", 'img' => "storage/padrao/img.jpeg", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                ],
+        'modal_public' => "EditArticleModal",
+        'modal_edit' => "EditArticleModal",
+        'modal_excluir' => "ModalExcluirGrupo",
+
+    ])
 
     <div class="flex gap-2">
         <div class="block  mt-3 w-full">
@@ -70,165 +104,253 @@
         @include('components.botao.verde', ["title" => "Salvar", 'type' => "submit"])
     </div>
     <br>
-</div>
 
- <!-- Modal Adicionar Artigo -->
- <div id="AddArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600 bg-azul-400">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Adicionar Texto e Imagem
-                </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="AddArticleModal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="block p-6 space-y-6">
-                <div class="block text-center w-full">
-                    @include('components.backoffice.label',['idname' => 'text','label' => "Imagem que vai no texto"])
-                    <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" id="img_preview" class="w-[24rem] mx-auto mb-3">
-                    <label for="image" class="px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold">Selecione a Imagem</label>
-                    <input type="file" name="image" id="image" accept="image/png, image/jpeg" class="hidden">
+    <!-- Modal Adicionar topic Artigo -->
+    <div id="AddArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+                <!-- Modal header -->
+                <div class="flex items-start justify-between p-4 border-b rounded-t bg-azul-400">
+                    <h3 class="text-xl font-semibold text-gray-900">
+                        Adicionar Texto e Imagem
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center" data-modal-hide="AddArticleModal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
                 </div>
-                <hr>
-                <div class="block">
-                    @include('components.backoffice.label',['idname' => 'text','label' => "Texto"])
-                    <textarea name="text" id="text" placeholder="Digite aqui seu texto" class="block w-full border border-azul-100 rounded-lg text-[10pt]"></textarea>
+                <!-- Modal body -->
+                <div class="block p-6 space-y-6">
+                    <div class="flex justify-around gap-3 mx-auto">
+                        <div class="text-center">
+                            <label for="tipotopico"><img src="{{asset('storage/icons/sotxt.svg')}}" alt="Somente Texto" ></label>
+                            <input type="radio" name="position_txtimg" id="tipotopico" value="1" onclick="habilitarButton(this.checked, '1')">
+                        </div>
+                        <div class="text-center">
+                            <label for="tipotopico2"><img src="{{asset('storage/icons/imgtxt.svg')}}" alt="Somente Texto" ></label>
+                            <input type="radio" name="position_txtimg" id="tipotopico2" value="2" checked onclick="habilitarButton(false,'2')">
+                        </div>
+                        <div class="text-center">
+                            <label for="tipotopico3"><img src="{{asset('storage/icons/textimg.svg')}}" alt="Somente Texto" ></label>
+                            <input type="radio" name="position_txtimg" id="tipotopico3" value="3" checked onclick="habilitarButton(false,'3')">
+                        </div>
+                        <div class="text-center">
+                            <label for="tipotopico4"><img src="{{asset('storage/icons/textimgtop.svg')}}" alt="Somente Texto" ></label>
+                            <input type="radio" name="position_txtimg" id="tipotopico4" value="4" onclick="habilitarButton(false,'4')">
+                        </div>
+                        <div class="text-center">
+                            <label for="tipotopico5"><img src="{{asset('storage/icons/soimg.svg')}}" alt="Somente Texto" ></label>
+                            <input type="radio" name="position_txtimg" id="tipotopico5" value="5" onclick="habilitarButton(false,'5')">
+                        </div>
+                    </div>
+                    <div class="block text-center w-full">
+                        @include('components.backoffice.label',['idname' => 'text','label' => "Imagem"])
+                        <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" id="img_preview" class="w-[24rem] mx-auto mb-3">
+                        <label id="imglabel" for="image" class="px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold">Selecione a Imagem</label>
+                        <input type="file" name="image" id="image" accept="image/png, image/jpeg" class="hidden">
+                    </div>
+                    @include('components.backoffice.fildText', ['idname' => "textimg", 'label' => "Texto Abaixo da Imagem (opcional)", 'max' => 0 , 'min' => 0])
+
+                    <div id="containertexto">
+                        @include('components.backoffice.fildText', ['idname' => "titlemodel", 'label' => "Titulo", 'max' => 0 , 'min' => 0])
+                        <div class="block">
+                            @include('components.backoffice.label',['idname' => 'text','label' => "Texto"])
+                            <textarea name="text" id="text" placeholder="Digite aqui seu texto" class="block w-full border border-azul-100 rounded-lg text-[10pt]"></textarea>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-            <!-- Modal footer -->
-            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="AddArticleModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Salvar</button>
-                <button data-modal-hide="AddArticleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancelar</button>
+                <!-- Modal footer -->
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+                    <button data-modal-hide="AddArticleModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salvar</button>
+                    <button data-modal-hide="AddArticleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancelar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <script>
+        function habilitarButton(value, num) {
 
-<!-- Modal Editar Artigo -->
-<div id="EditArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600 bg-green-200">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Alterar Texto ou Imagem
-                </h3>
-                <button type="button" class="text-green-400 bg-transparent hover:bg-green-900 hover:text-green-400 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="EditArticleModal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-6 space-y-6">
-                <div class="flex gap-2 justify-between">
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "ID"])
-                        <p class="text-azul-marinho">99999</p>
-                    </div>
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg w-full">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "Titulo"])
-                        <p class="text-azul-marinho">Titulo do Texto</p>
-                    </div>
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "Publicação"])
-                        <p class="text-azul-marinho">12/12/2002</p>
-                    </div>
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "Grupo"])
-                        <p class="text-azul-marinho">Noticia</p>
-                    </div>
+            var fileInput = document.getElementById('image');
+            var labelInput = document.getElementById('imglabel');
+            var containertexto = document.getElementById('containertexto');
+
+            fileInput.disabled = value;
+
+            if (value) {
+                labelInput.className = "px-2 py-2 text-center m-auto bg-gray-200 hover:bg-gray-400 rounded-lg uppercase text-[9pt] font-semibold";
+            }else{
+                labelInput.className = "px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold";
+            }
+
+            if (num == '5') {
+                containertexto.style.display = "none";
+            }else{
+                containertexto.style.display = "block";
+            }
+        }
+
+    </script>
+
+    <!-- Modal Editar Artigo -->
+    <div id="EditArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+                <!-- Modal header -->
+                <div class="flex items-start justify-between p-4 border-b rounded-t bg-blue-200">
+                    <h3 class="text-xl font-semibold text-gray-900">
+                        Alterar Texto ou Imagem
+                    </h3>
+                    <button type="button" class="text-blue-400 bg-transparent hover:bg-blue-900 hover:text-blue-400 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center" data-modal-hide="EditArticleModal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
                 </div>
-                <div class="block text-center w-full">
-                    @include('components.backoffice.label',['idname' => 'text','label' => "Imagem que vai no texto"])
-                    <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" id="img_preview" class="w-[24rem] mx-auto mb-3">
-                    <label for="image" class="px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold">Selecione a Imagem</label>
-                    <input type="file" name="image" id="image" accept="image/png, image/jpeg" class="hidden">
+                <!-- Modal body -->
+                <div class="block p-6 space-y-6">
+                    <div class="flex justify-around gap-3 mx-auto">
+                        <div class="text-center">
+                            <label for="tipotopico_edit"><img src="{{asset('storage/icons/sotxt.svg')}}" alt="Somente Texto" ></label>
+                            <input type="radio" name="position_txtimg_edit" id="tipotopico_edit" value="1" onclick="habilitarButton(this.checked, '1')">
+                        </div>
+                        <div class="text-center">
+                            <label for="tipotopico_edit2"><img src="{{asset('storage/icons/imgtxt.svg')}}" alt="Imagem Texto" ></label>
+                            <input type="radio" name="position_txtimg_edit" id="tipotopico_edit2" value="2" checked onclick="habilitarButton(false,'2')">
+                        </div>
+                        <div class="text-center">
+                            <label for="tipotopico_edit3"><img src="{{asset('storage/icons/textimg.svg')}}" alt="Texto Imagem" ></label>
+                            <input type="radio" name="position_txtimg_edit" id="tipotopico_edit3" value="3" checked onclick="habilitarButton(false,'3')">
+                        </div>
+                        <div class="text-center">
+                            <label for="tipotopico_edit4"><img src="{{asset('storage/icons/textimgtop.svg')}}" alt="Imagem no Topo Texto" ></label>
+                            <input type="radio" name="position_txtimg_edit" id="tipotopico_edit4" value="4" onclick="habilitarButton(false,'4')">
+                        </div>
+                        <div class="text-center">
+                            <label for="tipotopico_edit5"><img src="{{asset('storage/icons/soimg.svg')}}" alt="Somente Imagem" ></label>
+                            <input type="radio" name="position_txtimg_edit" id="tipotopico_edit5" value="5" onclick="habilitarButton(false,'5')">
+                        </div>
+                    </div>
+                    <div class="block text-center w-full">
+                        @include('components.backoffice.label',['idname' => 'text','label' => "Imagem"])
+                        <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" id="img_preview" class="w-[24rem] mx-auto mb-3">
+                        <label id="imglabel_edit" for="image_edit" class="px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold">Selecione a Imagem</label>
+                        <input type="file" name="image_edit" id="image_edit" accept="image/png, image/jpeg" class="hidden">
+                    </div>
+                    @include('components.backoffice.fildText', ['idname' => "textimg_edit", 'label' => "Texto Abaixo da Imagem (opcional)", 'max' => 0 , 'min' => 0])
+
+                    <div id="containertexto_edit">
+                        @include('components.backoffice.fildText', ['idname' => "titlemodel_edit", 'label' => "Titulo", 'max' => 0 , 'min' => 0])
+                        <div class="block">
+                            @include('components.backoffice.label',['idname' => 'text_edit','label' => "Texto"])
+                            <textarea name="text" id="text" placeholder="Digite aqui seu texto" class="block w-full border border-azul-100 rounded-lg text-[10pt]"></textarea>
+                        </div>
+                    </div>
+
                 </div>
-                <hr>
-                <div class="block">
-                    @include('components.backoffice.label',['idname' => 'text','label' => "Texto"])
-                    <textarea name="text" id="text" placeholder="Digite aqui seu texto" class="block w-full border border-azul-100 rounded-lg text-[10pt]"></textarea>
+                <!-- Modal footer -->
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b bg-blue-200">
+                    <button data-modal-hide="EditArticleModal" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salvar</button>
+                    <button data-modal-hide="EditArticleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancelar</button>
                 </div>
-            </div>
-            <!-- Modal footer -->
-            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600 bg-green-200">
-                <button data-modal-hide="EditArticleModal" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Salvar</button>
-                <button data-modal-hide="EditArticleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancelar</button>
             </div>
         </div>
     </div>
+    <script>
+        function habilitarButton(value, num) {
+
+            var fileInput = document.getElementById('image_edit');
+            var labelInput = document.getElementById('imglabel_edit');
+            var containertexto = document.getElementById('containertexto_edit');
+
+            fileInput.disabled = value;
+
+            if (value) {
+                labelInput.className = "px-2 py-2 text-center m-auto bg-gray-200 hover:bg-gray-400 rounded-lg uppercase text-[9pt] font-semibold";
+            }else{
+                labelInput.className = "px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold";
+            }
+
+            if (num == '5') {
+                containertexto.style.display = "none";
+            }else{
+                containertexto.style.display = "block";
+            }
+        }
+
+
+
+    </script>
+
+    <!-- Modal Excluir Artigo -->
+    {{-- <div id="DeleteArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+                <!-- Modal header -->
+                <div class="flex items-start justify-between p-4 border-b rounded-t bg-red-200">
+                    <h3 class="text-xl font-semibold text-red-900">
+                        Excluir Texto e Imagem
+                    </h3>
+                    <button type="button" class="text-red-900 bg-transparent hover:bg-red-600 hover:text-white rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center" data-modal-hide="DeleteArticleModal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Fechar Modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-6 space-y-6">
+                    <div class="block text-center w-full">
+                        @include('components.backoffice.label',['idname' => 'text','label' => "Imagem a ser excluido"])
+                        <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" id="img_preview" class="w-[15rem] mx-auto mb-3">
+                    </div>
+                    <hr>
+                    <div class="flex gap-2 justify-between">
+                        <div class="block border border-azul-100 px-3 px-1 rounded-lg">
+                            @include('components.backoffice.label',['idname' => 'text','label' => "ID"])
+                            <p class="text-azul-marinho">99999</p>
+                        </div>
+                        <div class="block border border-azul-100 px-3 px-1 rounded-lg w-full">
+                            @include('components.backoffice.label',['idname' => 'text','label' => "Titulo"])
+                            <p class="text-azul-marinho">Titulo do Texto</p>
+                        </div>
+                        <div class="block border border-azul-100 px-3 px-1 rounded-lg">
+                            @include('components.backoffice.label',['idname' => 'text','label' => "Publicação"])
+                            <p class="text-azul-marinho">12/12/2002</p>
+                        </div>
+                        <div class="block border border-azul-100 px-3 px-1 rounded-lg">
+                            @include('components.backoffice.label',['idname' => 'text','label' => "Grupo"])
+                            <p class="text-azul-marinho">Noticia</p>
+                        </div>
+                    </div>
+                    <div class="block">
+                        @include('components.backoffice.label',['idname' => 'text','label' => "Texto"])
+                        <div class="block w-full h-[10rem] p-2 border border-azul-100 rounded-lg text-[10pt] overflow-hidden">
+                            <p class="text-ellipsis overflow-hidden">
+                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b bg-red-200">
+                    <button data-modal-hide="DeleteArticleModal" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sim</button>
+                    <button data-modal-hide="DeleteArticleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Não</button>
+                </div>
+            </div>
+        </div> --}}
+
+    </div>
+
 </div>
 
-<!-- Modal Excluir Artigo -->
-<div id="DeleteArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600 bg-red-200">
-                <h3 class="text-xl font-semibold text-red-900 dark:text-white">
-                    Excluir Texto e Imagem
-                </h3>
-                <button type="button" class="text-red-900 bg-transparent hover:bg-red-600 hover:text-white rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="DeleteArticleModal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Fechar Modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-6 space-y-6">
-                <div class="block text-center w-full">
-                    @include('components.backoffice.label',['idname' => 'text','label' => "Imagem a ser excluido"])
-                    <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" id="img_preview" class="w-[15rem] mx-auto mb-3">
-                </div>
-                <hr>
-                <div class="flex gap-2 justify-between">
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "ID"])
-                        <p class="text-azul-marinho">99999</p>
-                    </div>
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg w-full">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "Titulo"])
-                        <p class="text-azul-marinho">Titulo do Texto</p>
-                    </div>
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "Publicação"])
-                        <p class="text-azul-marinho">12/12/2002</p>
-                    </div>
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "Grupo"])
-                        <p class="text-azul-marinho">Noticia</p>
-                    </div>
-                </div>
-                <div class="block">
-                    @include('components.backoffice.label',['idname' => 'text','label' => "Texto"])
-                    <div class="block w-full h-[10rem] p-2 border border-azul-100 rounded-lg text-[10pt] overflow-hidden">
-                        <p class="text-ellipsis overflow-hidden">
-                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal footer -->
-            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600 bg-red-200">
-                <button data-modal-hide="DeleteArticleModal" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Sim</button>
-                <button data-modal-hide="DeleteArticleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Não</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 

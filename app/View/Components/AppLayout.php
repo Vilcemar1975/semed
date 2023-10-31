@@ -5,8 +5,6 @@ namespace App\View\Components;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
-use App\Http\Controllers\CoreController;
-
 class AppLayout extends Component
 {
     /**
@@ -14,8 +12,6 @@ class AppLayout extends Component
      */
     public function render(): View
     {
-        $dados = CoreController::conjuntoVariaveisDashboard();
-
-        return view('layouts.app', compact(['dados']));
+        return view('layouts.app');
     }
 }

@@ -12,7 +12,7 @@ class Article extends Model
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'codsite',
+        'from_who',
         'id_user',
         'id_group',
         'creators',
@@ -21,15 +21,13 @@ class Article extends Model
         'subtitle',
         'category',
         'text',
-        'detach',
-        'url_image',
-        'position',
+        'highlight',
+        'special_position',
         'config',
         'status',
         'access',
         'trash',
     ];
-
 
     protected $hidden = [
 
@@ -37,7 +35,9 @@ class Article extends Model
 
 
     protected $casts = [
-
+        'creators' => 'array',
+        'status' => 'array',
+        'config' => 'array',
     ];
 
 

@@ -1,78 +1,101 @@
-<div class="flex gap-1 mt-2" class="flex">
-    @include('components.botao.verde_a',['title' => "Artigo", 'route' => "dashartigoadd", 'icon' => "fa-solid fa-plus text-[12pt] pt-1 pr-2"])
-    <div class="flex flex-nowrap w-full">
-        <input type="search" name="pesquisa" id="pesquisa"
-        class="w-full text-azul-100 py-2 px-3 border border-azul-100 rounded-s-md"
-        placeholder="Pesquisar"
-        >
-        <button type="button" class="block relative w-[48px]  bg-azul-100 hover:bg-azul-500 border border-azul-100 rounded-e-md">
-            <i class="fa-solid fa-magnifying-glass text-white"></i>
-        </button>
+<div>
+    <div class="flex gap-1 mt-2" class="flex">
+        {{-- @include('components.botao.verde_a',['title' => "Artigo", 'route' => "dashartigoadd", 'icon' => "fa-solid fa-plus text-[12pt] pt-1 pr-2"]) --}}
+        @include('components.botao.bt_modal', ['title' => "Artigo", 'txtcor' => "white", 'bg' => "green", 'modal' => "AddArticleModal", 'icon' => "fa-solid fa-plus text-[12pt] pt-1 pr-2"])
 
+        <div class="flex flex-nowrap w-full">
+            <input type="search" name="pesquisa" id="pesquisa"
+            class="w-full text-azul-100 py-2 px-3 border border-azul-100 rounded-s-md"
+            placeholder="Pesquisar"
+            >
+            <button type="button" class="block relative w-[48px]  bg-azul-100 hover:bg-azul-500 border border-azul-100 rounded-e-md">
+                <i class="fa-solid fa-magnifying-glass text-white"></i>
+            </button>
+
+        </div>
+        <button type="button" id="button_filtro" onclick="filtro()" class="block hover:bg-azul-400 bg-azul hover:text-azul-100 text-white uppercase text-[12pt] px-3 py-2 rounded-md">Filtrar</button>
     </div>
-    <button type="button" id="button_filtro" onclick="filtro()" class="block hover:bg-azul-400 bg-azul hover:text-azul-100 text-white uppercase text-[12pt] px-3 py-2 rounded-md">Filtrar</button>
-</div>
-@include('components.backoffice.filter')
+    @include('components.backoffice.filter')
 
-<div class="block w-full  border border-azul-100 mt-2 p-3 rounded-lg overflow-hidden">
-    <div class="flex bg-azul-400 rounded-md mt-2 text-azul-100">
-        <h3 class="block w-[4rem] self-center pl-3 font-semibold">ID</h3>
-        <h3 class="block w-full  self-center pl-3 font-semibold">Titulo</h3>
-        <h3 class="block w-[4rem]  self-center pl-3 font-semibold">Public</h3>
-        <h3 class="block w-[4rem]  self-center pl-3 font-semibold">Editar</h3>
-        <h3 class="block w-[4rem]  self-center pl-3 font-semibold">Excluir</h3>
-    </div>
-    <div class="list-padrao-clear max-h-[25rem]">
-        @for ($b=0; $b < 12; $b++)
-            <div class="flex border hover:border-azul-100 hover:bg-azul-400 rounded-lg mt-2">
-                <h3 class="block w-[4rem] text-gray-500 hover:text-azul-100 self-center pl-3 font-semibold">{{$b}}</h3>
-                <h3 class="block w-full  text-gray-500 hover:text-azul-100 self-center pl-3 font-semibold">Titulo do Artigo</h3>
-                @if ($b % 2 == 1)
-                    <a href="#" class="block w-[4rem] text-center text-white text-[14pt] bg-violet-500 hover:bg-violet-600 rounded-s-lg">
-                        <i class="fa-solid fa-check"></i>
-                    </a>
-                @else
-                    <a href="#" class="block w-[4rem] text-center text-white text-[14pt] bg-gray-500 hover:bg-gray-600 rounded-s-lg">
-                        <i class="fa-solid fa-xmark"></i>
-                    </a>
-                @endif
+    @livewire('plug.list-modulo', [
+        'heads' => ['id' => "id", 'titulo' => 'Titulo',  'action' => "Publicado/Editar/Excluir"],
+        'lists' => [
 
-                <button class="block w-[4rem] text-center text-white text-[14pt] bg-green-600 hover:bg-green-900"
-                data-modal-target="EditArticleModal" data-modal-toggle="EditArticleModal"
-                ><i class="fa-solid fa-pen-to-square"></i></button>
-                <button class="block w-[4rem] text-center text-white text-[14pt] bg-red-600 hover:bg-red-900 rounded-br-lg rounded-tr-lg"
-                data-modal-target="DeleteArticleModal" data-modal-toggle="DeleteArticleModal"
-                ><i class="fa-regular fa-trash-can"></i></button>
+                    ['id' => "1", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "2", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "3", 'title' => "Texto composição teste para conferir", 'public'=> false],
+                    ['id' => "4", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "5", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "6", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "7", 'title' => "Texto composição teste para conferir", 'public'=> false],
+                    ['id' => "8", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "9", 'title' => "Texto composição teste para conferir", 'public'=> true],
+                    ['id' => "10", 'title' => "Texto composição teste para conferir", 'public'=> true],
 
+
+                ],
+
+                'modal_public' => "EditArticleModal",
+                'modal_edit' => "EditArticleModal",
+                'modal_excluir' => "ModalExcluirGrupo",
+                //'route_edit' => "",
+
+    ])
+
+
+
+    {{-- @livewire('plug.modal-artigo-add', [
+        'idmodal' => "AddArticleModal",
+        'titletop' => "Cria Artigo",
+        'title' => "",
+        'route' => "dashartigoadd",
+        ]) --}}
+
+    <div>
+        <!-- Modal Adicionar Artigo -->
+        <div id="AddArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative w-full max-w-2xl max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow">
+                    <!-- Modal header -->
+                    <div class="flex items-start justify-between p-4 border-b rounded-t bg-azul-400">
+                        <h3 class="text-xl font-semibold text-gray-900">
+                            Criar Artigo
+                        </h3>
+                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center" data-modal-hide="AddArticleModal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <form action="{{ route('dashartigoadd')}}" method="get">
+                        @csrf
+                        <div class="block p-6 space-y-6">
+                                @include('components.backoffice.fildText', ['idname' => "title", 'label' => "Titulo", 'max' => 0 , 'min' => 0])
+                                @include('components.backoffice.fildselect', ['idname' => "category", 'label' => "Categoria", 'lista' => $dados['listsite']])
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+                            {{-- <a href=""  data-modal-hide="AddArticleModal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Criar</a> --}}
+                            <button data-modal-hide="AddArticleModal" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Criar</button>
+                            <button data-modal-hide="AddArticleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        @endfor
+        </div>
     </div>
 
-</div>
-<div class="block w-full mt-2">
-    <nav aria-label="Page navigation example w-full">
-        <ul class="flex justify-center items-center -space-x-px h-8 text-sm w-full">
-            <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <span class="sr-only">Previous</span>
-                    <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                    </svg>
-                </a>
-            </li>
-            @for ($t=1; $t < 13; $t++)
-                <li>
-                    <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{$t}}</a>
-                </li>
-            @endfor
-            <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <span class="sr-only">Next</span>
-                    <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
 </div>

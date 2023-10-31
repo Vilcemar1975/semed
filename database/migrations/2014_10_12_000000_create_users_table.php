@@ -13,17 +13,22 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('codsite')->nullable();
-            $table->string('iddequem')->nullable();
+            $table->string('id_user')->nullable(); //Usuário que Criou a Conta
+            $table->string('id_group')->nullable();
+            $table->string('matriculation', 50)->nullable();
+            $table->string('type_user', 50)->nullable();
             $table->string('name');
             $table->string('lastname');
+            $table->json('phones')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('avatar')->nullable();
-            $table->json('permission')->nullable();
-            $table->boolean('trash')->nullable()->default(false);
+            $table->json('configs')->nullable();
             $table->rememberToken();
+            $table->string('permission')->default("leitor");
+            $table->string('trash')->default(false);
+            $table->foreignId('current_team_id')->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
         });
     }

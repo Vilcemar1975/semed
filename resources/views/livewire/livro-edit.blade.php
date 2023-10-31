@@ -34,13 +34,18 @@
 
     <div class="flex gap-2 justify-between w-full mt-2">
         <div class="">
-            @include('components.backoffice.label',['idname' => "textarea_sinopse",'label' => "Sinopse"])
+            @include('components.backoffice.label',['idname' => "textarea_sinopse",'label' => "Imagem"])
             <div class="flex justify-between border hover:border-azul-100 hover:bg-azul-400 rounded-lg mt-2">
                 <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" class="w-[80px] rounded-bl-lg rounded-tl-lg">
                 <h3 class="block basis-1/3 text-gray-500 hover:text-azul-100 self-center pl-3 font-semibold">Nome Imagem</h3>
                 <div class=" flex w-[16rem] basis-1/4">
+                    <button class="block  w-full text-center text-white text-[14pt] bg-azul-100 hover:bg-azul-500"
+                        data-modal-target="LivroAddModal" data-modal-toggle="LivroAddModal"
+                        >
+                        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                    </button>
                     <button class="block  w-full text-center text-white text-[14pt] bg-green-600 hover:bg-green-900"
-                        data-modal-target="EditArticleModal" data-modal-toggle="EditArticleModal"
+                        data-modal-target="LivroEditModal" data-modal-toggle="LivroEditModal"
                         >
                         <i class="fa-solid fa-pen-to-square"></i>
                     </button>
@@ -49,11 +54,10 @@
                         >
                         <i class="fa-regular fa-trash-can"></i>
                     </button>
-
                 </div>
             </div>
         </div>
-        @include('components.backoffice.fildText', ['idname' => "link_img", 'label' => "Link Imagem", 'max' => 0 , 'min' => 0])
+        @include('components.backoffice.fildText', ['idname' => "link_img", 'label' => "Link Imagem", 'max' => 0 , 'min' => 0, 'disable' => false])
     </div>
 
     <div class="mt-2">
@@ -106,115 +110,43 @@
     <br>
 </div>
 
- <!-- Modal Adicionar Artigo -->
- <div id="AddArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600 bg-azul-400">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Adicionar Texto e Imagem
-                </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="AddArticleModal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="block p-6 space-y-6">
-                <div class="block text-center w-full">
-                    @include('components.backoffice.label',['idname' => 'text','label' => "Imagem que vai no texto"])
-                    <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" id="img_preview" class="w-[24rem] mx-auto mb-3">
-                    <label for="image" class="px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold">Selecione a Imagem</label>
-                    <input type="file" name="image" id="image" accept="image/png, image/jpeg" class="hidden">
-                </div>
-                <hr>
-                <div class="block">
-                    @include('components.backoffice.label',['idname' => 'text','label' => "Texto"])
-                    <textarea name="text" id="text" placeholder="Digite aqui seu texto" class="block w-full border border-azul-100 rounded-lg text-[10pt]"></textarea>
-                </div>
-            </div>
-            <!-- Modal footer -->
-            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="AddArticleModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Salvar</button>
-                <button data-modal-hide="AddArticleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Modal Editar Artigo -->
-<div id="EditArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600 bg-green-200">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Alterar Texto ou Imagem
-                </h3>
-                <button type="button" class="text-green-400 bg-transparent hover:bg-green-900 hover:text-green-400 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="EditArticleModal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-6 space-y-6">
-                <div class="flex gap-2 justify-between">
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "ID"])
-                        <p class="text-azul-marinho">99999</p>
-                    </div>
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg w-full">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "Titulo"])
-                        <p class="text-azul-marinho">Titulo do Texto</p>
-                    </div>
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "Publicação"])
-                        <p class="text-azul-marinho">12/12/2002</p>
-                    </div>
-                    <div class="block border border-azul-100 px-3 px-1 rounded-lg">
-                        @include('components.backoffice.label',['idname' => 'text','label' => "Grupo"])
-                        <p class="text-azul-marinho">Noticia</p>
-                    </div>
-                </div>
-                <div class="block text-center w-full">
-                    @include('components.backoffice.label',['idname' => 'text','label' => "Imagem que vai no texto"])
-                    <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" id="img_preview" class="w-[24rem] mx-auto mb-3">
-                    <label for="image" class="px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold">Selecione a Imagem</label>
-                    <input type="file" name="image" id="image" accept="image/png, image/jpeg" class="hidden">
-                </div>
-                <hr>
-                <div class="block">
-                    @include('components.backoffice.label',['idname' => 'text','label' => "Texto"])
-                    <textarea name="text" id="text" placeholder="Digite aqui seu texto" class="block w-full border border-azul-100 rounded-lg text-[10pt]"></textarea>
-                </div>
-            </div>
-            <!-- Modal footer -->
-            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600 bg-green-200">
-                <button data-modal-hide="EditArticleModal" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Salvar</button>
-                <button data-modal-hide="EditArticleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+@livewire('plug.modal-image-add', [
+    'idmodal' => "LivroAddModal",
+    'idfile' => "954554",
+    'titletop' => "Livro",
+    'title' => "Titulo do Livro",
+    'img' => "",
+    'texto' => "textos",
+    'publicdate' => "12/11/2023",
+    'grupo' => "Noticias",
+    ])
+
+
+@livewire('plug.modal-image-edit', [
+    'idmodal' => "LivroEditModal",
+    'idfile' => "954554",
+    'titletop' => "Livro",
+    'title' => "Titulo do Livro",
+    'img' => "",
+    'texto' => "textos",
+    'publicdate' => "12/11/2023",
+    'grupo' => "Noticias",
+    ])
+
 
 <!-- Modal Excluir Artigo -->
 <div id="DeleteArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-2xl max-h-full">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow">
             <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600 bg-red-200">
-                <h3 class="text-xl font-semibold text-red-900 dark:text-white">
+            <div class="flex items-start justify-between p-4 border-b rounded-t bg-red-200">
+                <h3 class="text-xl font-semibold text-red-900">
                     Excluir Texto e Imagem
                 </h3>
-                <button type="button" class="text-red-900 bg-transparent hover:bg-red-600 hover:text-white rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="DeleteArticleModal">
+                <button type="button" class="text-red-900 bg-transparent hover:bg-red-600 hover:text-white rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center" data-modal-hide="DeleteArticleModal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -258,9 +190,9 @@
                 </div>
             </div>
             <!-- Modal footer -->
-            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600 bg-red-200">
-                <button data-modal-hide="DeleteArticleModal" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Sim</button>
-                <button data-modal-hide="DeleteArticleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Não</button>
+            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b bg-red-200">
+                <button data-modal-hide="DeleteArticleModal" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sim</button>
+                <button data-modal-hide="DeleteArticleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Não</button>
             </div>
         </div>
     </div>

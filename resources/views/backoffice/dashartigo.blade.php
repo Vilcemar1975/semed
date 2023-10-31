@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <x-slot name="header">
         <h2 class="flex font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Artigos') }}
@@ -13,6 +14,6 @@
 
     @include('components.backoffice.title', ['title' => "Gestão de Artigos"])
 
-    @livewire('artigo-show')
+    @livewire('artigo-show',['dados' => $dados])
 
 </x-app-layout>

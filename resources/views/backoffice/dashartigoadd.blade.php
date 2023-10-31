@@ -14,6 +14,6 @@
 
     @include('components.backoffice.title', ['title' => "Adicionar Artigos"])
 
-    @livewire('artido-edit')
+    @livewire('artido-edit', ['artigo' => $artigo])
 
 </x-app-layout>

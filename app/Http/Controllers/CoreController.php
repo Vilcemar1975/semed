@@ -9,14 +9,15 @@ class CoreController extends Controller
     public static function conjuntoVariaveis()
     {
         $dados = [
-            'iconBootStrap' => CoreController::iconBootStrap(),
-            'menuPrincipal' => CoreController::menuPrincipal(),
-            'destaque' => CoreController::destaque(),
-            'sliderspreview' => CoreController::sliderspreview(),
-            'ultimaNoticias' => CoreController::ultimaNoticias(),
-            'linksExternos' => CoreController::linksExternos(),
-            'cardBox' => CoreController::cardBox(),
-            'materias' => CoreController::categoriasMaterias(),
+            'iconBootStrap' => self::iconBootStrap(),
+            'menuPrincipal' => self::menuPrincipal(),
+            'destaque' => self::destaque(),
+            'sliderspreview' => self::sliderspreview(),
+            'ultimaNoticias' => self::ultimaNoticias(),
+            'linksExternos' => self::linksExternos(),
+            'cardBox' => self::cardBox(),
+            'materias' => self::categoriasMaterias(),
+            'nivelEscolar' => self::nivelEscolar(),
         ];
 
         return $dados;
@@ -25,7 +26,10 @@ class CoreController extends Controller
     public static function conjuntoVariaveisDashboard()
     {
         $dados = [
-            'menudashbord' => CoreController::menuDashbord(),
+            'menudashbord' => self::menuDashbord(),
+            'nivelEscolar' => self::nivelEscolar(),
+            'menuTecnico' => self::menuDashbordTecnica(),
+            'listsite' => self::listSite(),
         ];
 
         return $dados;
@@ -62,6 +66,7 @@ class CoreController extends Controller
     public static function menuDashbord(){
         $icon = [
                 'artigo' => "fa-newspaper p-2",
+                'escola' => "fa-solid fa-school-flag p-2",
                 'atividades' => "fa-file-signature p-2",
                 'configuracao' => "fa-gears p-2",
                 'Dorcente' => "fa-chalkboard-user p-2",
@@ -74,23 +79,42 @@ class CoreController extends Controller
                 'usuarios' => "fa-users p-2",
                 'videos' => "fa-film p-2",
                 'calendario' => "fa-calendar-days p-2",
+                'linkext' => "fa-solid fa-link",
 
             ];
 
         $menu = [
             ['id' => "0", 'name' => "Inicio",       'route' => "dashboard", 'active' => true, 'icon' =>  $icon['home'] ],
             ['id' => "1", 'name' => "Artigo",       'route' => "dashartigo", 'active' => true, 'icon' =>  $icon['artigo'] ],
-            ['id' => "2", 'name' => "Videos",       'route' => "dashvideo", 'active' => true, 'icon' =>  $icon['videos'] ],
-            ['id' => "3", 'name' => "Calendário",   'route' => "dashcalendar", 'active' => true, 'icon' =>  $icon['calendario'] ],
-            ['id' => "4", 'name' => "Atividade",    'route' => "dashatividade", 'active' => true, 'icon' =>  $icon['atividades'] ],
-            ['id' => "5", 'name' => "Eventos",      'route' => "dasheventos", 'active' => true, 'icon' =>  $icon['eventos'] ],
-            ['id' => "6", 'name' => "Graficos",     'route' => "dashgraficos", 'active' => true, 'icon' =>  $icon['graficos'] ],
-            ['id' => "7", 'name' => "Jogos",        'route' => "dashjogos", 'active' => true, 'icon' =>  $icon['jogos'] ],
-            ['id' => "8", 'name' => "livros",       'route' => "dashlivros", 'active' => true, 'icon' =>  $icon['livros'] ],
-            ['id' => "9", 'name' => "Processos",    'route' => "dashprocessos", 'active' => true, 'icon' =>  $icon['processos'] ],
-            ['id' => "10", 'name' => "Dorcente",     'route' => "dashdorcente", 'active' => true, 'icon' =>  $icon['Dorcente'] ],
-            ['id' => "11", 'name' => "Usuários",    'route' => "dashusuarios", 'active' => true, 'icon' =>  $icon['usuarios'] ],
-            ['id' => "12", 'name' => "Configurações",'route' => "dashconfig", 'active' => true, 'icon' =>  $icon['configuracao'] ],
+            ['id' => "2", 'name' => "Escola",       'route' => "dashescola", 'active' => true, 'icon' =>  $icon['escola'] ],
+            ['id' => "3", 'name' => "Videos",       'route' => "dashvideo", 'active' => true, 'icon' =>  $icon['videos'] ],
+            ['id' => "4", 'name' => "Calendário Escolar",   'route' => "dashcalendar", 'active' => true, 'icon' =>  $icon['calendario'] ],
+            ['id' => "5", 'name' => "Atividade",    'route' => "dashatividade", 'active' => true, 'icon' =>  $icon['atividades'] ],
+            ['id' => "6", 'name' => "Eventos",      'route' => "dasheventos", 'active' => true, 'icon' =>  $icon['eventos'] ],
+            ['id' => "7", 'name' => "Graficos",     'route' => "dashgraficos", 'active' => false, 'icon' =>  $icon['graficos'] ],
+            ['id' => "8", 'name' => "Jogos",        'route' => "dashjogos", 'active' => true, 'icon' =>  $icon['jogos'] ],
+            ['id' => "9", 'name' => "livros",       'route' => "dashlivros", 'active' => true, 'icon' =>  $icon['livros'] ],
+            ['id' => "10", 'name' => "Processos",    'route' => "dashprocessos", 'active' => true, 'icon' =>  $icon['processos'] ],
+            ['id' => "11", 'name' => "Dorcente",     'route' => "dashdorcente", 'active' => false, 'icon' =>  $icon['Dorcente'] ],
+            ['id' => "12", 'name' => "Usuários",    'route' => "dashusuarios", 'active' => true, 'icon' =>  $icon['usuarios'] ],
+            ['id' => "13", 'name' => "Link Externo",'route' => "dashlinkexterno", 'active' => true, 'icon' =>  $icon['linkext'] ],
+            ['id' => "14", 'name' => "Configurações",'route' => "dashconfig", 'active' => true, 'icon' =>  $icon['configuracao'] ],
+
+        ];
+
+
+        return $menu;
+    }
+
+    public static function menuDashbordTecnica(){
+        $icon = [
+                'home' => "fa-house p-2",
+                'escola' => "fa-solid fa-school-flag p-2",
+            ];
+
+        $menu = [
+            ['id' => "0", 'name' => "Inicio",       'route' => "dashinicio", 'active' => true, 'icon' =>  $icon['home'] ],
+            ['id' => "2", 'name' => "Escola",       'route' => "dashtecescola", 'active' => true, 'icon' =>  $icon['escola'] ],
 
         ];
 
@@ -274,6 +298,18 @@ class CoreController extends Controller
 
     }
 
+    public static function nivelEscolar(){
+        $nivelescolar = [
+            ['id' => "0", 'name' => "Educação Infantil",     'active' => true, 'icon' => "",  ],
+            ['id' => "1", 'name' => "Ensino Fundamental",    'active' => true, 'icon' => "",  ],
+            ['id' => "2", 'name' => "Ensino Tempo Integral", 'active' => true, 'icon' => "",  ],
+            ['id' => "3", 'name' => "EJA",                   'active' => true, 'icon' => "",  ],
+
+        ];
+
+        return $nivelescolar;
+    }
+
     public static function categoriasMaterias(){
         $materias = [
             ['id' => "0", 'name' => "Arte",              'route' => "welcome", 'active' => true, 'icon' => "", 'sub' => [] ],
@@ -293,4 +329,138 @@ class CoreController extends Controller
 
         return $materias;
     }
+
+    public static function menucalendar(){
+
+        $menuCalendar = [
+            ['id' => "1",   'mes' => "janeiro",   'nick' => "janeiro",     'abv' => "jan.", 'calendar' => [] ],
+            ['id' => "2",   'mes' => "fevereiro", 'nick' => "fevereiro",   'abv' => "fev.", 'calendar' => [] ],
+            ['id' => "3",   'mes' => "março",     'nick' => "março",       'abv' => "mar.", 'calendar' => [] ],
+            ['id' => "4",   'mes' => "abril",     'nick' => "abril",       'abv' => "abr.", 'calendar' => [] ],
+            ['id' => "5",   'mes' => "maio",      'nick' => "maio",        'abv' => "maio", 'calendar' => [] ],
+            ['id' => "6",   'mes' => "junho",     'nick' => "junho",       'abv' => "jun.", 'calendar' => [] ],
+            ['id' => "7",   'mes' => "julho",     'nick' => "julho",       'abv' => "jul.", 'calendar' => [] ],
+            ['id' => "8",   'mes' => "agosto",    'nick' => "agosto",      'abv' => "ago.", 'calendar' => [] ],
+            ['id' => "9",   'mes' => "setembro",  'nick' => "setembro",    'abv' => "set.", 'calendar' => [] ],
+            ['id' => "10",  'mes' => "outubro",   'nick' => "outubro",     'abv' => "out.", 'calendar' => [] ],
+            ['id' => "11",  'mes' => "novembro",  'nick' => "novembro",    'abv' => "nov.", 'calendar' => [] ],
+            ['id' => "12",  'mes' => "dezembro",  'nick' => "dezembro",    'abv' => "dez.", 'calendar' => [] ],
+        ];
+
+        return $menuCalendar;
+    }
+
+    /* Modelos Json */
+
+    public static function status(){
+        $status = (object) [
+            'public' => "",
+            'date_start' => "",
+            'date_end' => "",
+            'hour_start' => "",
+            'hour_end' => "",
+        ];
+
+        return $status;
+    }
+
+    public static function config(){
+        $config = (object) [
+            'show_author' => "",
+            'show_day_public' => "",
+            'show_day_alteration' => "",
+            'show_description' => "",
+            'show_url_article' => "",
+            'show_download' => "",
+            'show_author_photo' => "",
+            'show_author_video' => "",
+            'show_print' => "",
+            'show_share' => "",
+        ];
+
+        return $config;
+    }
+
+    public static function creators(){
+        $creators = (object) [
+            'id_user' => "",
+            'author' => "",
+            'company' => "",
+        ];
+
+        return $creators;
+    }
+
+    public static function response(){
+        $response = (object) [
+            'position' => "",
+            'answers' => "",
+            'value' => "",
+        ];
+
+        return $response;
+    }
+
+    public static function authoractiv(){
+        $response = (object) [
+            'id_user' => "",
+            'author' => "",
+            'name' => "",
+        ];
+
+        return $response;
+    }
+
+    public static function day_join(){
+
+        $day_join = (object) [
+            'id' => "",
+            'days' => "",
+            'legenda' => "",
+        ];
+
+        $day = (object) [
+            'day' => "",
+            'month' => "",
+            'year' => "",
+            'cor_text' => "",
+            'cor_bg' => "",
+        ];
+
+        $response = (object)[
+            'day_join' => $day_join,
+            'day' => $day,
+        ];
+
+        return $response;
+    }
+
+    /* Listas */
+
+    public static function listSite(){
+        $category = (object) [
+            ['id' => "01", 'title' => "ATIVIDADE EDUCACIONAL", 'public' => true, 'sub' => []],
+            ['id' => "02", 'title' => "BIBLIOTECA", 'public' => true, 'sub' => []],
+            ['id' => "03", 'title' => "COMITÊ", 'public' => true, 'sub' => []],
+            ['id' => "04", 'title' => "ESCOLAS", 'public' => true, 'sub' => []],
+            ['id' => "05", 'title' => "INTERDISCIPLINAR", 'public' => true, 'sub' => [
+                ['id' => "51", 'title' => "ALIMENTAÇÃO", 'public' => true],
+                ['id' => "52", 'title' => "AMBIENTAL", 'public' => true],
+                ['id' => "53", 'title' => "ARTE E CULTURA", 'public' => true],
+                ['id' => "54", 'title' => "ESPORTE", 'public' => true],
+                ['id' => "55", 'title' => "PRÁTICA EXITOSAS", 'public' => true],
+                ['id' => "56", 'title' => "ROBÓTICA", 'public' => true],
+                ['id' => "57", 'title' => "JOGOS", 'public' => true],
+                ['id' => "58", 'title' => "SAÚDE", 'public' => true],
+                ['id' => "59", 'title' => "LÚDICO", 'public' => true],
+                ['id' => "510", 'title' => "TODOS", 'public' => true],
+            ]],
+            ['id' => "06", 'title' => "NOTICIAS", 'public' => true, 'sub' => []],
+            ['id' => "07", 'title' => "TUTORIAL", 'public' => true, 'sub' => []],
+
+        ];
+
+        return $category;
+    }
+
 }

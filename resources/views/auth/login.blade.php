@@ -1,47 +1,58 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <x-authentication-card>
+        <x-slot name="logo">
+            <x-authentication-card-logo />
+        </x-slot>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+        <x-validation-errors class="mb-4" />
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        @if (session('status'))
+            <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+
+            <div>
+                <x-label for="email" value="{{ __('E-mail') }}" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="password" value="{{ __('Senha') }}" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+            </div>
+
+            <div class="block mt-4">
+                <label for="remember_me" class="flex items-center">
+                    <x-checkbox id="remember_me" name="remember" />
+                    <span class="ml-2 text-sm text-gray-600">{{ __('Lembra-me') }}</span>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-end mt-4">
+                @if (Route::has('password.request'))
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                        {{ __('Esqueceu sua senha?') }}
+                    </a>
+                @endif
+
+                <x-button class="ml-4">
+                    {{ __('Entrar') }}
+                </x-button>
+            </div>
+        </form>
+
+        <div class="flex gap-3 justify-center items-center mt-5">
+            <div class="w-[1.2rem]">
+                <img src="{{ asset('logos/logo_nte_colorida.svg')}}" alt="">
+            </div>
+            <p class="text-[8pt] text-gray-400 uppercase">NÚCLEO DE TECNOLOGIA EDUCACIONAL</p>
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    </x-authentication-card>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-azul-100 shadow-sm focus:ring-azul-100" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Lembra-me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-azul-100" href="{{ route('password.request') }}">
-                    {{ __('Esqueci a Senha?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Entrar') }}
-            </x-primary-button>
-        </div>
-    </form>
 </x-guest-layout>
