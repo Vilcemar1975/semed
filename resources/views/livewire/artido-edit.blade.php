@@ -72,7 +72,7 @@
     <br>
 </div>
 
- <!-- Modal Adicionar Artigo -->
+ <!-- Modal Adicionar topic Artigo -->
  <div id="AddArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-2xl max-h-full">
         <!-- Modal content -->
@@ -91,10 +91,24 @@
             </div>
             <!-- Modal body -->
             <div class="block p-6 space-y-6">
+                <div class="flex justify-around gap-3 mx-auto">
+                    <div class="text-center">
+                        <label for=""><img src="{{asset('storage/icons/sotxt.svg')}}" alt="Somente Texto"></label>
+                        <input type="radio" name="sotxt" id="tipotopico" onclick="habilitarButton(this.checked)">
+                    </div>
+                    <div class="text-center">
+                        <label for=""><img src="{{asset('storage/icons/imgtxt.svg')}}" alt="Somente Texto"></label>
+                        <input type="radio" name="sotxt" id="tipotopico2" checked onclick="habilitarButton(false)">
+                    </div>
+                    <div class="text-center">
+                        <label for=""><img src="{{asset('storage/icons/soimg.svg')}}" alt="Somente Texto"></label>
+                        <input type="radio" name="sotxt" id="tipotopico3" onclick="habilitarButton(false)">
+                    </div>
+                </div>
                 <div class="block text-center w-full">
                     @include('components.backoffice.label',['idname' => 'text','label' => "Imagem que vai no texto"])
                     <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" id="img_preview" class="w-[24rem] mx-auto mb-3">
-                    <label for="image" class="px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold">Selecione a Imagem</label>
+                    <label id="imglabel" for="image" class="px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold">Selecione a Imagem</label>
                     <input type="file" name="image" id="image" accept="image/png, image/jpeg" class="hidden">
                 </div>
                 <hr>
@@ -111,6 +125,20 @@
         </div>
     </div>
 </div>
+<script>
+    function habilitarButton(value) {
+        console.log(value);
+        var fileInput = document.getElementById('image');
+        var labelInput = document.getElementById('imglabel');
+        fileInput.disabled = value;
+        if (value) {
+            labelInput.className = "px-2 py-2 text-center m-auto bg-gray-200 hover:bg-gray-400 rounded-lg uppercase text-[9pt] font-semibold";
+        }else{
+            labelInput.className = "px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold";
+        }
+    }
+
+</script>
 
 <!-- Modal Editar Artigo -->
 <div id="EditArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -230,5 +258,6 @@
             </div>
         </div>
     </div>
+
 </div>
 

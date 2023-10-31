@@ -42,20 +42,20 @@
                     </div>
                 @endif
 
-                <div class="flex max-w-7xl mx-auto sm:px-6 lg:px-8 gap-2 pt-6 pb-2">
+                <div class="flex max-w-7xl mx-auto sm:px-6 lg:px-8 gap-2 pt-6 pb-2 justify-center">
 
                     @if (isset($menuleft))
 
-                        <div class="p-2 w-[100%] lg:w-[20%] bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-2 w-[20%] laptop:w-[60px]  bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="flex text-azul-100">
                                 <i class="fa-regular fa-circle-user p-1 text-[24pt]"></i>
-                                <div class="block">
+                                <div class="block laptop:hidden">
                                     <p class="text-[12pt] font-semibold overflow-hidden">{{ Auth::user()->name }}</p>
                                     <p class="text-[8pt] uppercase overflow-hidden">Cargo do usuário</p>
                                 </div>
                             </div>
                             <hr>
-                            <div class="block">
+                            <div class="">
                                 {{-- @include('components.menu.menu_dashboard',['dados' => $dados['menudashbord']]) --}}
                                 {{$menuleft}}
                             </div>
@@ -63,7 +63,7 @@
 
                     @endif
 
-                    <div class="p-2 w-[100%] lg:w-[80%] bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-2 w-[100%] desktop:w-[80%] bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         {{ $slot }}
                     </div>
 

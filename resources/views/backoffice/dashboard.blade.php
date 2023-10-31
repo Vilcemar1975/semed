@@ -11,7 +11,4 @@
         @include('components.menu.menu_dashboard',['dados' => $dados['menudashbord']])
     </x-slot>
 
-
-
-
 </x-app-layout>

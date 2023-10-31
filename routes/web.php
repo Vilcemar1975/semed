@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\CoreController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AreaTecnica;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,8 +70,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/dash/dorcente/add/{id?}', [DashboardController::class, 'DashDorcenteAdd'])->name('dashdorcenteadd');
     Route::get('/dash/usuarios', [DashboardController::class, 'DashUsuarios'])->name('dashusuarios');
     Route::get('/dash/usuarios/add/{id?}', [DashboardController::class, 'DashUsuariosAdd'])->name('dashusuariosadd');
+    Route::get('/dash/link', [DashboardController::class, 'DashLinkExterno'])->name('dashlinkexterno');
+    Route::get('/dash/escola', [DashboardController::class, 'DashEscola'])->name('dashescola');
+    Route::get('/dash/escola/add/{id?}', [DashboardController::class, 'DashEscolaAdd'])->name('dashescolaadd');
     Route::get('/dash/config', [DashboardController::class, 'DashConfig'])->name('dashconfig');
+    Route::get('/dash/config/group', [DashboardController::class, 'DashGroup'])->name('dashgroup');
+
+    /* Área Técnica */
+    Route::get('/dash/at/inicio', [AreaTecnica::class, 'DashInicio'])->name('dashinicio');
+    Route::get('/dash/at/escola', [AreaTecnica::class, 'DashTecnicoEscola'])->name('dashtecescola');
 
 });
+
 
 require __DIR__.'/auth.php';

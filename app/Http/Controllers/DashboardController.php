@@ -45,6 +45,7 @@ class DashboardController extends Controller
 
     public function DashCalendarAdd($id = null)
     {   $ativar = 'dashcalendar';
+
         $dados = CoreController::conjuntoVariaveisDashboard();
 
         return view('backoffice.dashcalendaradd', compact(['dados', 'ativar']));
@@ -162,11 +163,40 @@ class DashboardController extends Controller
         return view('backoffice.dashusuariosadd', compact(['dados', 'ativar']));
     }
 
+    public function DashLinkExterno()
+    {   $ativar = 'dashlinkexterno';
+        $dados = CoreController::conjuntoVariaveisDashboard();
+
+        return view('backoffice.dashlinkexterno', compact(['dados', 'ativar']));
+    }
+
+    public function DashEscola()
+    {   $ativar = 'dashescola';
+        $dados = CoreController::conjuntoVariaveisDashboard();
+
+        return view('backoffice.dashescola', compact(['dados', 'ativar']));
+    }
+
+    public function DashEscolaAdd()
+    {   $ativar = 'dashescola';
+        $dados = CoreController::conjuntoVariaveisDashboard();
+
+        return view('backoffice.dashescolasadd', compact(['dados', 'ativar']));
+    }
+
     public function DashConfig()
     {   $ativar = 'dashconfig';
         $dados = CoreController::conjuntoVariaveisDashboard();
 
         return view('backoffice.dashconfig', compact(['dados', 'ativar']));
     }
+
+    public function DashGroup()
+    {   $ativar = 'dashconfig';
+        $dados = CoreController::conjuntoVariaveisDashboard();
+
+        return view('backoffice.dashgroup', compact(['dados', 'ativar']));
+    }
+
 }
 

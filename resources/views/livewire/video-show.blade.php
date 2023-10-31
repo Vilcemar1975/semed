@@ -1,5 +1,5 @@
 <div class="flex gap-1 mt-2" class="flex">
-    @include('components.botao.verde_a',['title' => "Artigo", 'route' => "dashvideoadd", 'icon' => "fa-solid fa-plus text-[12pt] pt-1 pr-2"])
+    @include('components.botao.verde_a',['title' => "Video", 'route' => "dashvideoadd", 'icon' => "fa-solid fa-plus text-[12pt] pt-1 pr-2"])
     <div class="flex flex-nowrap w-full">
         <input type="search" name="pesquisa" id="pesquisa"
         class="w-full text-azul-100 py-2 px-3 border border-azul-100 rounded-s-md"
