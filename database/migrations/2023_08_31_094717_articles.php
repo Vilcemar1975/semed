@@ -16,17 +16,17 @@ return new class extends Migration
             $table->string('from_who')->nullable();
             $table->unsignedBigInteger('id_user');
             $table->bigInteger('id_group')->nullable();
+            $table->bigInteger('creators')->nullable();
             $table->string('category');
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->string('nickname')->nullable();
-            $table->json('creators')->nullable();
             $table->json('status')->nullable();
             $table->json('config')->nullable();
             $table->boolean('highlight')->nullable();
             $table->string('special_position')->nullable();
             $table->string('acesso')->nullable();
-            $table->boolean('trash')->nullable();
+            $table->boolean('trash')->default(false);
 
             // Definir as chaves estrangeiras, se necessário
             $table->foreign('id_user')->references('id')->on('users');

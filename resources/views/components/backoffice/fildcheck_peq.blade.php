@@ -2,6 +2,10 @@
 
     <input type="checkbox" name="{{$idname}}" id="{{$idname}}"
         class="block rounded-sm border-azul-100 w-[16px] h-[16px] self-center"
+        @if ($checked)
+            checked
+        @endif
+
     >
     <label for="{{$idname}}" class="self-center text-[8pt]">{{ $label}}</label>
 

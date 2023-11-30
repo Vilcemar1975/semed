@@ -47,6 +47,16 @@
                     </div>
                 @endif
 
+                @if(isset($success))
+                    <p class="text-[12pt] text-center text-azul-500 bg-lime-200 w-full py-3">{{ $success }}</p>
+                @endif
+                @if(isset($waring))
+                    <p class="text-[12pt] text-center text-azul-500 bg-yellow-200 w-full py-3">{{ $success }}</p>
+                @endif
+                @if(isset($danger))
+                    <p class="text-[12pt] text-center text-azul-500 bg-red-200 w-full py-3">{{ $success }}</p>
+                @endif
+
                 <div class="flex max-w-7xl mx-auto sm:px-6 lg:px-8 gap-2 pt-6 pb-2 justify-center">
 
                     @if (isset($menuleft))

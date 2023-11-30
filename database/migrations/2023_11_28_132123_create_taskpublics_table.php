@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topics', function (Blueprint $table) {
+        Schema::create('taskpublics', function (Blueprint $table) {
             $table->id();
-            $table->string('from_who')->nullable();
             $table->unsignedBigInteger('id_articles');
-            $table->integer('position')->default(3);
-            $table->string('title');
-            $table->string('nickname');
-            $table->string('text');
-            $table->boolean('public')->default(false);
+            $table->date('date_start')->nullable();
+            $table->time('hour_start', $precision = 0);
+            $table->date('date_end')->nullable();
+            $table->time('hour_end', $precision = 0)->nullable();
+            $table->string('total_dias')->nullable();
             $table->foreign('id_articles')->references('id')->on('articles');
             $table->timestamps();
         });
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topics');
+        Schema::dropIfExists('taskpublics');
     }
 };

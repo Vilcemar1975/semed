@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Article;
 use App\Http\Controllers\CoreController;
 use Illuminate\Support\Str;
+
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 
 
 class DashboardController extends Controller
@@ -15,27 +19,50 @@ class DashboardController extends Controller
     public function DashArtigo()
     {   $ativar = 'dashartigo';
         $dados = CoreController::conjuntoVariaveisDashboard();
+        $artigos = Article::where('trash', false)->paginate(15);
 
-        return view('backoffice.dashartigo', compact(['dados', 'ativar']));
+        return view('backoffice.dashartigo', compact(['dados', 'ativar', 'artigos']));
     }
 
-    public function DashArtigoAdd(Request $request, $id = null)
+    public function DashArtigoAdd(Request $request)
     {
-
-        $validatedData = $request->validate([
-            'title' => ['required', 'max:255'],
-            'category' => ['required'],
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'category' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            return redirect('dash/artigo')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $nickname = Str::slug(Str::lower($request->title), '-');
 
-        $idartigo = Article::create(['title' => $request->title, 'nickname' => $nickname, 'category' => $request->category]);
-        $artigo = Article::find($idartigo->id);
+        $config = CoreController::config(false, false, false, false, false, false, false, false, false, false);
 
-        $ativar = 'dashartigo';
+        $status = CoreController::status("no_public",  "", "", "", "", false);
+
+        try {
+            $artigo = Article::create(['id_user' => auth()->id(),'title' => $request->title, 'nickname' => $nickname, 'category' => $request->category, 'config' => $config, 'status' => $status]);
+        } catch (ModelNotFoundException $th) {
+            return redirect()->back()->with('danger', $th);
+        } catch (QueryException $e) {
+            return redirect()->back()->with('danger', $e);
+        }
+
+        return redirect()->route('dashartigoedit',['id' => $artigo->id]);
+    }
+
+    public function DashArtigoEdit($id){
+        /* $ativar = 'dashartigo';
         $dados = CoreController::conjuntoVariaveisDashboard();
+        $artigo = Article::where('id', $id)->first();
+        $criadores = ArticleController::GetCreator($artigo->creators)[1];
+        $autor = ArticleController::GetCreator($artigo->creators)[0]; */
 
-        return view('backoffice.dashartigoadd', compact(['dados', 'ativar', 'artigo']));
+        /* return view('backoffice.dashartigoadd', ['artigo' => $artigo, 'dados' => $dados, 'ativar' => $ativar, 'criadores' => $criadores, 'autor' => $autor]); */
+        return redirect()->route('articleedit', ['id' => $id]);
     }
 
     public function DashVideo()

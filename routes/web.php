@@ -5,6 +5,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\CoreController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\TopicsController;
 use App\Http\Controllers\AreaTecnica;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dash/artigo', [DashboardController::class, 'DashArtigo'])->name('dashartigo');
     Route::get('/dash/artigo/add/{id?}', [DashboardController::class, 'DashArtigoAdd'])->name('dashartigoadd');
+    Route::get('/dash/artigo/edit/{id?}', [DashboardController::class, 'DashArtigoEdit'])->name('dashartigoedit');
     Route::get('/dash/video', [DashboardController::class, 'DashVideo'])->name('dashvideo');
     Route::get('/dash/video/add/{id?}', [DashboardController::class, 'DashVideoAdd'])->name('dashvideoadd');
     Route::get('/dash/calendar', [DashboardController::class, 'DashCalendar'])->name('dashcalendar');
@@ -82,7 +84,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/dash/at/escola', [AreaTecnica::class, 'DashTecnicoEscola'])->name('dashtecescola');
 
     /* Artigo criar, salva e excluir */
-    Route::get('/dash/artigo/criar', [ArticleController::class, 'ArticleCreate'])->name('articlecreate');
+    Route::post('/dash/artigo/save/{id}', [ArticleController::class, 'ArticleSave'])->name('articlesave');
+    Route::get('/dash/artigo/editar/{id}', [ArticleController::class, 'ArticleEdit'])->name('articleedit');
+    Route::get('/dash/artigo/trash/{id?}', [ArticleController::class, 'ArticleTrash'])->name('articletrash');
+    Route::get('/dash/artigo/creator/save/{id?}', [ArticleController::class, 'CriarCriador'])->name('criarcriador');
+    Route::get('/dash/artigo/public/{id?}', [ArticleController::class, 'ArticlePublic'])->name('articlePublic');
+    Route::post('/dash/artigo/topic/save/{id}', [TopicsController::class, 'topicSave'])->name('topicsave');
+    Route::get('/dash/artigo/topic/public/{id}', [TopicsController::class, 'topicPublic'])->name('topicpublic');
+    Route::post('/dash/artigo/topic/alterar/{id}', [TopicsController::class, 'topicAlter'])->name('topicalter');
+    Route::get('/dash/artigo/topic/delete/{id}', [TopicsController::class, 'topicErase'])->name('topicerase');
 
 });
 

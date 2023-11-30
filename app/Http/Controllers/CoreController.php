@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use ParagonIE\ConstantTime\Encoding;
+use App\Http\Controllers\TaskpublicController;
+
+use function Pest\Laravel\json;
 
 class CoreController extends Controller
 {
@@ -25,11 +29,16 @@ class CoreController extends Controller
 
     public static function conjuntoVariaveisDashboard()
     {
+        TaskpublicController::publicDay();
         $dados = [
             'menudashbord' => self::menuDashbord(),
             'nivelEscolar' => self::nivelEscolar(),
             'menuTecnico' => self::menuDashbordTecnica(),
             'listsite' => self::listSite(),
+            'position_spacial' => self::position_spacial(),
+            'acess' => self::acess(),
+            'classifications' => self::classification(),
+            'type' => self::type(),
         ];
 
         return $dados;
@@ -352,43 +361,70 @@ class CoreController extends Controller
 
     /* Modelos Json */
 
-    public static function status(){
-        $status = (object) [
-            'public' => "",
-            'date_start' => "",
-            'date_end' => "",
-            'hour_start' => "",
-            'hour_end' => "",
+    public static function position_spacial(){
+        $position =  [
+            ['id' => "01", 'title' => "Nenhum", 'public' => true],
+            ['id' => "02", 'title' => "Lado direito", 'public' => true],
+            ['id' => "03", 'title' => "Lado esquerdo", 'public' => true],
+            ['id' => "04", 'title' => "base", 'public' => true],
         ];
 
-        return $status;
+        return $position;
     }
 
-    public static function config(){
-        $config = (object) [
-            'show_author' => "",
-            'show_day_public' => "",
-            'show_day_alteration' => "",
-            'show_description' => "",
-            'show_url_article' => "",
-            'show_download' => "",
-            'show_author_photo' => "",
-            'show_author_video' => "",
-            'show_print' => "",
-            'show_share' => "",
+    public static function acess(){
+        $acesso = [
+            ['id' => "01", 'title' => "Publico", 'public' => true],
+            ['id' => "02", 'title' => "Privado", 'public' => true],
+            ['id' => "03", 'title' => "Somente o Grupo", 'public' => true],
+
         ];
 
-        return $config;
+        return $acesso;
     }
 
-    public static function creators(){
-        $creators = (object) [
+    public static function status($public, $date_start, $date_end, $hour_start, $hour_end, $active){
+
+        $st = [
+            'public' => $public,
+            'date_start' => $date_start,
+            'hour_start' => $hour_start,
+            'date_end' => $date_end,
+            'hour_end' => $hour_end,
+            'active' => $active,
+        ];
+
+        //$status = json_encode($st);
+
+        return $st;
+    }
+
+    public static function config($show_author, $show_day_public, $show_day_alteration, $show_description, $show_url, $show_download, $show_author_photo, $show_author_video, $show_print, $show_share){
+        $cg = [
+            'show_author' => $show_author,
+            'show_day_public' => $show_day_public,
+            'show_day_alteration' => $show_day_alteration,
+            'show_description' => $show_description,
+            'show_url' => $show_url,
+            'show_download' => $show_download,
+            'show_author_photo' => $show_author_photo,
+            'show_author_video' => $show_author_video,
+            'show_print' => $show_print,
+            'show_share' => $show_share,
+        ];
+        //$config = json_encode($cg);
+        return $cg;
+    }
+
+    public static function creators($dados){
+        $cr = (object) [
             'id_user' => "",
             'author' => "",
             'company' => "",
+            'description' => "",
         ];
-
-        return $creators;
+        //$creators = json_encode($cr);
+        return $cr;
     }
 
     public static function response(){
@@ -396,6 +432,21 @@ class CoreController extends Controller
             'position' => "",
             'answers' => "",
             'value' => "",
+        ];
+
+        return $response;
+    }
+
+    public static function type(){
+        $response = (object) [
+            ['id' => 1, 'title' => "fotografia"],
+            ['id' => 2, 'title' => "Imagem digital"],
+            ['id' => 3, 'title' => "desenho digital"],
+            ['id' => 4, 'title' => "desenho manual"],
+            ['id' => 5, 'title' => "grafico"],
+            ['id' => 6, 'title' => "pintura"],
+            ['id' => 7, 'title' => "tabela"],
+
         ];
 
         return $response;
@@ -461,6 +512,19 @@ class CoreController extends Controller
         ];
 
         return $category;
+    }
+
+    public static function classification(){
+        $response = (object) [
+            ['id' => "1", 'title' => "Livre (L)", 'anos' => "L",  'public' => true, 'desc' => "Violência: Arma sem violência; Morte sem Violência; Ossada ou esqueleto sem violência; Violência Fantasiosa. Sexo e Nudez: Nudez não erótica. Drogas: Consumo moderado ou insinuado de droga lícita."],
+            ['id' => "2", 'title' => "Não recomendado para menores de 10 (dez) anos", 'anos' => "10", 'cor'=> "#00b150", 'public' => true, 'desc' => "Violência: Angústia; Arma com violência; Ato criminoso sem violência; Linguagem depreciativa; Medo ou tensão; Ossada ou esqueleto com resquício de ato de violência Sexo e Nudez: Conteúdo educativo sobre sexo. Drogas: Descrição do consumo de droga lícita; Discussão sobre o tema drogas; Uso medicinal de droga ilícita."],
+            ['id' => "3", 'title' => "Não recomendado para menores de 12 (doze) anos", 'anos' => "12", 'cor'=> "#00CDFF", 'public' => true, 'desc' => "Violência: Agressão verbal; Assédio sexual; Ato violento; Ato violento contra animal; Bullying; Descrição de violência; Exposição ao perigo; Exposição de cadáver; Exposição de pessoa em situação constrangedora ou degradante; Lesão corporal; Morte derivada de ato heróico; Morte natural ou acidental com dor ou violência; Obscenidade; Presença de sangue; Sofrimento da vítima; Supervalorização da beleza física; Supervalorização do consumo; Violência psicológica. Sexo e Nudez: Apelo sexual; Carícia sexual; Insinuação sexual; Linguagem chula; Linguagem de conteúdo sexual; Masturbação; Nudez velada; Simulação de sexo. Drogas: Consumo de droga lícita; Consumo irregular de medicamento; Discussão sobre legalização de droga ilícita; Indução ao uso de droga lícita; Menção a droga ilícita."],
+            ['id' => "4", 'title' => "Não recomendado para menores de 14 (quatorze) anos", 'anos' => "14", 'cor'=> "#FFCC00", 'public' => true, 'desc' => "Violência: Aborto; Estigma ou preconceito; Eutanásia; Exploração sexual; Morte intencional; Pena de morte. Sexo e Nudez: Erotização; Nudez; Prostituição; Relação sexual; Vulgaridade. Drogas: Consumo insinuado de droga ilícita; Descrição do consumo ou tráfico de droga ilícita."],
+            ['id' => "5", 'title' => "Não recomendado para menores de 16 (dezesseis) anos", 'anos' => "16",'cor'=> "#FF6600",  'public' => true, 'desc' => "Violência: Ato de pedofilia; Crime de ódio; Estupro ou coação sexual; Mutilação; Suicídio; Tortura; Violência gratuita ou banalização da violência. Sexo e Nudez: Relação sexual intensa. Drogas: Consumo de droga ilícita; Indução ao consumo de droga ilícita; Produção ou tráfico de droga ilícita."],
+            ['id' => "6", 'title' => "Não recomendado para menores de 18 (dezoito) anos", 'anos' => "18", 'cor'=> "#000000", 'public' => true, 'desc' => "Violência: Apologia à violência; Crueldade. Sexo e Nudez: Sexo explícito; Situação sexual complexa ou de forte impacto. Drogas: Apologia ao uso de droga ilícita."],
+        ];
+
+        return $response;
     }
 
 }

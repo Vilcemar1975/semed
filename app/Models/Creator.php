@@ -7,27 +7,18 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Creator extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+
     protected $fillable = [
-        'from_who',
         'id_user',
-        'id_group',
-        'creators',
-        'title',
-        'nickname',
-        'subtitle',
-        'category',
-        'text',
-        'highlight',
-        'special_position',
-        'config',
-        'status',
-        'access',
-        'trash',
+        'name_full',
+        'company',
+        'description',
     ];
+
 
     protected $hidden = [
 
@@ -35,9 +26,7 @@ class Article extends Model
 
 
     protected $casts = [
-        'status' => 'array',
-        'config' => 'array',
-    ];
 
+    ];
 
 }

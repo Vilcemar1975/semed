@@ -2,7 +2,11 @@
 
     <input type="checkbox" name="{{$idname}}" id="{{$idname}}"
         class="block rounded-md border-azul-100 w-[24px] h-[24px] self-center"
+        @if ($checked)
+            checked
+        @endif
     >
+
     <label for="{{$idname}}" class="self-center">{{ $label}}</label>
 
     @error('{{$idname}}')

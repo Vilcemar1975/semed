@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('team_user', function (Blueprint $table) {
+        Schema::create('creators', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('team_id');
-            $table->foreignId('user_id');
-            $table->string('role')->nullable();
+            $table->biginteger('id_user')->nullable(); // quem cadastrou
+            $table->string('name_full')->nullable();
+            $table->string('company')->nullable();
+            $table->mediumText('description')->nullable();
             $table->timestamps();
-            $table->unique(['team_id', 'user_id']);
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('team_user');
+        Schema::dropIfExists('creators');
     }
 };

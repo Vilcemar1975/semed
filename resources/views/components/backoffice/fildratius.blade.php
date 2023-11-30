@@ -2,9 +2,12 @@
 
     <input type="radio" name="{{$idname}}" id="{{$idid}}"
         class="block rounded-lg border-azul-100 w-[15px] h-[15px] self-center"
-        @if ($checkted)
-            checked
-        @endif
+        @isset($checkted)
+            @if ($checkted)
+                checked
+            @endif
+        @endisset
+        value="{{$value}}"
     >
     <label for="{{$idid}}" class="self-center text-[9pt]">{{ $label}}</label>
 

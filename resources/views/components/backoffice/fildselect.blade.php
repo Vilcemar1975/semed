@@ -1,13 +1,14 @@
 <div class="block w-full mt-2">
 
-
     @include('components.backoffice.label',['idname' => $idname,'label' => $label])
     <select name="{{$idname}}" id="{{$idname}}"
         class="w-full rounded-md border-azul-100 self-center text-azul-100"
     >
 
         @isset($selected)
-            <option value="{{$selected}}" selected>{{$selected}}</option>
+            @if ($selected != [])
+                <option value="{{$selected['id']}}" selected>{{$selected['title']}}</option>
+            @endif
         @endisset
 
         @forelse ( $lista as $item)

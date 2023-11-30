@@ -13,8 +13,6 @@
             value="{{$value}}"
         @endisset
 
-
-
     >
     @error('{{$idname}}')
         <div class="">{{ $message }}</div>
