@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('uid_from_who')->nullable(); //código unico
             $table->biginteger('id_user')->nullable(); //criador do grupo
             $table->string('name', 120)->nullable();
             $table->string('nickname', 120)->nullable();

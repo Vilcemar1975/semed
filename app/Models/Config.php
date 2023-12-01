@@ -13,6 +13,7 @@ class Config extends Model
 
 
     protected $fillable = [
+        'uid_from_who',
         'iddequem',
         'codsite',
         'name',
@@ -28,7 +29,7 @@ class Config extends Model
 
 
     protected $casts = [
-
+        'body' => 'array',
     ];
 
 }

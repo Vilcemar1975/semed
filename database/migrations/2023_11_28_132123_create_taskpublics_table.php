@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('taskpublics', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('uid_from_who');
             $table->unsignedBigInteger('id_articles');
             $table->date('date_start')->nullable();
             $table->time('hour_start', $precision = 0);

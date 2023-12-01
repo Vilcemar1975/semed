@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('uid_from_who'); //código unico
             $table->string('from_who')->nullable();
             $table->unsignedBigInteger('id_user');
             $table->string('pis_pasep', 50)->nullable();

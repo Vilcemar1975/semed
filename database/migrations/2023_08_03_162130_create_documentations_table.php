@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('documentations', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uid')->nullable()->default(null);
+            $table->uuid('uid')->nullable();
             $table->string('codsite')->nullable();
             $table->unsignedBigInteger('user_id')->nullable()->default(12);
             $table->string('cpf', 20)->nullable();

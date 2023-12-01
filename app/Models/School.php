@@ -6,28 +6,33 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Article extends Model
+
+class School extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
         'uid',
-        'from_who',
         'id_user',
         'id_group',
-        'creators',
-        'title',
+        'region',
+        'inep',
+        'name',
         'nickname',
-        'subtitle',
-        'category',
-        'text',
-        'highlight',
-        'special_position',
+        'phone',
+        'type',
+        'level',
+        'description',
+        'what_have',
         'config',
         'status',
-        'access',
+        'highlight',
+        'special_position',
+        'acesso',
         'trash',
+
     ];
 
     protected $hidden = [
@@ -36,9 +41,15 @@ class Article extends Model
 
 
     protected $casts = [
+        'phone' => 'array',
+        'what_have' => 'array',
         'status' => 'array',
         'config' => 'array',
     ];
 
-
+    public function image(): HasOne
+    {
+        return $this->hasOne(Image::class, 'id_from_who');
+    }
 }
+

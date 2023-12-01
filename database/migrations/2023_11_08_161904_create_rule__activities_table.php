@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('rule__activities', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('uid_from_who'); //código unico
             $table->biginteger('id_group')->nullable();
             $table->unsignedBigInteger('id_activities');
             $table->string('title');

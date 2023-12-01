@@ -12,7 +12,7 @@ class Image extends Model
     protected $fillable = [
         'id_user',
         'id_group',
-        'id_from_who',
+        'uid_from_who',
         'id_author',
         'title',
         'nickname',
@@ -24,6 +24,10 @@ class Image extends Model
         'source',
         'trash',
         'config',
+    ];
+
+    protected $casts = [
+        'config' => 'array',
     ];
 
 }

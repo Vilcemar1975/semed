@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('months', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('uid_from_who'); //código unico
             $table->unsignedBigInteger('id_calendars');
             $table->json('list_days')->nullable();
             $table->integer('year')->nullable();

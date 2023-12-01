@@ -11,7 +11,8 @@ class Topic extends Model
     use HasFactory;
 
     protected $fillable = [
-        'from_who',
+        'uid',
+        'uid_from_who',
         'id_articles',
         'position',
         'title',

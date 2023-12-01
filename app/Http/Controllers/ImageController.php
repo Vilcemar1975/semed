@@ -7,6 +7,7 @@ use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ImageController extends Controller
 {
@@ -18,7 +19,7 @@ class ImageController extends Controller
             $img = Image::create([
                 'id_user' => Auth::id(),
                 'id_group' => $dados['id_group'],
-                'id_from_who' => $dados['id_from_who'],
+                'uid_from_who' => Str::uuid(),
                 'id_author' => $dados['id_author'],
                 'title' => $dados['title'],
                 'category' => $dados['category'],
@@ -48,7 +49,6 @@ class ImageController extends Controller
 
             DB::table('images')->where('id', $idimg)->update([
                 'id_group' => $dados['id_group'],
-                'id_from_who' => $dados['id_from_who'],
                 'id_author' => $dados['id_author'],
                 'title' => $dados['title'],
                 'nickname' => $dados['nickname'],

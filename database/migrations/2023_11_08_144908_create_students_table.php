@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('uid_from_who'); //código unico
             $table->biginteger('id_user')->nullable();
             $table->biginteger('id_group')->nullable();
             $table->biginteger('id_school')->nullable();

@@ -11,26 +11,26 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('schools', function (Blueprint $table) {
             $table->id();
             $table->uuid('uid');
-            $table->string('from_who')->nullable();
-            $table->unsignedBigInteger('id_user');
-            $table->bigInteger('id_group')->nullable();
-            $table->bigInteger('creators')->nullable();
-            $table->string('category');
-            $table->string('title');
-            $table->string('subtitle')->nullable();
+            $table->foreignId('id_user');
+            $table->foreignId('id_group')->nullable();
+            $table->tinyInteger('region');
+            $table->string('inep', 10);
+            $table->string('name');
             $table->string('nickname')->nullable();
-            $table->json('status')->nullable();
+            $table->json('phone')->nullable();
+            $table->string('type', 10)->nullable();
+            $table->string('level', 100)->nullable();
+            $table->longText('description')->nullable();
+            $table->json('what_have')->nullable();
             $table->json('config')->nullable();
+            $table->json('status')->nullable();
             $table->boolean('highlight')->nullable();
             $table->string('special_position')->nullable();
             $table->string('acesso')->nullable();
             $table->boolean('trash')->default(false);
-
-            // Definir as chaves estrangeiras, se necessário
-            $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('schools');
     }
 };

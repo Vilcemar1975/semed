@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('uid_from_who'); //código unico
             $table->string('iddequem')->nullable();
             $table->string('codsite')->nullable();
             $table->string('name')->nullable();

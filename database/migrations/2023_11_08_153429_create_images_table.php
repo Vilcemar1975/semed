@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('uid_from_who'); //código unico
             $table->biginteger('id_user')->nullable(); // quem cadastrou
             $table->biginteger('id_group')->nullable();
-            $table->biginteger('id_from_who')->nullable();
             $table->biginteger('id_author')->nullable();
             $table->string('title')->nullable();
             $table->string('nickname')->nullable();
-            $table->string('category', 30)->nullable();
-            $table->string('classification')->nullable();
+            $table->string('category')->nullable();
+            $table->string('classification')->nullable();//
             $table->string('url')->nullable();
             $table->string('type', 5)->nullable(); //jpeg, png, jpg
             $table->mediumText('description')->nullable();

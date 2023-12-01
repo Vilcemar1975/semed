@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('topics', function (Blueprint $table) {
             $table->id();
-            $table->string('from_who')->nullable();
+            $table->uuid('uid');
+            $table->string('uid_from_who')->nullable();
             $table->unsignedBigInteger('id_articles');
             $table->integer('position')->default(3);
             $table->string('title');

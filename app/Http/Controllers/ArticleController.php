@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Article;
 use App\Models\Creator;
 use App\Models\Image;
@@ -17,6 +20,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
+
 class ArticleController extends Controller
 {
     public static function ArticleList(){
@@ -24,6 +30,35 @@ class ArticleController extends Controller
             $articlesList = Article::where('trash', false)->all();
 
         return $articlesList;
+    }
+
+    public static function CreateArticle(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'category' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('dash/artigo')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $nickname = Str::slug(Str::lower($request->title), '-');
+
+        $config = CoreController::config(false, false, false, false, false, false, false, false, false, false);
+
+        $status = CoreController::status("no_public",  "", "", "", "", false);
+
+        try {
+            $artigo = Article::create(['id_user' => auth()->id(),'title' => $request->title, 'nickname' => $nickname, 'category' => $request->category, 'config' => $config, 'status' => $status]);
+        } catch (ModelNotFoundException $th) {
+            return redirect()->back()->with('danger', $th);
+        } catch (QueryException $e) {
+            return redirect()->back()->with('danger', $e);
+        }
+
     }
 
 

@@ -8,7 +8,9 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Article;
 use App\Http\Controllers\CoreController;
+use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -26,30 +28,6 @@ class DashboardController extends Controller
 
     public function DashArtigoAdd(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|max:255',
-            'category' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('dash/artigo')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-
-        $nickname = Str::slug(Str::lower($request->title), '-');
-
-        $config = CoreController::config(false, false, false, false, false, false, false, false, false, false);
-
-        $status = CoreController::status("no_public",  "", "", "", "", false);
-
-        try {
-            $artigo = Article::create(['id_user' => auth()->id(),'title' => $request->title, 'nickname' => $nickname, 'category' => $request->category, 'config' => $config, 'status' => $status]);
-        } catch (ModelNotFoundException $th) {
-            return redirect()->back()->with('danger', $th);
-        } catch (QueryException $e) {
-            return redirect()->back()->with('danger', $e);
-        }
 
         return redirect()->route('dashartigoedit',['id' => $artigo->id]);
     }
@@ -216,12 +194,19 @@ class DashboardController extends Controller
     public function DashEscola()
     {   $ativar = 'dashescola';
         $dados = CoreController::conjuntoVariaveisDashboard();
+        $escolas = SchoolController::ListSchool();
 
-        return view('backoffice.dashescola', compact(['dados', 'ativar']));
+
+        return view('backoffice.dashescola', compact(['dados', 'ativar', 'escolas']));
     }
 
-    public function DashEscolaAdd()
-    {   $ativar = 'dashescola';
+    public function DashEscolaAdd(Request $request)
+    {
+
+        $escola = SchoolController::CreateSchool($request);
+
+
+        $ativar = 'dashescola';
         $dados = CoreController::conjuntoVariaveisDashboard();
 
         return view('backoffice.dashescolasadd', compact(['dados', 'ativar']));

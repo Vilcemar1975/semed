@@ -12,7 +12,6 @@
         @endisset
 
         @forelse ( $lista as $item)
-
             <option value="{{$item['id']?? ''}}">{{$item['title'] ?? ""}}</option>
         @empty
             <option value="-">Não há registro!</option>

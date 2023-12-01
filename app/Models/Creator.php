@@ -13,6 +13,7 @@ class Creator extends Model
 
 
     protected $fillable = [
+        'uid_from_who',
         'id_user',
         'name_full',
         'company',

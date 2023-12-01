@@ -39,6 +39,8 @@ class CoreController extends Controller
             'acess' => self::acess(),
             'classifications' => self::classification(),
             'type' => self::type(),
+            'nivelEscolar' => self::nivelEscolar(),
+            'regiao' => self::regiao(),
         ];
 
         return $dados;
@@ -309,14 +311,28 @@ class CoreController extends Controller
 
     public static function nivelEscolar(){
         $nivelescolar = [
-            ['id' => "0", 'name' => "Educação Infantil",     'active' => true, 'icon' => "",  ],
-            ['id' => "1", 'name' => "Ensino Fundamental",    'active' => true, 'icon' => "",  ],
-            ['id' => "2", 'name' => "Ensino Tempo Integral", 'active' => true, 'icon' => "",  ],
-            ['id' => "3", 'name' => "EJA",                   'active' => true, 'icon' => "",  ],
+            ['id' => "0", 'name' => "EDUCAÇÃO INFANTIL - CRECHE (1º a 3º ano)",     'active' => true, 'icon' => "",  ],
+            ['id' => "1", 'name' => "EDUCAÇÃO INFANTIL - PRÉ-ESCOLAR (4º a 5º ano)",    'active' => true, 'icon' => "",  ],
+            ['id' => "2", 'name' => "ENSINO FUNDAMENTAL - ANOS INICIAIS (1º ao 5º ano)", 'active' => true, 'icon' => "",  ],
+            ['id' => "3", 'name' => "ENSINO FUNDAMENTAL - ANOS FINAIS (1º ao 5º ano)",                   'active' => true, 'icon' => "",  ],
+            ['id' => "3", 'name' => "EJA - (1º ao 9º ano)",                   'active' => true, 'icon' => "",  ],
 
         ];
 
         return $nivelescolar;
+    }
+
+    public static function regiao(){
+        $regiao = [
+            ['id' => "1", 'title' => "Região 01", 'active' => true, 'icon' => "",  ],
+            ['id' => "2", 'title' => "Região 02", 'active' => true, 'icon' => "",  ],
+            ['id' => "3", 'title' => "Região 03", 'active' => true, 'icon' => "",  ],
+            ['id' => "4", 'title' => "Região 04", 'active' => true, 'icon' => "",  ],
+            ['id' => "5", 'title' => "Região 05", 'active' => true, 'icon' => "",  ],
+
+        ];
+
+        return $regiao;
     }
 
     public static function categoriasMaterias(){
@@ -516,12 +532,12 @@ class CoreController extends Controller
 
     public static function classification(){
         $response = (object) [
-            ['id' => "1", 'title' => "Livre (L)", 'anos' => "L",  'public' => true, 'desc' => "Violência: Arma sem violência; Morte sem Violência; Ossada ou esqueleto sem violência; Violência Fantasiosa. Sexo e Nudez: Nudez não erótica. Drogas: Consumo moderado ou insinuado de droga lícita."],
-            ['id' => "2", 'title' => "Não recomendado para menores de 10 (dez) anos", 'anos' => "10", 'cor'=> "#00b150", 'public' => true, 'desc' => "Violência: Angústia; Arma com violência; Ato criminoso sem violência; Linguagem depreciativa; Medo ou tensão; Ossada ou esqueleto com resquício de ato de violência Sexo e Nudez: Conteúdo educativo sobre sexo. Drogas: Descrição do consumo de droga lícita; Discussão sobre o tema drogas; Uso medicinal de droga ilícita."],
-            ['id' => "3", 'title' => "Não recomendado para menores de 12 (doze) anos", 'anos' => "12", 'cor'=> "#00CDFF", 'public' => true, 'desc' => "Violência: Agressão verbal; Assédio sexual; Ato violento; Ato violento contra animal; Bullying; Descrição de violência; Exposição ao perigo; Exposição de cadáver; Exposição de pessoa em situação constrangedora ou degradante; Lesão corporal; Morte derivada de ato heróico; Morte natural ou acidental com dor ou violência; Obscenidade; Presença de sangue; Sofrimento da vítima; Supervalorização da beleza física; Supervalorização do consumo; Violência psicológica. Sexo e Nudez: Apelo sexual; Carícia sexual; Insinuação sexual; Linguagem chula; Linguagem de conteúdo sexual; Masturbação; Nudez velada; Simulação de sexo. Drogas: Consumo de droga lícita; Consumo irregular de medicamento; Discussão sobre legalização de droga ilícita; Indução ao uso de droga lícita; Menção a droga ilícita."],
-            ['id' => "4", 'title' => "Não recomendado para menores de 14 (quatorze) anos", 'anos' => "14", 'cor'=> "#FFCC00", 'public' => true, 'desc' => "Violência: Aborto; Estigma ou preconceito; Eutanásia; Exploração sexual; Morte intencional; Pena de morte. Sexo e Nudez: Erotização; Nudez; Prostituição; Relação sexual; Vulgaridade. Drogas: Consumo insinuado de droga ilícita; Descrição do consumo ou tráfico de droga ilícita."],
-            ['id' => "5", 'title' => "Não recomendado para menores de 16 (dezesseis) anos", 'anos' => "16",'cor'=> "#FF6600",  'public' => true, 'desc' => "Violência: Ato de pedofilia; Crime de ódio; Estupro ou coação sexual; Mutilação; Suicídio; Tortura; Violência gratuita ou banalização da violência. Sexo e Nudez: Relação sexual intensa. Drogas: Consumo de droga ilícita; Indução ao consumo de droga ilícita; Produção ou tráfico de droga ilícita."],
-            ['id' => "6", 'title' => "Não recomendado para menores de 18 (dezoito) anos", 'anos' => "18", 'cor'=> "#000000", 'public' => true, 'desc' => "Violência: Apologia à violência; Crueldade. Sexo e Nudez: Sexo explícito; Situação sexual complexa ou de forte impacto. Drogas: Apologia ao uso de droga ilícita."],
+            ['id' => "01", 'title' => "Livre (L)", 'anos' => "L",  'public' => true, 'desc' => "Violência: Arma sem violência; Morte sem Violência; Ossada ou esqueleto sem violência; Violência Fantasiosa. Sexo e Nudez: Nudez não erótica. Drogas: Consumo moderado ou insinuado de droga lícita."],
+            ['id' => "02", 'title' => "Não recomendado para menores de 10 (dez) anos", 'anos' => "10", 'cor'=> "#00b150", 'public' => true, 'desc' => "Violência: Angústia; Arma com violência; Ato criminoso sem violência; Linguagem depreciativa; Medo ou tensão; Ossada ou esqueleto com resquício de ato de violência Sexo e Nudez: Conteúdo educativo sobre sexo. Drogas: Descrição do consumo de droga lícita; Discussão sobre o tema drogas; Uso medicinal de droga ilícita."],
+            ['id' => "03", 'title' => "Não recomendado para menores de 12 (doze) anos", 'anos' => "12", 'cor'=> "#00CDFF", 'public' => true, 'desc' => "Violência: Agressão verbal; Assédio sexual; Ato violento; Ato violento contra animal; Bullying; Descrição de violência; Exposição ao perigo; Exposição de cadáver; Exposição de pessoa em situação constrangedora ou degradante; Lesão corporal; Morte derivada de ato heróico; Morte natural ou acidental com dor ou violência; Obscenidade; Presença de sangue; Sofrimento da vítima; Supervalorização da beleza física; Supervalorização do consumo; Violência psicológica. Sexo e Nudez: Apelo sexual; Carícia sexual; Insinuação sexual; Linguagem chula; Linguagem de conteúdo sexual; Masturbação; Nudez velada; Simulação de sexo. Drogas: Consumo de droga lícita; Consumo irregular de medicamento; Discussão sobre legalização de droga ilícita; Indução ao uso de droga lícita; Menção a droga ilícita."],
+            ['id' => "04", 'title' => "Não recomendado para menores de 14 (quatorze) anos", 'anos' => "14", 'cor'=> "#FFCC00", 'public' => true, 'desc' => "Violência: Aborto; Estigma ou preconceito; Eutanásia; Exploração sexual; Morte intencional; Pena de morte. Sexo e Nudez: Erotização; Nudez; Prostituição; Relação sexual; Vulgaridade. Drogas: Consumo insinuado de droga ilícita; Descrição do consumo ou tráfico de droga ilícita."],
+            ['id' => "05", 'title' => "Não recomendado para menores de 16 (dezesseis) anos", 'anos' => "16",'cor'=> "#FF6600",  'public' => true, 'desc' => "Violência: Ato de pedofilia; Crime de ódio; Estupro ou coação sexual; Mutilação; Suicídio; Tortura; Violência gratuita ou banalização da violência. Sexo e Nudez: Relação sexual intensa. Drogas: Consumo de droga ilícita; Indução ao consumo de droga ilícita; Produção ou tráfico de droga ilícita."],
+            ['id' => "06", 'title' => "Não recomendado para menores de 18 (dezoito) anos", 'anos' => "18", 'cor'=> "#000000", 'public' => true, 'desc' => "Violência: Apologia à violência; Crueldade. Sexo e Nudez: Sexo explícito; Situação sexual complexa ou de forte impacto. Drogas: Apologia ao uso de droga ilícita."],
         ];
 
         return $response;

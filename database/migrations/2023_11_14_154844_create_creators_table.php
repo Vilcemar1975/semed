@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('creators', function (Blueprint $table) {
             $table->id();
+            $table->uid('uid_from_who');
             $table->biginteger('id_user')->nullable(); // quem cadastrou
             $table->string('name_full')->nullable();
             $table->string('company')->nullable();

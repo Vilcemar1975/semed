@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dash/usuarios/add/{id?}', [DashboardController::class, 'DashUsuariosAdd'])->name('dashusuariosadd');
     Route::get('/dash/link', [DashboardController::class, 'DashLinkExterno'])->name('dashlinkexterno');
     Route::get('/dash/escola', [DashboardController::class, 'DashEscola'])->name('dashescola');
-    Route::get('/dash/escola/add/{id?}', [DashboardController::class, 'DashEscolaAdd'])->name('dashescolaadd');
+    Route::post('/dash/escola/add', [DashboardController::class, 'DashEscolaAdd'])->name('dashescolaadd');
     Route::get('/dash/config', [DashboardController::class, 'DashConfig'])->name('dashconfig');
     Route::get('/dash/config/group', [DashboardController::class, 'DashGroup'])->name('dashgroup');
 

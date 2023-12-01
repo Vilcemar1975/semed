@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('calendars', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uid');
             $table->bigInteger('id_user');
             $table->bigInteger('id_group');
             $table->string('title')->nullable();

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('specificlinks', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uid'); //código unico
             $table->biginteger('id_user')->nullable();
             $table->biginteger('id_group')->nullable();
             $table->string('name');

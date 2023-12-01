@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('kin', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('uid_from_who'); //código unico
             $table->string('from_who')->nullable();
             $table->biginteger('id_group')->nullable();
             $table->unsignedBigInteger('id_user');

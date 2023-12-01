@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('andresses', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('uid_from_who'); //código unico
             $table->biginteger('id_user')->nullable(); // quem cadastrou
             $table->biginteger('id_group')->nullable();
             $table->string('from_who')->nullable();

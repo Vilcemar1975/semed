@@ -13,6 +13,7 @@ class Taskpublic extends Model
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
+        'uid_from_who',
         'id_articles',
         'date_start',
         'hour_start',
