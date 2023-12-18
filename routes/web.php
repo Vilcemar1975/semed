@@ -6,6 +6,9 @@ use App\Http\Controllers\CoreController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\TopicsController;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\AndressController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\AreaTecnica;
 use Illuminate\Support\Facades\Route;
 
@@ -75,7 +78,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/dash/usuarios/add/{id?}', [DashboardController::class, 'DashUsuariosAdd'])->name('dashusuariosadd');
     Route::get('/dash/link', [DashboardController::class, 'DashLinkExterno'])->name('dashlinkexterno');
     Route::get('/dash/escola', [DashboardController::class, 'DashEscola'])->name('dashescola');
-    Route::post('/dash/escola/add', [DashboardController::class, 'DashEscolaAdd'])->name('dashescolaadd');
     Route::get('/dash/config', [DashboardController::class, 'DashConfig'])->name('dashconfig');
     Route::get('/dash/config/group', [DashboardController::class, 'DashGroup'])->name('dashgroup');
 
@@ -88,11 +90,27 @@ Route::middleware('auth')->group(function () {
     Route::get('/dash/artigo/editar/{id}', [ArticleController::class, 'ArticleEdit'])->name('articleedit');
     Route::get('/dash/artigo/trash/{id?}', [ArticleController::class, 'ArticleTrash'])->name('articletrash');
     Route::get('/dash/artigo/creator/save/{id?}', [ArticleController::class, 'CriarCriador'])->name('criarcriador');
-    Route::get('/dash/artigo/public/{id?}', [ArticleController::class, 'ArticlePublic'])->name('articlePublic');
+    Route::get('/dash/artigo/public/{id?}', [ArticleController::class, 'ArticlePublic'])->name('articlepublic');
+    Route::get('/dash/artigo/topic/duplicate', [ArticleController::class, 'DuplicateAticle'])->name('duplicateaticle');
+
     Route::post('/dash/artigo/topic/save/{id}', [TopicsController::class, 'topicSave'])->name('topicsave');
     Route::get('/dash/artigo/topic/public/{id}', [TopicsController::class, 'topicPublic'])->name('topicpublic');
     Route::post('/dash/artigo/topic/alterar/{id}', [TopicsController::class, 'topicAlter'])->name('topicalter');
     Route::get('/dash/artigo/topic/delete/{id}', [TopicsController::class, 'topicErase'])->name('topicerase');
+
+    /* Escola criar, salva e excluir */
+    Route::post('/dash/escola/add/{uid?}', [SchoolController::class, 'CreateSchool'])->name('dashescolaadd');
+    Route::get('/dash/escola/editarshow/{uid}', [SchoolController::class, 'EditarEscola'])->name('editarescola');
+    Route::post('/dash/escola/editar/{uid}', [SchoolController::class, 'EditSchool'])->name('editschool');
+    Route::get('/dash/escola/excluir/{uid}', [SchoolController::class, 'ExcluirEscola'])->name('excluirescola');
+    Route::get('/dash/escola/search-users', [SchoolController::class, 'SearchUsers'])->name('searchusers');
+
+    /* Endereço criar, salva e excluir */
+    Route::get('/dash/endereco/add/{uid}', [AndressController::class, 'AndressSalvar'])->name('andresssalvar');
+
+    /* Galeria criar, Salvar e Excluir */
+    Route::post('/dash/galeria/add/{uid?}', [GalleryController::class, 'store'])->name('gallerystore');
+
 
 });
 

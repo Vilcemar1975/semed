@@ -28,7 +28,7 @@ class Topic extends Model
 
     public function image(): HasOne
     {
-        return $this->hasOne(Image::class, 'id_from_who');
+        return $this->hasOne(Image::class, 'uid_from_who', 'uid');
     }
 
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->uuid('uid');
-            $table->string('from_who')->nullable();
+            $table->foreignUuid('uid_from_who')->nullable();
             $table->unsignedBigInteger('id_user');
             $table->bigInteger('id_group')->nullable();
             $table->bigInteger('creators')->nullable();

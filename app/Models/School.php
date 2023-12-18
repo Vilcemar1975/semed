@@ -19,20 +19,24 @@ class School extends Model
         'id_group',
         'region',
         'inep',
+        'date_open',
         'name',
+        'unit',
         'nickname',
-        'phone',
+        'phones',
+        'emails',
         'type',
         'level',
         'description',
-        'what_have',
+        'direction',
+        'structure',
         'config',
         'status',
+        'social_media',
         'highlight',
         'special_position',
         'acesso',
         'trash',
-
     ];
 
     protected $hidden = [
@@ -41,15 +45,23 @@ class School extends Model
 
 
     protected $casts = [
-        'phone' => 'array',
+        'phones' => 'array',
+        'emails' => 'array',
+        'direction' => 'array',
         'what_have' => 'array',
         'status' => 'array',
         'config' => 'array',
+        'social_media' => 'array',
     ];
 
     public function image(): HasOne
     {
-        return $this->hasOne(Image::class, 'id_from_who');
+        return $this->hasOne(Image::class, 'uid_from_who', 'uid');
+    }
+
+    public function andress(): HasOne
+    {
+        return $this->hasOne(Andress::class, 'uid_from_who', 'uid');
     }
 }
 

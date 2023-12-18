@@ -6,22 +6,21 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+//use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Taskpublic extends Model
+class Gallery extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
         'uid',
+        'id_user',
+        'id_group',
         'uid_from_who',
-        'date_start',
-        'hour_start',
-        'date_end',
-        'hour_end',
-        'total_dias',
+        'imagens',
+        'public',
     ];
-
 
     protected $hidden = [
 
@@ -29,11 +28,7 @@ class Taskpublic extends Model
 
 
     protected $casts = [
-
+        'imagens' => 'array',
     ];
 
-    public function article(): BelongsTo
-    {
-        return $this->belongsTo(Article::class);
-    }
 }

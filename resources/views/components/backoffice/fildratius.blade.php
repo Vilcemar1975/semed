@@ -7,7 +7,10 @@
                 checked
             @endif
         @endisset
-        value="{{$value}}"
+        @isset($value)
+            value="{{$value}}"
+        @endisset
+
     >
     <label for="{{$idid}}" class="self-center text-[9pt]">{{ $label}}</label>
 

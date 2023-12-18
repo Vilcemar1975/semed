@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('uid_from_who'); //código unico
+            $table->uuid('uid'); //código unico
             $table->string('id_user')->nullable(); //Usuário que Criou a Conta
             $table->string('id_group')->nullable();
             $table->string('matriculation', 50)->nullable();

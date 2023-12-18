@@ -29,7 +29,9 @@ class CoreController extends Controller
 
     public static function conjuntoVariaveisDashboard()
     {
-        TaskpublicController::publicDay();
+        TaskpublicController::publicDay("articles");
+        TaskpublicController::publicDay("schools");
+
         $dados = [
             'menudashbord' => self::menuDashbord(),
             'nivelEscolar' => self::nivelEscolar(),
@@ -41,6 +43,9 @@ class CoreController extends Controller
             'type' => self::type(),
             'nivelEscolar' => self::nivelEscolar(),
             'regiao' => self::regiao(),
+            'unit' => self::unit(),
+            'icons' => self::icons(),
+            'structurelist' => self::structureList()
         ];
 
         return $dados;
@@ -443,6 +448,71 @@ class CoreController extends Controller
         return $cr;
     }
 
+    public static function emails($type, $email, $icon){
+        /**
+         * $type: Tipo do email ex. "redencial", "empresa"
+         * $email: string e-mail.
+         * $icon: Armazena o icone do app
+         */
+        $cr = [
+            'type' => $type,
+            'email' => $email,
+            'icon' => $icon,
+        ];
+        return $cr;
+    }
+
+    public static function phones($number, $app, $icon){
+        /**
+         * $number: numero de telefone
+         * $app: Boolean que determina se tem aplicativo ou não.
+         * $icon: Armazena o icone do app
+         */
+        $cr = [
+            'number' => $number,
+            'app' => $app,
+            'icon' => $icon,
+        ];
+        return $cr;
+    }
+
+    public static function direction($uid, $registration ,$namefull){
+        $direction = [
+            'uid' => $uid,
+            'registration' => $registration,
+            'name_full' => $namefull,
+        ];
+
+        return $direction;
+    }
+
+    public static function icons(){
+
+        $cr = [
+            ['id' => 1, 'name' => "whatsapp",  'icon' => "fa-brands fa-whatsapp" , 'active' => false],
+            ['id' => 2, 'name' => "twitter",   'icon' => "fa-brands fa-x-twitter", 'active' => false],
+            ['id' => 3, 'name' => "linkedin",  'icon' => "fa-brands fa-linkedin" , 'active' => false],
+            ['id' => 4, 'name' => "instagram", 'icon' => "fa-brands fa-instagram", 'active' => false],
+            ['id' => 5, 'name' => "facebook",  'icon' => "fa-brands fa-facebook" , 'active' => false],
+            ['id' => 6, 'name' => "youtube",   'icon' => "fa-brands fa-youtube"  , 'active' => false],
+            ['id' => 7, 'name' => "telegram",  'icon' => "fa-brands fa-telegram" , 'active' => false],
+        ];
+
+        return $cr;
+    }
+
+    public static function socialMedia($urltwitter, $urllinkedin, $urlinstagram, $urlfacebook, $urlyoutube){
+        return [
+
+           [ 'name' => "twitter", 'url' => $urltwitter, 'icon' => "fa-brands fa-x-twitter", 'active' => $urltwitter != null ? true: false ],
+           [ 'name' => "linkedin", 'url' => $urllinkedin, 'icon' => "fa-brands fa-linkedin" , 'active' => $urllinkedin != null ? true: false],
+           [ 'name' => "instagram", 'url' => $urlinstagram, 'icon' => "fa-brands fa-instagram", 'active' => $urlinstagram != null ? true: false],
+           [ 'name' => "facebook", 'url' => $urlfacebook, 'icon' => "fa-brands fa-facebook" , 'active' => $urlfacebook != null ? true: false],
+           [ 'name' => "youtube", 'url' => $urlyoutube, 'icon' => "fa-brands fa-youtube" , 'active' => $urlyoutube != null ? true: false],
+
+        ];
+    }
+
     public static function response(){
         $response = (object) [
             'position' => "",
@@ -463,6 +533,31 @@ class CoreController extends Controller
             ['id' => 6, 'title' => "pintura"],
             ['id' => 7, 'title' => "tabela"],
 
+        ];
+
+        return $response;
+    }
+
+    public static function structureList(){
+
+        $response = [
+            ['id' => 1, 'title' => "QUADRA POLIESPORTIVA"],
+            ['id' => 2, 'title' => "CAMPO DE FUTEBOL"],
+            ['id' => 3, 'title' => "PISCINA"],
+            ['id' => 4, 'title' => "PISCINA INFANTIL"],
+            ['id' => 5, 'title' => "PISCINA OLÍMPICA"],
+            ['id' => 6, 'title' => "PARQUE INFANTIL"],
+            ['id' => 7, 'title' => "LABORATÓRIO"],
+            ['id' => 8, 'title' => "LABORATÓRIO DE INFORMÁTICA"],
+        ];
+
+        return $response;
+    }
+
+    public static function unit(){
+        $response = [
+            ['id' => 1, 'title' => "umei"],
+            ['id' => 2, 'title' => "umef"],
         ];
 
         return $response;
@@ -542,5 +637,6 @@ class CoreController extends Controller
 
         return $response;
     }
+
 
 }

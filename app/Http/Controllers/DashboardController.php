@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Article;
 use App\Http\Controllers\CoreController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\ArticleController;
+use App\Models\Image;
+use App\Models\School;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 
@@ -21,15 +24,17 @@ class DashboardController extends Controller
     public function DashArtigo()
     {   $ativar = 'dashartigo';
         $dados = CoreController::conjuntoVariaveisDashboard();
-        $artigos = Article::where('trash', false)->paginate(15);
+        $artigos = ArticleController::ArticleList();
+
 
         return view('backoffice.dashartigo', compact(['dados', 'ativar', 'artigos']));
     }
 
     public function DashArtigoAdd(Request $request)
     {
+        $artigo = ArticleController::CreateArticle($request);
 
-        return redirect()->route('dashartigoedit',['id' => $artigo->id]);
+        return redirect()->route('articleedit',['id' => $artigo->uid]);
     }
 
     public function DashArtigoEdit($id){
@@ -200,17 +205,39 @@ class DashboardController extends Controller
         return view('backoffice.dashescola', compact(['dados', 'ativar', 'escolas']));
     }
 
-    public function DashEscolaAdd(Request $request)
+    /* public function DashEscolaAdd(Request $request, $uidEscola = null)
     {
 
-        $escola = SchoolController::CreateSchool($request);
 
+
+        $school = [
+            'region'    => $request['region'],
+            'inep'      => $request['inep'],
+            'date_open' => $request['date_open'],
+            'name'      => $request['name'],
+            'unit'      => $request['unit'] == "01" ? 'umei': 'umef',
+            'nickname'  => $request['name'],
+            'request'  => $request,
+        ];
+
+        $Escola = SchoolController::CreateSchool($school);
+
+        if (!$Escola) {
+            return redirect()->route('dashescola')->withErrors(['errors' => 'Erro ao Cadastrar Escola']);
+        }
+
+        //$uidEscola = $Escola[0];
+
+        //$escola = School::where('uid', $uidEscola['uuid'])->first();
+        //$logo = Image::where('uid_from_who', $uidEscola)->whereJsonContains('config->logo', true)->first();
 
         $ativar = 'dashescola';
         $dados = CoreController::conjuntoVariaveisDashboard();
 
-        return view('backoffice.dashescolasadd', compact(['dados', 'ativar']));
-    }
+        //return view('backoffice.dashescolasadd', compact(['dados', 'ativar', 'escola', 'logo']));
+
+        redirect()->route('editarescola', ['uid' => $uidEscola])->with('success', "Salvo com sucesso!");
+    } */
 
     public function DashConfig()
     {   $ativar = 'dashconfig';

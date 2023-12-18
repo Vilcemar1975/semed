@@ -7,7 +7,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Andress extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -16,17 +16,21 @@ class Article extends Model
         'uid_from_who',
         'id_user',
         'id_group',
-        'creators',
-        'title',
-        'nickname',
-        'subtitle',
-        'category',
-        'text',
-        'highlight',
-        'special_position',
-        'config',
+        'from_who',
+        'cep',
+        'street',
+        'number',
+        'complement',
+        'district',
+        'city',
+        'state',
+        'country',
+        'permission',
         'status',
-        'access',
+        'ibge',
+        'gia',
+        'ddd',
+        'siafi',
         'trash',
     ];
 
@@ -36,14 +40,6 @@ class Article extends Model
 
 
     protected $casts = [
-        'status' => 'array',
-        'config' => 'array',
+
     ];
-
-    public function topics()
-    {
-        return $this->hasMany(Topic::class, 'uid_from_who', 'uid');
-    }
-
-
 }

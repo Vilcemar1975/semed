@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->call(function () {
-            TaskpublicController::publicDay();
+            TaskpublicController::publicDay("articles");
+            TaskpublicController::publicDay("taskpublics");
         })->everyMinute();
     }
 

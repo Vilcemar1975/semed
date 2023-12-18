@@ -18,9 +18,13 @@
     {{-- @livewire('article-edit', ['artigo' => $artigo, 'categorias' => $dados['listsite'], 'position_spacials' => $dados['position_spacial'], 'acessos' => $dados['acess']]) --}}
 
     <div>
-        <form action="{{ route('articlesave', ['id' => $artigo->id]) }}" method="POST">
+        <form action="{{ route('articlesave', ['id' => $artigo->uid]) }}" method="POST">
             @csrf
             <div class="flex gap-2 justify-between text-azul-100 py-3 px-2 mt-2 bg-azul-400 rounded-md">
+                <div>
+                    <b>UID Artigo:</b>
+                    <span>{{ $artigo->uid }}</span>
+                </div>
                 <div>
                     <b>ID Artigo:</b>
                     <span>{{ $artigo->id }}</span>
@@ -89,10 +93,10 @@
                                 </td>
 
                                 <td class="w-[16rem]">
-                                    @if ($list->image != null)
+                                    @if ($list->image->url != null)
                                         <img src="{{asset($list->image->url)}}" alt="{{ $list->image->title ?? ""}}" class="h-[5rem] rounded-md">
                                     @else
-                                        <img src="{{asset('storage/padrao/img.jpeg')}}" alt="{{ $list->image->title ?? ""}}" class="h-[5rem] rounded-md">
+                                        <img src="{{asset('storage/padrao/img.jpeg')}}" alt="Imagem Padrao" class="h-[5rem] rounded-md">
                                     @endif
                                 </td>
 
@@ -103,14 +107,16 @@
                                 <td class="px-3 py-2 flex justify-end items-center">
 
                                     @if ($list->public)
-                                        <a href="{{route('topicpublic', ['id' =>  $list->id ])}}" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-green-500 hover:bg-green-600 rounded-s-lg"><i class="fa-solid fa-check"></i></a>
+                                        <a href="{{route('topicpublic', ['id' =>  $list->uid ])}}" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-green-500 hover:bg-green-600 rounded-s-lg"><i class="fa-solid fa-check"></i></a>
 
                                     @else
-                                        <a href="{{route('topicpublic', ['id' =>  $list->id ])}}" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-gray-500 hover:bg-gray-600 rounded-s-lg"><i class="fa-solid fa-xmark"></i></a>
+                                        <a href="{{route('topicpublic', ['id' =>  $list->uid ])}}" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-gray-500 hover:bg-gray-600 rounded-s-lg"><i class="fa-solid fa-xmark"></i></a>
                                     @endif
 
+
                                     <button type="button" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-blue-700 hover:bg-blue-900"
-                                        data-modal-target="EditArticleModal" data-modal-toggle="EditArticleModal" onclick="cargaTopic(['{{$list->id}}','{{$list->id_articles}}','{{$list->from_who}}','{{$list->position}}','{{$list->title}}','{{$list->text}}','{{$list->public}}','{{$artigo->id_group}}'],['{{ $list->image->id ?? ''}}','{{ $list->image->id_author ?? ''}}','{{ $list->image->title ?? ''}}','{{ $list->image->url ?? ''}}','{{ $list->image->classification ?? ''}}','{{ $list->image->type ?? ''}}','{{ $list->image->description ?? ''}}'])">
+                                        data-modal-target="EditArticleModal" data-modal-toggle="EditArticleModal"
+                                        onclick="cargaTopic(['{{$list->id}}','{{$list->uid}}','{{$list->id_articles}}','{{$list->uid_from_who}}','{{$list->position}}','{{$list->title}}','{{$list->text}}','{{$list->public}}','{{$artigo->id_group}}'],['{{ $list->image->id ?? ''}}','{{ $list->image->uid ?? ''}}','{{ $list->image->id_author ?? ''}}','{{ $list->image->title ?? ''}}','{{ $list->image->url ?? ''}}','{{ $list->image->classification ?? ''}}','{{ $list->image->type ?? ''}}','{{ $list->image->description ?? ''}}'])">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
 
@@ -120,7 +126,7 @@
                                     {{-- <button class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-red-600 hover:bg-red-900 rounded-br-lg rounded-tr-lg"
                                     data-modal-target="ModalLixeiraArtigo" data-modal-toggle="ModalLixeiraArtigo"><i class="fa-regular fa-trash-can"></i></button> --}}
 
-                                    <a href="{{route('topicerase', ['id' =>  $list->id ])}}" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-red-600 hover:bg-red-900 rounded-br-lg rounded-tr-lg">
+                                    <a href="{{route('topicerase', ['id' =>  $list->uid ])}}" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-red-600 hover:bg-red-900 rounded-br-lg rounded-tr-lg">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </a>
 
@@ -195,7 +201,7 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form action="{{route('topicsave',[ 'id' =>  $artigo->id ])}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('topicsave',[ 'id' =>  $artigo->uid ])}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="block p-6 space-y-6">
                             <div class="flex justify-around gap-3 mx-auto">
@@ -342,7 +348,7 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form action="{{route('topicalter',[ 'id' =>  $artigo->id ])}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('topicalter',[ 'id' =>  $artigo->uid ])}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="block p-6 space-y-6">
                             <div class="flex justify-around gap-3 mx-auto">
@@ -380,7 +386,9 @@
                                             <input type="text" name="id_group_topic" id="id_group_topic_edit" value="{{$artigo->id_group}}" class="hidden">
                                             <input type="text" name="id_category_topic" id="id_category_topic_edit" value="{{$artigo->category}}" class="hidden">
                                             <input type="text" name="id_topic" id="id_topic" value="" class="hidden">
+                                            <input type="text" name="uid_topic" id="uid_topic" value="" class="hidden">
                                             <input type="text" name="id_topic_img" id="id_topic_img" value="" class="hidden">
+                                            <input type="text" name="uid_topic_img" id="uid_topic_img" value="" class="hidden">
                                         </div>
 
                                         <div class="">
@@ -438,6 +446,7 @@
             var typo_topic_edit = document.getElementById('typo_topic_edit');
             var author_topic_edit = document.getElementById('author_topic_edit');
             var id_topic = document.getElementById('id_topic');
+            var uid_topic = document.getElementById('uid_topic');
 
             var text_edit = document.getElementById('text_edit');
             var titlemodel_edit = document.getElementById('titlemodel_edit');
@@ -497,9 +506,9 @@
             }
 
             function cargaTopic(params, imgem) {
-
+                console.log([params, imgem]);
                 //Disposição do testo e imagem.
-                switch (+params[3]) {
+                switch (+params[4]) {
                     case 1:
                         tipotopicoedit.checked = true;
                         display_img.style.display = "none";
@@ -530,19 +539,21 @@
                 }
 
                 if (imgem[0] != "") {
-                    let img = "{{ asset('%d') }}".replace('%d', imgem[3]) ;
+                    let img = "{{ asset('%d') }}".replace('%d', imgem[4]) ;
                     img_preview_edit.src = img;
-                    textimg_edit.value = imgem[6];
-                    classification_edit.value = imgem[4];
-                    typo_topic_edit.value = imgem[5];
-                    author_topic_edit.value = imgem[1];
+                    textimg_edit.value = imgem[7];
+                    classification_edit.value = imgem[5];
+                    typo_topic_edit.value = imgem[6];
+                    author_topic_edit.value = imgem[2];
                     id_topic_img.value = imgem[0];
+                    uid_topic_img.value = imgem[1];
                 }
 
                 id_topic.value = params[0];
+                uid_topic.value = params[1];
                 id_group_topic_edit.value = params[7];
-                titlemodel_edit.value = params[4];
-                text_edit.value = params[5];
+                titlemodel_edit.value = params[5];
+                text_edit.value = params[6];
 
             }
 
@@ -566,7 +577,7 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form action="{{route('criarcriador', ['id' => $artigo->id])}}">
+                    <form action="{{route('criarcriador', ['id' => $artigo->uid])}}">
                         <div class="p-6 space-y-6">
 
                             <div>

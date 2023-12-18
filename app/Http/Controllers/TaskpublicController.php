@@ -8,10 +8,11 @@ use App\Models\Taskpublic;
 use Carbon\Carbon;
 use Illuminate\Console\View\Components\Task;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class TaskpublicController extends Controller
 {
-    public static function publicDay(){
+    public static function publicDay($table){
         $idsexclusa = [];
         $talks = Taskpublic::all();
 
@@ -21,29 +22,29 @@ class TaskpublicController extends Controller
 
             foreach ($talks as $talk){
 
-                self::publicarArtigo($talk->date_start, $talk->hour_start, $talk->date_end, $talk->hour_end, $talk->id_articles);
+                self::publicarObjeto($table, $talk->date_start, $talk->hour_start, $talk->date_end, $talk->hour_end, $talk->uid_from_who);
 
                 // Adicionar IDs dos registros a serem excluídos
                 if (self::dataHoraFinalPassada($talk->date_start, $talk->hour_start) && $talk->date_end == null) {
-                    $idsexclusa[] = $talk->id;
+                    $idsexclusa[] = $talk->uid;
                 }
 
                 if (self::dataHoraFinalPassada($talk->date_end, $talk->hour_end) && $talk->date_end != null) {
-                    $idsexclusa[] = $talk->id;
+                    $idsexclusa[] = $talk->uid;
                 }
 
             }
 
             // Excluir registros cujas datas já passaram
             if (!empty($idsexclusa)) {
-                Taskpublic::whereIn('id', $idsexclusa)->delete();
+                Taskpublic::whereIn('uid', $idsexclusa)->delete();
             }
         }
 
 
     }
 
-    private static function publicarArtigo($dataInicial, $horasInicial, $dataFinal = null, $horaFinal = null, $id_articles)
+    private static function publicarObjeto($table, $dataInicial, $horasInicial, $dataFinal = null, $horaFinal = null, $uid)
     {
 
         // Criando objetos Carbon para manipulação de datas e horas
@@ -54,12 +55,12 @@ class TaskpublicController extends Controller
         // Verificando se a data inicial é igual ou já passou $dataHoraInicial->isSameDay($dataAtual) ||
         if ($dataHoraInicial->isPast() && $dataHoraFinal == null) {
             // Lógica para publicar o artigo
-            DB::table('articles')->where('id', $id_articles)->update([
+            DB::table($table)->where('uid', $uid)->update([
                 'status->public' => "public",
                 'status->active' => true,
             ]);
         }else{
-            DB::table('articles')->where('id', $id_articles)->update([
+            DB::table($table)->where('uid', $uid)->update([
                 'status->public' => "public_day",
                 'status->active' => true,
             ]);
@@ -68,7 +69,7 @@ class TaskpublicController extends Controller
         // Verificando se a data final é especificada e se é igual ou menor que a data atual $dataHoraFinal && $dataHoraFinal->isSameDay($dataAtual) ||
         if ($dataHoraFinal && $dataHoraFinal->isPast()) {
             // Lógica para finalizar a publicação do artigo
-           DB::table('articles')->where('id', $id_articles)->update([
+           DB::table($table)->where('uid', $uid)->update([
                 'status->public' => "no_public",
                 'status->date_start' => "",
                 'status->hour_start' => "",
@@ -114,14 +115,15 @@ class TaskpublicController extends Controller
 
         }
 
-        public static function TaskSave($id_artigo, $date_start, $hour_start, $date_end, $hour_end){
+        public static function TaskSave($uid_from_who, $date_start, $hour_start, $date_end, $hour_end){
 
-            $task = Taskpublic::firstWhere('id_articles', $id_artigo);
+            $task = Taskpublic::firstWhere('uid_from_who', $uid_from_who);
 
             if ($task == null) {
 
                 $task = Taskpublic::create([
-                    'id_articles' => $id_artigo,
+                    'uid' => Str::uuid(),
+                    'uid_from_who' => $uid_from_who,
                     'date_start' => $date_start,
                     'hour_start' => $hour_start,
                     'date_end' => $date_end,
@@ -130,13 +132,13 @@ class TaskpublicController extends Controller
 
             } else {
 
-                Taskpublic::where('id_articles', $id_artigo)->update([
-                    'id_articles' => $id_artigo,
+                Taskpublic::where('uid_from_who', $uid_from_who)->update([
                     'date_start' => $date_start,
                     'hour_start' => $hour_start,
                     'date_end' => $date_end,
                     'hour_end' => $hour_end,
                 ]);
+
             }
 
             return;

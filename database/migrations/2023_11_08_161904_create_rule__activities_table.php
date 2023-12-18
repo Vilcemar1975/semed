@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rule__activities', function (Blueprint $table) {
+        Schema::create('rule_activities', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('uid_from_who'); //código unico
             $table->biginteger('id_group')->nullable();

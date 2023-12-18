@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('position')->default(3);
             $table->string('title');
             $table->string('nickname');
-            $table->string('text');
+            $table->longText('text');
             $table->boolean('public')->default(false);
             $table->foreign('id_articles')->references('id')->on('articles');
             $table->timestamps();

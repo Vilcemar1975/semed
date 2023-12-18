@@ -1,3 +1,4 @@
+
 import './bootstrap';
 import '../css/app.css';
 import '../css/color.css';
@@ -27,11 +28,15 @@ import '../css/fontawesome_free_642/css/v4-font-face.css';
 import '../css/fontawesome_free_642/css/v4-shims.css';
 import '../css/fontawesome_free_642/css/v5-font-face.css';
 
-
 import 'flowbite';
 import '../js/bootstrap.js';
 import '../js/botoes_rede_social_comp.js';
 //import '../js/menuchaves.js';
+//import 'jquery';
+
+
+
+import 'tailwindcss/tailwind.css';
 
 import Alpine from 'alpinejs';
 

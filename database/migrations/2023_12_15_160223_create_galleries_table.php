@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('taskpublics', function (Blueprint $table) {
+        Schema::create('galleries', function (Blueprint $table) {
             $table->id();
             $table->uuid('uid');
+            $table->foreignId('id_user');
+            $table->foreignId('id_group')->nullable();
             $table->foreignUuid('uid_from_who');
-            $table->date('date_start')->nullable();
-            $table->time('hour_start', $precision = 0);
-            $table->date('date_end')->nullable();
-            $table->time('hour_end', $precision = 0)->nullable();
-            $table->string('total_dias')->nullable();
+            $table->json('imagens')->nullable();
+            $table->boolean('public')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('taskpublics');
+        Schema::dropIfExists('galleries');
     }
 };

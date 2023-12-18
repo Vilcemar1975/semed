@@ -12,14 +12,15 @@ use Illuminate\Support\Str;
 class ImageController extends Controller
 {
 
-    public static function ImageSave($dados, $idimg = null){
+    public static function ImageSave($dados, $uidimg = null){
 
-        if ($idimg == null) {
-
-            $img = Image::create([
+        if ($uidimg == null) {
+            $uidimage = Str::uuid();
+            Image::create([
+                'uid' => $uidimage,
                 'id_user' => Auth::id(),
                 'id_group' => $dados['id_group'],
-                'uid_from_who' => Str::uuid(),
+                'uid_from_who' => $dados['uid_from_who'],
                 'id_author' => $dados['id_author'],
                 'title' => $dados['title'],
                 'category' => $dados['category'],
@@ -31,23 +32,20 @@ class ImageController extends Controller
                 'config' => $dados['config'],
             ]);
 
-            if ($dados['request'] != null) {
+            /* if ($dados['request'] != null) {
                 $url = self::img($dados['request'], $dados['fieldImg'], 'imagens');
 
                 DB::table('images')->where('id', $img->id)->update([
                     'nickname' => $url['nameFile'],
                     'url' => $url['path'],
                 ]);
-            }
+            } */
 
-            $result = $img->id;
+            $uidimg = $uidimage;
 
         }else{
 
-
-            $result = $idimg;
-
-            DB::table('images')->where('id', $idimg)->update([
+            DB::table('images')->where('uid', $uidimg)->update([
                 'id_group' => $dados['id_group'],
                 'id_author' => $dados['id_author'],
                 'title' => $dados['title'],
@@ -60,20 +58,100 @@ class ImageController extends Controller
                 'config' => $dados['config'],
             ]);
 
-            if ($dados['request'] != null) {
+            /* if ($dados['request'] != null) {
 
                 $url = self::img($dados['request'], $dados['fieldImg'], 'imagens', $idimg);
-                DB::table('images')->where('id', $idimg)->update([
+                DB::table('images')->where('uid', $idimg)->update([
                     'nickname' => $url['nameFile'],
                     'url' => $url['path'],
                 ]);
 
-            }
+            } */
 
         }
 
-        return $result;
+        $req = $dados['request'];
+        $nomeDoCampo = $dados['fieldImg'];
+
+        if ($req->hasFile($nomeDoCampo)) {
+            $url = self::img($dados['request'], $nomeDoCampo, 'imagens', $uidimg);
+            DB::table('images')->where('uid', $uidimg)->update([
+                    'nickname' => $url['nameFile'],
+                    'url' => $url['path'],
+                ]);
+        }
+
+        return Image::where('uid', $uidimg)->first();
     }
+
+    public static function ImageSaveSchool($dados, $uidimg){
+    /**
+     *  $dados: Todas as informações necessárias da imagem
+     * $uidimg: Caso seja alteração o uidimg vem com o uid da imagem, padrão null
+     */
+
+        if ($uidimg == null || $uidimg == "") {
+            $uidimage = Str::uuid();
+
+            Image::create([
+                'uid' => $uidimage,
+                'id_user' => Auth::id(),
+                'id_group' => $dados['id_group'],
+                'uid_from_who' => $dados['uid_from_who'],
+                'id_author' => $dados['id_author'],
+                'unit' => $dados['unit'],
+                'title' => $dados['title'],
+                'category' => $dados['category'],
+                'classification' => $dados['classification'],
+                'type' => $dados['type'],
+                'description' => $dados['description'],
+                'source' => $dados['source'],
+                'trash' => false,
+                'config' => $dados['config'],
+            ]);
+
+            $uidimg = $uidimage;
+
+        }else{
+
+            DB::table('images')->where('uid', $uidimg)->update([
+                'id_group' => $dados['id_group'],
+                'id_author' => $dados['id_author'],
+                'title' => $dados['title'],
+                'nickname' => $dados['nickname'],
+                'category' => $dados['category'],
+                'classification' => $dados['classification'],
+                'type' => $dados['type'],
+                'description' => $dados['description'],
+                'source' => $dados['source'],
+                'config' => $dados['config'],
+            ]);
+
+        }
+
+        $req = $dados['request'];
+        $nomeDoCampo = $dados['fieldImg'];
+        $pastaEscola = $dados['folderSchool'];
+
+        if ($req->hasFile($nomeDoCampo)) {
+
+            if ($dados['unit'] == 1) {
+                $url = self::img($dados['request'], $nomeDoCampo, 'escolas/umei/'.$pastaEscola, $uidimg);
+            }else{
+                $url = self::img($dados['request'], $nomeDoCampo, 'escolas/umef/'.$pastaEscola, $uidimg);
+            }
+
+            DB::table('images')->where('uid', $uidimg)->update([
+                    'nickname' => $url['nameFile'],
+                    'url' => $url['path'],
+                ]);
+        }
+
+        $imagem = Image::where('uid', $uidimg)->first();
+
+        return $imagem;
+    }
+
 
     public static function img(Request $request, $campo, $caminho, $idimg = null){
         /**
@@ -90,8 +168,10 @@ class ImageController extends Controller
         if ($request->hasFile($campo)) {
 
             if ($idimg != null) {
-                $url = Image::find($idimg)->url;
-                Storage::delete($url);
+                $imgDB = Image::find($idimg);
+                if ($imgDB != null) {
+                    Storage::delete($imgDB->url);
+                }
             }
 
             $image = $request->file($campo);
@@ -110,5 +190,9 @@ class ImageController extends Controller
         return $dados;
 
     }
+
+
+
+
 
 }

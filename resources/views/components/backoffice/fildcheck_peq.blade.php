@@ -5,7 +5,9 @@
         @if ($checked)
             checked
         @endif
-
+        @isset($value)
+            value={{$value}}
+        @endisset
     >
     <label for="{{$idname}}" class="self-center text-[8pt]">{{ $label}}</label>
 

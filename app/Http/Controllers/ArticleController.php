@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -27,7 +29,11 @@ class ArticleController extends Controller
 {
     public static function ArticleList(){
 
-            $articlesList = Article::where('trash', false)->all();
+        $articlesList = Article::select('articles.id', 'articles.uid', 'articles.title', 'articles.status', 'articles.trash')
+            ->withCount('topics') // Isso adiciona o campo 'topics_count' automaticamente
+            ->where('articles.trash', false)
+            ->groupBy('articles.id', 'articles.uid', 'articles.title', 'articles.status', 'articles.trash')
+            ->paginate(15);
 
         return $articlesList;
     }
@@ -52,25 +58,27 @@ class ArticleController extends Controller
         $status = CoreController::status("no_public",  "", "", "", "", false);
 
         try {
-            $artigo = Article::create(['id_user' => auth()->id(),'title' => $request->title, 'nickname' => $nickname, 'category' => $request->category, 'config' => $config, 'status' => $status]);
+            $artigo = Article::create(['uid' => Str::uuid(), 'id_user' => auth()->id(), 'title' => $request->title, 'nickname' => $nickname, 'category' => $request->category, 'config' => $config, 'status' => $status]);
         } catch (ModelNotFoundException $th) {
             return redirect()->back()->with('danger', $th);
         } catch (QueryException $e) {
             return redirect()->back()->with('danger', $e);
         }
 
+        return $artigo;
+
     }
 
 
-    public function ArticleSave(Request $request, $id_artigo){
+    public function ArticleSave(Request $request, $uid_artigo){
 
-        $artigo = Article::where('id', $id_artigo)->first();
+        $artigo = Article::where('uid', $uid_artigo)->first();
+
         $active = $request->public == "public" ? true: false;
-
         if ($artigo->category != $request->category) {
-            $topics = Topic::where('id_articles', $id_artigo)->get();
+            $topics = Topic::where('uid_from_who', $uid_artigo)->get();
             foreach($topics as $topic){
-                TopicsController::updateCategoryImage($topic->id, $request->category);
+                TopicsController::updateCategoryImage($topic->uid, $request->category);
             }
         }
 
@@ -99,11 +107,11 @@ class ArticleController extends Controller
 
         if ($request->public == "public_day") {
 
-            TaskpublicController::TaskSave($id_artigo, $request->date_start, $request->hour_start, $request->date_end, $request->hour_end);
+            TaskpublicController::TaskSave($uid_artigo, $request->date_start, $request->hour_start, $request->date_end, $request->hour_end);
 
         }
 
-        $result = DB::table('articles')->where('id', $id_artigo)->update([
+        $result = DB::table('articles')->where('uid', $uid_artigo)->update([
             'category' =>  $request->category,
             'title' =>  $request->title,
             'subtitle' =>  $request->subtitle,
@@ -129,22 +137,28 @@ class ArticleController extends Controller
         $dados = CoreController::conjuntoVariaveisDashboard(); */
 
         //return view('backoffice.dashartigoadd', compact(['dados', 'ativar', 'artigo']));
-        return redirect()->route('articleedit', ['id' => $id_artigo]);
+        return redirect()->route('articleedit', ['id' => $uid_artigo]);
 
     }
 
-    public function ArticleEdit($id){
+    public function ArticleEdit($uid_article){
         $user = Auth::user();
-        $artigo = Article::where('id', $id)->first();
+        $artigo = Article::where('uid', $uid_article)->first();
+
+        if ($artigo == null) {
+            return redirect()->route('dashartigo')->with('danger', 'Erro Não Consegui Encontrar o Arquivo');
+        }
+
+        $artigoCriador = self::GetCreator($artigo->creators);
+
         $ativar = 'dashartigo';
         $dados = CoreController::conjuntoVariaveisDashboard();
-        $criadores = self::GetCreator($artigo->creators)[1];
-        $autor = self::GetCreator($artigo->creators)[0];
+        $criadores = $artigoCriador[1];
+        $autor = $artigoCriador[0];
         $categoria = [];
         $position_esp = [];
         $acess = [];
-        $topicos = Topic::with('image')->where('id_articles', $id)->paginate();
-        //dd($topicos);
+        $topicos = Topic::where('uid_from_who', $uid_article)->with('image')->paginate(25);
         $status = $artigo->status;
         $configs = $artigo->config;
 
@@ -173,6 +187,7 @@ class ArticleController extends Controller
     }
 
     public static function GetCreator($idcreato){
+
         $user = Auth::user();
         $creators = Creator::get();
         $autor = ['id' => $user->id, 'title' => $user->name.' '.$user->lastname,];
@@ -188,7 +203,7 @@ class ArticleController extends Controller
                     'title' => $criador->name_full,
                 ]);
 
-                if($criador->id_user == $idcreato){
+                if($criador->id == $idcreato){
                     $autor = ['id' => $criador->id, 'title' => $criador->name_full,];
                 }
             }
@@ -213,31 +228,144 @@ class ArticleController extends Controller
             $active,
         );
 
-        DB::table('articles')->where('id', $request->status_id_c)->update([
+        DB::table('articles')->where('uid', $request->status_uid_c)->update([
             'status' =>  $status,
         ]);
 
         if ($request->public_c == "public_day") {
-            TaskpublicController::TaskSave($request->status_id_c, $request->date_start_c, $request->hour_start_c, $request->date_end_c, $request->hour_end_c);
+            TaskpublicController::TaskSave($request->status_uid_c, $request->date_start_c, $request->hour_start_c, $request->date_end_c, $request->hour_end_c);
         }else{
-            Taskpublic::where('id_articles', $request->status_id_c)->delete();
+            Taskpublic::where('uid_from_who', $request->status_uid_c)->delete();
         }
 
-        //return view('backoffice.dashartigo', compact(['dados', 'ativar']));
         return redirect()->route('dashartigo');
     }
 
 
-    function CriarCriador(Request $request, $id_artigo){
+    function CriarCriador(Request $request, $uid_artigo){
 
         $result = CreatorController::SaveCriar($request);
 
-        return redirect()->route('articleedit', ['id' => $id_artigo])->with('success', $result[1]);
+        return redirect()->route('articleedit', ['id' => $uid_artigo])->with('success', $result[1]);
     }
 
-    public function ArticleTrash($id){
+    public function DuplicateAticle(Request $request){
 
-        $result = DB::table('articles')->where('id', $id)->update(['trash' => true ]);
+        $validator = Validator::make($request->all(), [
+            'title_duplicate' => 'required|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('dash/artigo')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        //Duplicando Artigo
+        $artigoAtual = Article::where('uid',$request->uid_article)->first();
+
+        if ($artigoAtual != null) {
+            $user = Auth::user();
+            $uuid = Str::uuid();
+            $novoTitle = $request->title_duplicate;
+
+            $config = CoreController::config(
+                $artigoAtual->config['show_author'],
+                $artigoAtual->config['show_day_public'],
+                $artigoAtual->config['show_day_alteration'],
+                $artigoAtual->config['show_description'],
+                $artigoAtual->config['show_url'],
+                $artigoAtual->config['show_download'],
+                $artigoAtual->config['show_author_photo'],
+                $artigoAtual->config['show_author_video'],
+                $artigoAtual->config['show_print'],
+                $artigoAtual->config['show_share']
+            );
+
+            $status = CoreController::status(
+                $artigoAtual->status['public'],
+                $artigoAtual->status['date_start'],
+                $artigoAtual->status['date_end'],
+                $artigoAtual->status['hour_start'],
+                $artigoAtual->status['hour_end'],
+                $artigoAtual->status['active']
+            );
+
+            Article::create([
+                'uid'=> $uuid,
+                'uid_from_who' => $user->uid,
+                'id_user' => $user->id,
+                'id_group' => $artigoAtual->id_group,
+                'creators' => $artigoAtual->creators,
+                'category' => $artigoAtual->category,
+                'title' => $novoTitle,
+                'subtitle' => $artigoAtual->subtitle,
+                'nickname' => $artigoAtual->nickname,
+                'status' => $status,
+                'config' => $config,
+                'highlight' => $artigoAtual->highlight,
+                'special_position' => $artigoAtual->special_position,
+                'acesso' => $artigoAtual->acesso,
+            ]);
+
+            if ($request->has('diplicar_topicos')) {
+                //Duplicando Topicos
+                $topicosAtuais = Topic::where('uid_from_who', $request->uid_article)->with('image')->get();
+
+                //verificar se a variavel $topicosAtuais está vazia
+                foreach ($topicosAtuais as $value) {
+
+                    $uidTopico = Str::uuid();
+                    Topic::create([
+                        'uid' => $uidTopico,
+                        'uid_from_who' => $uuid,
+                        'id_articles' => $value->id_articles,
+                        'position' => $value->position,
+                        'title' => $value->title,
+                        'nickname' => $value->nickname,
+                        'text' => $value->text,
+                        'public' => $value->public,
+                    ]);
+
+                    //Duplicando Imagem
+                    $img = $value->image;
+                    Image::create([
+                        'uid' => Str::uuid(),
+                        'uid_from_who' => $uidTopico,
+                        'id_user' => $user->id,
+                        'id_group' => $img->id_group,
+                        'id_author' => $img->id_author,
+                        'title' => $img->title,
+                        'nickname' => $img->nickname,
+                        'category' => $img->category,
+                        'classification' => $img->classification,
+                        'url' => $img->url,
+                        'type' => $img->type,
+                        'description' => $img->description,
+                        'source' => $img->source,
+                        'config' => $img->config,
+                    ]);
+
+                    if($img->url != null){
+                        $nameImg = explode('/', $img->url)[1];
+                        $nameNovo = 'imagens/'.explode('.', $nameImg)[0].'_copy'.'.'.explode('.', $nameImg)[1];
+                        Storage::copy($img->url, $nameNovo);
+                    }
+
+
+                }
+            }
+
+
+
+        }
+
+        return redirect()->route('dashartigo')->with('success', "Item Dublicado: ".$request->title_duplicate);
+    }
+
+    public function ArticleTrash($uid){
+
+        $result = DB::table('articles')->where('uid', $uid)->update(['trash' => true ]);
 
         if ($result) {
             return redirect()->back()->with('warinng', "Artigo enviada para lixeira");

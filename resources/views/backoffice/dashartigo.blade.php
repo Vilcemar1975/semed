@@ -67,6 +67,9 @@
                         <th scope="col" class="px-3 py-2">
                             TITULO
                         </th>
+                        <th scope="col" class="px-3 py-2">
+                            TÓPICOS
+                        </th>
                         <th scope="col" class="px-3 py-2 text-end">
                             PUBLICAR / EDITAR / EXCLUIR
                         </th>
@@ -81,23 +84,27 @@
                                 {{ $list->id }}
                             </td>
 
-                            <td class="px-3 py-2">
+                            <td class="px-3 py-2 w-full">
                                 {{ $list->title }}
+                            </td>
+
+                            <td class="px-3 py-2 text-center">
+                                {{ $list->topics_count }}
                             </td>
 
                             <td class="px-3 py-2 flex justify-end items-center">
 
                                 @if ($list->status['public'] == "public")
                                     <button id="btn_public" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-green-500 hover:bg-green-600 rounded-s-lg"
-                                    data-modal-target="PublicArticleModal" data-modal-toggle="PublicArticleModal" onclick="statusF(['{{ implode("','", $list->status ) }}'],'{{ $list->id }}')"><i class="fa-solid fa-check"></i></button>
+                                    data-modal-target="PublicArticleModal" data-modal-toggle="PublicArticleModal" onclick="statusF(['{{ implode("','", $list->status ) }}'],'{{ $list->id }}','{{ $list->uid }}')"><i class="fa-solid fa-check"></i></button>
                                 @endif
                                 @if ($list->status['public'] == "public_day")
                                     <button id="btn_public" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-teal-600 hover:bg-teal-600 rounded-s-lg"
-                                    data-modal-target="PublicArticleModal" data-modal-toggle="PublicArticleModal" onclick="statusF(['{{ implode("','", $list->status ) }}'],'{{ $list->id }}')"><i class="fa-solid fa-clock-rotate-left"></i></button>
+                                    data-modal-target="PublicArticleModal" data-modal-toggle="PublicArticleModal" onclick="statusF(['{{ implode("','", $list->status ) }}'],'{{ $list->id }}','{{ $list->uid }}')"><i class="fa-solid fa-clock-rotate-left"></i></button>
                                 @endif
                                 @if ($list->status['public'] == "no_public")
                                     <button id="btn_public" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-gray-500 hover:bg-gray-600 rounded-s-lg"
-                                    data-modal-target="PublicArticleModal" data-modal-toggle="PublicArticleModal" onclick="statusF(['{{ implode("','", $list->status ) }}'],'{{ $list->id }}')"><i class="fa-solid fa-xmark"></i></button>
+                                    data-modal-target="PublicArticleModal" data-modal-toggle="PublicArticleModal" onclick="statusF(['{{ implode("','", $list->status ) }}'],'{{ $list->id }}','{{ $list->uid }}')"><i class="fa-solid fa-xmark"></i></button>
                                 @endif
                                 {{-- <button class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-orange-500 hover:bg-orange-600 rounded-s-lg"
                                     data-modal-target="EditArticleModal" data-modal-toggle="EditArticleModal"><i class="fa-solid fa-screwdriver-wrench"></i></button> --}}
@@ -105,12 +112,12 @@
                                 {{-- <button class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-blue-700 hover:bg-blue-900"
                                 data-modal-target="ModalEditGrupo" data-modal-toggle="ModalEditGrupo"><i class="fa-solid fa-pen-to-square"></i></button> --}}
 
-                                <a href="{{route('articleedit', ['id' =>  $list->id ])}}" class="px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-blue-700 hover:bg-blue-900"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="{{route('articleedit', ['id' =>  $list->uid ])}}" class="px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-blue-700 hover:bg-blue-900"><i class="fa-solid fa-pen-to-square"></i></a>
 
-                                {{-- <button class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-red-600 hover:bg-red-900 rounded-br-lg rounded-tr-lg"
-                                data-modal-target="ModalLixeiraArtigo" data-modal-toggle="ModalLixeiraArtigo"><i class="fa-regular fa-trash-can"></i></button> --}}
+                                <button class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-purple-600 hover:bg-purple-900" onclick="preencheModal('{{$list->title}}','{{$list->uid}}')"
+                                data-modal-target="ModalDuplicarArtigo" data-modal-toggle="ModalDuplicarArtigo"><i class="fa-regular fa-copy"></i></button>
 
-                                <a href="{{route('articletrash', ['id' =>  $list->id ])}}" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-red-600 hover:bg-red-900 rounded-br-lg rounded-tr-lg">
+                                <a href="{{route('articletrash', ['id' =>  $list->uid ])}}" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-red-600 hover:bg-red-900 rounded-br-lg rounded-tr-lg">
                                     <i class="fa-regular fa-trash-can"></i>
                                 </a>
 
@@ -165,6 +172,54 @@
             </div>
         </div>
 
+        <!-- Modal Duplicar Artigo -->
+        <div id="ModalDuplicarArtigo" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative w-full max-w-2xl max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow">
+                    <!-- Modal header -->
+                    <div class="flex items-start justify-between p-4 border-b rounded-t bg-purple-100">
+                        <h3 class="text-xl font-semibold text-purple-900">
+                            Duplicar Artigo
+                        </h3>
+                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center" data-modal-hide="ModalDuplicarArtigo">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <form action="{{ route('duplicateaticle')}}" method="get">
+                        @csrf
+                        <div class="block p-6 space-y-6">
+                                <label id="title_article" for="" class="text-[20pt] font-bold text-purple-900 mr-4"></label>
+                                @include('components.backoffice.fildText', ['idname' => "title_duplicate", 'label' => "Novo Titulo", 'max' => 0 , 'min' => 0])
+                                <input type="hidden" id="uid_article" name="uid_article">
+                                <div class="flex items-center me-4">
+                                    <input id="diplicar_topicos" name="diplicar_topicos" type="checkbox" value="" class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="diplicar_topicos" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Duplicar com os topicos.</label>
+                                </div>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+                            <button data-modal-hide="ModalDuplicarArtigo" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Duplicar</button>
+                            <button data-modal-hide="ModalDuplicarArtigo" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            function preencheModal(title, uid) {
+
+                document.getElementById('uid_article').value = uid;
+                document.getElementById('title_duplicate').value = title+" - Cópia";
+                document.getElementById('title_article').innerHTML= title;
+                return;
+            }
+        </script>
+
         <!-- Modal Publicar Artigo -->
         <div id="PublicArticleModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative w-full max-w-2xl max-h-full">
@@ -183,7 +238,7 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form action="{{ route('articlePublic')}}" method="get">
+                    <form action="{{ route('articlepublic')}}" method="get">
                         @csrf
                         <div class="p-2">
                             <div class="block  mt-3 w-full">
@@ -214,6 +269,7 @@
                                     </div>
                                     @include('components.backoffice.fildratius', ['idid' => "no_public_c", 'idname' => "public_c", 'label' => "Não Publicar", 'value' => "no_public"])
                                     <input type="text" name="status_id_c" id="status_id_c" class="hidden">
+                                    <input type="text" name="status_uid_c" id="status_uid_c" class="hidden">
                                 </div>
                             </div>
                         </div>
@@ -240,8 +296,9 @@
             var c_datas_probramadas = document.getElementById('datas_probramadas_c');
             var c_data_termino = document.getElementById('data_termino_c');
             var c_status_id = document.getElementById('status_id_c');
+            var c_status_uid = document.getElementById('status_uid_c');
 
-            function statusF(status, idarticle){
+            function statusF(status, idarticle, uidarticle){
 
                 let listPublic = [status[1] == 'public' ? true:false, status[1] == 'public_day' ? true:false, status[1] == 'no_public' ? true:false];
 
@@ -254,6 +311,7 @@
                 c_no_public.checked = listPublic[2];
                 c_checkteminio.checked = listPublic[1];
                 c_status_id.value = idarticle;
+                c_status_uid.value = uidarticle;
 
                 verificaPublicDay_c();
                 verificaTeminiData_c();

@@ -21,6 +21,7 @@ class CreatorController extends Controller
         if ($id == null) {
 
             $creator = Creator::create([
+                'uid_from_who' => $dados['uid_from_who'],
                 'id_user' => $dados['id_user'],
                 'name_full' => $dados['name_full'],
                 'company' => $dados['company'],
@@ -28,7 +29,7 @@ class CreatorController extends Controller
             ]);
 
         }else{
-            $creator = DB::table('users')
+            $creator = DB::table('creators')
                 ->where('id', $id)
                 ->update([
                     'name_full' => $dados['name_full'],
@@ -43,11 +44,13 @@ class CreatorController extends Controller
     public static function SaveCriar(Request $request){
 
         $creator = new Creator();
+        $user = Auth::user();
 
         if ($request->name_full != null || $request->company != null) {
 
             $creator = Creator::create([
-                'id_user' => Auth::id(),
+                'id_user' => $user->id,
+                'uid_from_who' => $user->uid,
                 'name_full' => $request->name_full,
                 'company' => $request->company,
                 'description' => $request->description,

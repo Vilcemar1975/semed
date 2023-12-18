@@ -39,6 +39,9 @@
                     <th scope="col" class="px-3 py-2">
                         ID
                     </th>
+                    <th scope="col" class="px-3 py-2">
+                        INEP
+                    </th>
 
                     <th scope="col" class="px-3 py-2">
                         LOGO
@@ -67,7 +70,15 @@
                         </td>
 
                         <td class="px-3 py-2">
-                            <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" class="w-[24rem] mx-auto mb-3 rounded-lg">
+                            {{ $list->inep }}
+                        </td>
+
+                        <td class="px-3 py-2">
+                            @if ($list->image == null)
+                                <img src="{{asset('storage/padrao/img.jpeg')}}" alt="" class="h-[5rem] mx-auto mb-3 rounded-lg">
+                            @else
+                                <img src="{{asset($list->image->url)}}" alt="" class="h-[5rem] mx-auto mb-3 rounded-lg">
+                            @endif
                         </td>
 
                         <td class="px-3 py-2">
@@ -98,12 +109,12 @@
                             {{-- <button class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-blue-700 hover:bg-blue-900"
                             data-modal-target="ModalEditGrupo" data-modal-toggle="ModalEditGrupo"><i class="fa-solid fa-pen-to-square"></i></button> --}}
 
-                            <a href="{{route('articleedit', ['id' =>  $list->id ])}}" class="px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-blue-700 hover:bg-blue-900"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="{{route('editarescola', ['uid' =>  $list->uid ])}}" class="px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-blue-700 hover:bg-blue-900"><i class="fa-solid fa-pen-to-square"></i></a>
 
                             {{-- <button class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-red-600 hover:bg-red-900 rounded-br-lg rounded-tr-lg"
                             data-modal-target="ModalLixeiraArtigo" data-modal-toggle="ModalLixeiraArtigo"><i class="fa-regular fa-trash-can"></i></button> --}}
 
-                            <a href="{{route('articletrash', ['id' =>  $list->id ])}}" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-red-600 hover:bg-red-900 rounded-br-lg rounded-tr-lg">
+                            <a href="{{route('excluirescola', ['uid'=> $list->uid])}}" class=" px-1 py-2 w-[4rem] text-center text-white text-[14pt] bg-red-600 hover:bg-red-900 rounded-br-lg rounded-tr-lg">
                                 <i class="fa-regular fa-trash-can"></i>
                             </a>
 
@@ -153,8 +164,10 @@
                             <div class="w-full">
                                 @include('components.backoffice.fildText', ['idname' => "inep", 'label' => "INEP", 'max' => 10 , 'min' => 0])
                                 @include('components.backoffice.fildText', ['idname' => "name", 'label' => "Nome da Escola", 'max' => 0 , 'min' => 0])
-
-                                @include('components.backoffice.fildselect', ['idname' => "region", 'label' => "Região", 'max' => 0 , 'min' => 0, 'lista' => $dados['regiao']])
+                                <div class="flex justify-between gap-2">
+                                    @include('components.backoffice.fildselect', ['idname' => "region", 'label' => "Região", 'max' => 0 , 'min' => 0, 'lista' => $dados['regiao']])
+                                    @include('components.backoffice.fildselect', ['idname' => "unit", 'label' => "Unidade", 'max' => 0 , 'min' => 0, 'lista' => $dados['unit']])
+                                </div>
                             </div>
                         </div>
 

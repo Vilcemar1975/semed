@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uid');
             $table->foreignUuid('uid_from_who'); //código unico
             $table->biginteger('id_user')->nullable(); // quem cadastrou
             $table->biginteger('id_group')->nullable();

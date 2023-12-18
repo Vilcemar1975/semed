@@ -10,9 +10,11 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+        {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+        <script src={{url('js/jquery.min.js')}}></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
         <!-- Styles -->
         @livewireStyles
@@ -55,6 +57,16 @@
                 @endif
                 @if(isset($danger))
                     <p class="text-[12pt] text-center text-azul-500 bg-red-200 w-full py-3">{{ $success }}</p>
+                @endif
+
+                @if ($errors->any())
+                    <div class="text-[12pt] text-center text-azul-500 bg-red-200 w-full py-3">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                 @endif
 
                 <div class="flex max-w-7xl mx-auto sm:px-6 lg:px-8 gap-2 pt-6 pb-2 justify-center">

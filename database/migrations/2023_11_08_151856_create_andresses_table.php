@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('andresses', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uid');
             $table->foreignUuid('uid_from_who'); //código unico
             $table->biginteger('id_user')->nullable(); // quem cadastrou
             $table->biginteger('id_group')->nullable();
@@ -27,7 +28,11 @@ return new class extends Migration
             $table->string('country', )->nullable();
             $table->string('permission', 20)->nullable();
             $table->boolean('status')->default();
-            $table->boolean('trash')->default();
+            $table->string('ibge', 10)->nullable();
+            $table->string('gia', 5)->nullable();
+            $table->string('ddd', 3)->nullable();
+            $table->string('siafi', 5)->nullable();
+            $table->boolean('trash')->default(false);
             $table->timestamps();
         });
     }
