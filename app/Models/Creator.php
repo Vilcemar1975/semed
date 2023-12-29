@@ -17,6 +17,7 @@ class Creator extends Model
         'id_user',
         'name_full',
         'company',
+        'category',
         'description',
     ];
 

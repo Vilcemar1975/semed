@@ -3,7 +3,7 @@
     <input type="date" name="{{$idname}}" id="{{$idname}}"
         class="p-2 rounded-md w-full border-azul-100 text-azul-100"
     >
-    @error('{{$idname}}')
+    {{-- @error('{{$idname}}')
         <div class="">{{ $message }}</div>
-    @enderror
+    @enderror --}}
 </div>

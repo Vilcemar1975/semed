@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Image;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -191,6 +192,95 @@ class ImageController extends Controller
 
     }
 
+    public static function searchImageByUid($uid) {
+        $auth = Auth::user();
+
+        $image = Image::where("uid", $uid)->first();
+        if ($image == null) {
+            return json_encode(['error' => 'Imagem não encontrada'], JSON_UNESCAPED_UNICODE);
+        }
+
+        $autor = User::where("uid", $image->id_author)->first();
+        if ($autor != null) {
+            $autor = ['uid' => $autor->uid,'id' =>  $autor->id, 'name' => $autor->name, 'lastname' =>  $autor->lastname];
+        }else{
+            $autor = ['uid' => $auth->uid, 'id' => $auth->id, 'name' => $auth->name, 'lastname' => $auth->lastname];
+        }
+
+        $tipo = ['id' => "" , 'title' => ""];
+        foreach(CoreController::type() as $type){
+            if ($type['id']==$image->type) {
+                $tipo = $type;
+            }
+        }
+
+        $class = ['id' => "" , 'title' => ""];
+        foreach(CoreController::classification() as $type){
+            if ($type['id']==$image->type) {
+                $class = $type;
+            }
+        }
+
+        $dados = [
+            "image" => $image,
+            "autor" => $autor,
+            'type' => $tipo,
+            'classification' => $class
+        ];
+
+        return json_encode($dados);
+    }
+
+    public static function saveImg(Request $request, $uid) {
+
+        Image::where('uid', $request->uid_img)->update([
+            'id_author' => $request->author,
+            'title' => $request->title_img,
+            'classification'    => $request->classification_img,
+            'type'  => $request->category_img,
+            'description'   => $request->description_img,
+            'source'    => $request->source_img,
+        ]);
+
+        return redirect()->back()->with('success', 'Salvo como sucesso!');
+    }
+
+
+    public static function deleteImg($uid) {
+
+        $imagem = Image::where('uid',$uid)->first();
+
+        if ($imagem == null) {
+           return redirect()->back();
+        }
+
+        // Deleta a imagem do servidor
+        if ($imagem->nickname != null) {
+            Storage::delete($imagem->nickname);
+        }
+
+        $imagem->delete();
+
+        return redirect()->back();
+    }
+
+    public static function eraseImg($uid) {
+
+        $imagem = Image::where('uid',$uid)->first();
+
+        if ($imagem == null) {
+           return redirect()->back();
+        }
+
+        // Deleta a imagem do servidor
+        if ($imagem->nickname != null) {
+            Storage::delete($imagem->nickname);
+        }
+
+        $imagem->delete();
+
+        return response()->json(['message' => 'Excluido foram salvos com sucesso.']);;
+    }
 
 
 

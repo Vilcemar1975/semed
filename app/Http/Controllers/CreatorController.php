@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Validate;
 
 class CreatorController extends Controller
 {
@@ -61,6 +62,62 @@ class CreatorController extends Controller
         }
 
         return [$creator->id, $messagem];
+    }
+
+
+    public static function SaveCreatorAuthor(Request $request){
+
+        $user = Auth::user();
+
+        if ( $request['name_full'] == null  &&  $request['company'] == null) {
+            return redirect()->back()->with('errors', "Nome ou Empresa deve ser preenchido.");
+        }
+
+        $creator = Creator::create([
+            'uid_from_who' => $user->uid,
+            'id_user' => $user->id,
+            'name_full' => $request['name_full'],
+            'company' => $request['company'],
+            'category' => "Imagem",
+            'description' => $request['description'],
+        ]);
+
+        if ($creator) {
+
+            return redirect()->back()->with('success', "Salvo com sucesso.");
+
+        }else{
+
+            return redirect()->back()->with('errors', "Nome ou Empresa deve ser preenchido.");
+
+        }
+
+    }
+
+    public static function GetCreator($idcreato){
+
+        $user = Auth::user();
+        $creators = Creator::get();
+        $autor = ['id' => $user->id, 'title' => $user->name.' '.$user->lastname,];
+        $criadores = [];
+
+        if (count($creators) > 0) {
+
+            foreach($creators as $criador){
+
+                array_push($criadores, [
+                    'id' => $criador->id,
+                    'title' => $criador->name_full." - ".$criador->category
+                ]);
+
+                if($criador->id == $idcreato){
+                    $autor = ['id' => $criador->id, 'title' => $criador->name_full." - ".$criador->category];
+                }
+            }
+
+        }
+
+        return [$autor, $criadores];
     }
 
 

@@ -18,9 +18,9 @@
         @endforelse
 
     </select>
-
+{{--
     @error('{{$idname}}')
         <div class="">{{ $message }}</div>
-    @enderror
+    @enderror --}}
 
 </div>

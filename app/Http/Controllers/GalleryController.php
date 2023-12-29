@@ -5,11 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Gallery;
 use App\Models\School;
 use App\Models\Image;
+use App\Models\Creator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\CreatorController;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+
+
 
 class GalleryController extends Controller
 {
@@ -29,75 +35,127 @@ class GalleryController extends Controller
         //
     }
 
-
-    public function store(Request $request, $uid)
+    public function GalerySaveSchoolImg(Request $request, $uid)
     {
+        /* *
+         * Criando a galeria e salvando as imagens
+         */
+
         // Validação dos dados
-        $request->validate([
-            'photos.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+        $validator = Validator::make($request->all(), [
+            'photos.*' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
+        if ($validator->fails()) {
+            Session::flash('errors', "Selecione uma imagem por favor!");
+            return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
+
+        }
 
         // Processamento das imagens e textos
         $images = $request->file('photos');
         $uidgaleria = [];
+        $uidgal = null;
         $escola = School::where('uid', $uid)->first();
         if($escola == null){
             return redirect()->route('editarescola', ['uid' => $uid])->with('errors', "O número de imagens e locais não coincide.");
         }
 
-        // Para cada imagem, faça o upload e armazene os dados
-        foreach ($images as $key => $image) {
-            $uidimg = Str::uuid();
+        if($request->file('photos') == null){
+            return redirect()->route('editarescola', ['uid' =>  $escola->uid])->with('errors', "Selecione uma imagem.");
+        }
 
-            $configImg = [
-                'logo' => false,
-                'inep' => $request->inep,
-            ];
-
-            Image::create([
-                'uid' => $uidimg,
-                'id_user' => Auth::id(),
-                'id_group' => $escola->id_group,
-                'uid_from_who' => $escola->uid,
-                'id_author' => $escola->id,
-                'unit' => $escola->unit,
-                'title' => $escola->name,
-                'category' => $escola->category,
-                'classification' => "02",
-                'type' => 2,
-                'description' => "",
-                'source' => "",
-                'trash' => false,
-                'config' => $configImg,
-            ]);
-
-            //salvar imagem
-            if ($escola->unit == "umei") {
-                $url = 'escolas/umei/'.$escola->inep;
-            }else{
-                $url = 'escolas/umef/'.$escola->inep;
+        //Pesquisando para saber se tem galeria
+        $galeria = Gallery::where('uid_from_who', $escola->uid)->first();
+        if ($galeria != null) {
+            $contando = count($galeria->imagens) + count($images);
+            if ( $contando > 10) {
+                return redirect()->route('editarescola', ['uid' => $uid])->with('errors', "Quantidade de Imagaem acima do esperado. Permimitido somente 10 imagens");
             }
-
-            $imageName = $image->hashName();
-            $path = $image->storeAs($url, $imageName);
-
-            $uidgaleria[] = ['uid' => $uidimg, 'name' => $imageName, 'url' => $path];
 
         }
 
+        if ($galeria == null){
+            $uidgal = Str::uuid();
+            $galeriadb = Gallery::create([
+                'uid' => $uidgal,
+                'id_user' => $escola->id_user,
+                'id_group' => $escola->group,
+                'uid_from_who' => $escola->uid,
+                'imagens' => $uidgaleria,
+                'public' => true,
+            ]);
+            $uidgal =  $uidgal;
+        }else{
 
-        $uidgal = Str::uuid();
+            $imagensDB = $galeria->imagens;
+            for ($i=0; $i < count($uidgaleria); $i++) {
+                $imagensDB[] = $uidgaleria[$i];
+            }
 
-        $galeria = Gallery::create([
-            'uid' => $uidgal,
-            'id_user' => $escola->id_user,
-            'id_group' => $escola->group,
-            'uid_from_who' => $escola->uid,
-            'imagens' => $uidgaleria,
-            'public' => true,
-        ]);
+            $galeriadb = Gallery::where('uid', $galeria->uid)->update([
+                'id_user' => $escola->id_user,
+                'id_group' => $escola->group,
+                'uid_from_who' => $escola->uid,
+                'imagens' => $imagensDB,
+            ]);
 
-        if($galeria){
+            $uidgal = $galeria->uid;
+
+        }
+
+        if($galeriadb){
+
+            // Para cada imagem, faça o upload e armazene os dados
+            foreach ($images as $key => $image) {
+
+                $uidimg = Str::uuid();
+                $userId = Auth::user();
+
+                $configImg = [
+                    'logo' => false,
+                    'inep' => $escola->inep,
+                ];
+
+                //salvar imagem
+                if ($escola->unit == "umei") {
+                    $url = 'escolas/umei/'.$escola->inep;
+                }else{
+                    $url = 'escolas/umef/'.$escola->inep;
+                }
+
+                $imageName = $image->hashName();
+                $path = $image->storeAs($url, $imageName);
+                $category = $escola->categoy != null ? $escola->categoy: "escola";
+
+                $img = Image::create([
+                    'uid' => $uidimg,
+                    'id_user' => $userId->id,
+                    'id_group' => $escola->id_group,
+                    'uid_from_who' => $uidgal,
+                    'id_author' => $userId->id,
+                    'unit' => $escola->unit,
+                    'title' => $escola->name,
+                    'nickname' => $imageName,
+                    'category' => $category,
+                    'classification' => "01",
+                    'url' => $path,
+                    'type' => 1,
+                    'description' => "",
+                    'source' => "",
+                    'trash' => false,
+                    'config' => $configImg,
+                ]);
+
+                $uidgaleria[] = ['uid' => $uidimg, 'name' => $imageName, 'url' => $path];
+
+            }
+
+            Gallery::where('uid', $uidgal)->update(['imagens' => $uidgaleria]);
+
             return redirect()->route('editarescola', ['uid' => $uid])->with('success', "Salvo com sucesso!");
         }else{
             return redirect()->route('editarescola', ['uid' => $uid])->with('errors', "O número de imagens e locais não coincide.");
@@ -107,35 +165,36 @@ class GalleryController extends Controller
         return response()->json(['message' => 'Imagens e textos foram salvos com sucesso.']);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Gallery $gallery)
-    {
-        //
+
+    public function DelImg($uidImg){
+
+        $imgagemDb = Image::where('uid', $uidImg)->first();
+
+        if ($imgagemDb == null) {
+           return redirect()->back();
+        }
+
+        $galeria = Gallery::where('uid', $imgagemDb->uid_from_who)->first();
+
+        $imgGals = $galeria->imagens;
+
+        if ($imgGals !== null) {
+
+            foreach ($imgGals as $key => $value) {
+                if ($value['uid'] === $uidImg) {
+                    Storage::delete($value['url']); //Delentando a Imagem da Pasta
+                    unset($imgGals[$key]);
+                    Image::where('uid', $uidImg)->delete();
+                }
+            }
+
+            Gallery::where('uid', $imgagemDb->uid_from_who)->update(['imagens' => $imgGals]); // Atualizando a galeria
+
+        }
+
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Gallery $gallery)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Gallery $gallery)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Gallery $gallery)
-    {
-        //
-    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Andress;
 use App\Models\Gallery;
 use App\Models\Image;
+use App\Models\Creator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,6 +14,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\CreatorController;
 
 
 class SchoolController extends Controller
@@ -96,10 +98,18 @@ class SchoolController extends Controller
         //Buscar galeria
         $galleries = Gallery::where('uid_from_who', $escola->uid)->first();
 
+        //Buscar Criadores de imagems
+        $criador = CreatorController::GetCreator($escola->id_user);
+        $autor = $criador[0];
+        $criadores = $criador[1];
+
+        $galleriesCount = 0;
+        if($galleries != null){ $galleriesCount = count($galleries->imagens); };
+
         $ativar = 'dashescola';
         $dados = CoreController::conjuntoVariaveisDashboard();
 
-        return view('backoffice.dashescolasadd', compact(['dados', 'ativar', 'escola', 'unidade', 'regiao', 'status', 'configs','position_esp','acess', 'direcao', 'logo', 'andress', 'localidades', 'local', 'galleries']));
+        return view('backoffice.dashescolasadd', compact(['dados', 'ativar', 'escola', 'unidade', 'regiao', 'status', 'configs','position_esp','acess', 'direcao', 'logo', 'andress', 'localidades', 'local', 'galleries', 'galleriesCount', 'autor', 'criadores']));
 
     }
 

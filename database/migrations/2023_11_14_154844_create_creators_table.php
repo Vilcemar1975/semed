@@ -17,6 +17,7 @@ return new class extends Migration
             $table->biginteger('id_user')->nullable(); // quem cadastrou
             $table->string('name_full')->nullable();
             $table->string('company')->nullable();
+            $table->string('category', 15)->nullable();
             $table->mediumText('description')->nullable();
             $table->timestamps();
         });

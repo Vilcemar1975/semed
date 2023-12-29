@@ -9,7 +9,9 @@ use App\Http\Controllers\TopicsController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\AndressController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\AreaTecnica;
+use App\Http\Controllers\CreatorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -109,7 +111,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/dash/endereco/add/{uid}', [AndressController::class, 'AndressSalvar'])->name('andresssalvar');
 
     /* Galeria criar, Salvar e Excluir */
-    Route::post('/dash/galeria/add/{uid?}', [GalleryController::class, 'store'])->name('gallerystore');
+    Route::post('/dash/galeria/add/{uid?}', [GalleryController::class, 'GalerySaveSchoolImg'])->name('gallerystore');
+    Route::get('/dash/galeria/delete/{uid?}', [GalleryController::class, 'DelImg'])->name('delimg');
+
+    /* Imagem criar, Salvar e Excluir */
+    Route::post('/dash/img/search/{uid}', [ImageController::class, 'searchImageByUid'])->name('searchimg');
+    Route::post('/dash/img/save/{uid}', [ImageController::class, 'saveImg'])->name('saveimg');
+    Route::get('/dash/img/delete/{uid}', [ImageController::class, 'deleteImg'])->name('deleteimg');
+    Route::get('/dash/img/erase/{uid}', [ImageController::class, 'eraseImg'])->name('eraseimg');
+
+    /* Criar Autores */
+    Route::get('/dash/author/create', [CreatorController::class, 'SaveCreatorAuthor'])->name('createupdateauthor');
 
 
 });

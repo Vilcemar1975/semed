@@ -222,16 +222,31 @@
                 </div>
                 @include('javascript.gallery')
                 <div class="flex flex-wrap justify-between gap-3">
-                    @forelse ( $galleries->imagens as $gallery)
+                    @isset($galleries)
+                        @forelse ( $galleries->imagens as $gallery)
 
-                        <div class="relative w-[18rem] rounded-md bg-white">
-                            <img src="{{asset($gallery['url'])}}" alt="" title="Imagem {{$loop->index+1}}" class="h-full rounded-md">
-                            <button class="absolute bottom-3 w-[36px] h-[36px] right-2 text-white text-[16pt] bg-azul-100 hover:bg-azul-500 rounded-md"><i class="fa-solid fa-align-justify"></i></button>
-                        </div>
+                            <div class="relative w-[18rem] rounded-md bg-white">
+                                <button type="button" data-modal-target="PreviewImgModal" data-modal-toggle="PreviewImgModal" class="h-full" onclick="viewImg('{{$gallery['url']}}')">
+                                    <img src="{{asset($gallery['url'])}}" alt="" title="Imagem {{$loop->index+1}}" class="h-full rounded-md">
+                                </button>
+                                <div class="flex justify-between">
+                                    <button type="button" id="botoaGaleriaEdit" data-modal-target="EditorImgModal" data-modal-toggle="EditorImgModal" data-uid="{{$gallery['uid']}}" class="botoaGaleriaEdit absolute bottom-3 w-[36px] h-[36px] right-2 text-white text-[16pt] bg-azul-100 hover:bg-azul-500 rounded-md disabled:bg-slate-400 disabled:text-slate-600"><i class="fa-solid fa-align-justify"></i></button>
+                                    <button type="button" id="botoaGaleriaExcluir" data-modal-target="ExcluirImgModal" data-modal-toggle="ExcluirImgModal" data-uidel="{{$gallery['uid']}}" class="botoaGaleriaExcluir absolute bottom-3 w-[36px] h-[36px] left-2 text-white text-[16pt] bg-red-600 hover:bg-red-800 rounded-md disabled:bg-slate-400 disabled:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                            </div>
 
-                    @empty
-                        <p>Nenhuma Foto foi postada.</p>
-                    @endforelse
+                        @empty
+                            <p>Nenhuma Foto foi postada.</p>
+                        @endforelse
+                    @endisset
+
+                    <script>
+                        function viewImg(viewImg) {
+                            let img = "{{ asset('%')}}" .replace('%', viewImg);
+                            document.getElementById('previewFull').src = img;
+                        }
+                    </script>
+
                 </div>
             </div>
             {{-- Endereço --}}
@@ -274,5 +289,43 @@
             @include('javascript.cep')
         </div>
     </div>
+
+    <!-- Modal Apresentação de Imagem -->
+    <div id="PreviewImgModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+                <!-- Modal header -->
+                <div class="flex items-start justify-between p-4 border-b rounded-t bg-azul-400">
+                    <h3 class="text-xl font-semibold text-gray-900">
+                        Vizulizador de Imagem
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center" data-modal-hide="PreviewImgModal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+
+                <div class="block p-6 space-y-6">
+                    <img id="previewFull" src="" alt="" class="w-full rounded-md">
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+                   {{--  <button data-modal-hide="PreviewImgModal" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Salvar</button> --}}
+                    <button data-modal-hide="PreviewImgModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Fechar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @include('components.editor_img', ['uid' => $escola->uid])
+
+
+
+
 
 </x-app-layout>

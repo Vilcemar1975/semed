@@ -14,7 +14,7 @@
     >
     <label for="{{$idid}}" class="self-center text-[9pt]">{{ $label}}</label>
 
-    @error('{{$idname}}')
+    {{-- @error('{{$idname}}')
         <div class="">{{ $message }}</div>
-    @enderror
+    @enderror --}}
 </div>
