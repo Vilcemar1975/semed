@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Image;
 use App\Models\User;
+use App\Models\Gallery;
+use App\Models\School;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -85,13 +87,13 @@ class ImageController extends Controller
         return Image::where('uid', $uidimg)->first();
     }
 
-    public static function ImageSaveSchool($dados, $uidimg){
+    public static function ImageSaveSchool($dados, $uidschool){
     /**
      *  $dados: Todas as informações necessárias da imagem
-     * $uidimg: Caso seja alteração o uidimg vem com o uid da imagem, padrão null
+     * $uidschool: Serve para saber de a imagem vai ser alterada, padrão null
      */
 
-        if ($uidimg == null || $uidimg == "") {
+        if ($uidschool == null || $uidschool == "") {
             $uidimage = Str::uuid();
 
             Image::create([
@@ -102,53 +104,58 @@ class ImageController extends Controller
                 'id_author' => $dados['id_author'],
                 'unit' => $dados['unit'],
                 'title' => $dados['title'],
+                'nickname' => null,
                 'category' => $dados['category'],
                 'classification' => $dados['classification'],
                 'type' => $dados['type'],
                 'description' => $dados['description'],
                 'source' => $dados['source'],
+                'url' => "storage/padrao/img.jpeg",
                 'trash' => false,
                 'config' => $dados['config'],
+                'logo' => $dados['logo'],
             ]);
 
-            $uidimg = $uidimage;
+            $uidschool = $uidimage;
 
         }else{
 
-            DB::table('images')->where('uid', $uidimg)->update([
+            //Salvando a imagem se tiver
+            $req = $dados['request'];
+            $nomeDoCampo = $dados['fieldImg'];
+            $pastaEscola = $dados['folderSchool'];
+
+            $url = ['nameFile'=> "Imagem Padrão", 'path' => "storage/padrao/img.jpeg", 'type' => "svg"];
+            if ($req->hasFile($nomeDoCampo)) {
+
+                if ($dados['unit'] == 1) {
+                    $url = self::img($dados['request'], $nomeDoCampo, 'escolas/umei/'.$pastaEscola, $uidschool);
+                }else{
+                    $url = self::img($dados['request'], $nomeDoCampo, 'escolas/umef/'.$pastaEscola, $uidschool);
+                }
+
+            }
+
+            DB::table('images')->where('uid_from_who', $uidschool)->where('logo', true)->update([
                 'id_group' => $dados['id_group'],
                 'id_author' => $dados['id_author'],
                 'title' => $dados['title'],
                 'nickname' => $dados['nickname'],
+                'nickname' => $url['nameFile'],
                 'category' => $dados['category'],
                 'classification' => $dados['classification'],
                 'type' => $dados['type'],
                 'description' => $dados['description'],
                 'source' => $dados['source'],
+                'url' => $url['path'],
                 'config' => $dados['config'],
             ]);
 
         }
 
-        $req = $dados['request'];
-        $nomeDoCampo = $dados['fieldImg'];
-        $pastaEscola = $dados['folderSchool'];
 
-        if ($req->hasFile($nomeDoCampo)) {
 
-            if ($dados['unit'] == 1) {
-                $url = self::img($dados['request'], $nomeDoCampo, 'escolas/umei/'.$pastaEscola, $uidimg);
-            }else{
-                $url = self::img($dados['request'], $nomeDoCampo, 'escolas/umef/'.$pastaEscola, $uidimg);
-            }
-
-            DB::table('images')->where('uid', $uidimg)->update([
-                    'nickname' => $url['nameFile'],
-                    'url' => $url['path'],
-                ]);
-        }
-
-        $imagem = Image::where('uid', $uidimg)->first();
+        $imagem = Image::where('uid_from_who', $uidschool)->first();
 
         return $imagem;
     }
@@ -169,7 +176,7 @@ class ImageController extends Controller
         if ($request->hasFile($campo)) {
 
             if ($idimg != null) {
-                $imgDB = Image::find($idimg);
+                $imgDB = Image::where('uid_from_who',$idimg)->first();
                 if ($imgDB != null) {
                     Storage::delete($imgDB->url);
                 }
@@ -186,9 +193,84 @@ class ImageController extends Controller
             $dados = ['nameFile'=> "Imagem Padrão", 'path' => "storage/padrao/img.jpeg", 'type' => "svg"];
         }
 
-
-
         return $dados;
+
+    }
+
+    public static function imgUnicSaveSchoolLogo(Request $request){
+        $user = Auth::user();
+        $uidschool = $request->input('uidschool');
+        $uidimg = $request->input('uidimg');
+        $logo = $request->input('logo');
+        $image = $request->file('image');
+
+        $imgAtual = Image::where('uid', $uidimg)->first();
+        $escola = School::where('uid', $uidschool)->first();
+
+        if ($imgAtual != null) {
+
+           //Apaga a imagem que já tem na pasta
+            Storage::delete($imgAtual->url);
+
+        }
+
+        //Salvar imagem no seu respectivo caminho
+        if ($escola->unit == "umei") {
+            $caminho = 'escolas/umei/'.$escola->inep;
+        }else{
+            $caminho = 'escolas/umef/'.$escola->inep;
+        }
+
+        $imageName = $image->hashName();
+        $path = $image->storeAs($caminho, $imageName);
+
+        if ($imgAtual == null) {
+            $uidimage = Str::uuid();
+            $result = Image::create([
+                'uid' => $uidimage,
+                'id_user' => Auth::id(),
+                'id_group' => $escola->id_group,
+                'uid_from_who' => $escola->uid,
+                'id_author' => $user->id,
+                'unit' => $escola->unid,
+                'title' => $escola->name,
+                'nickname' => $imageName,
+                'category' => "escola",
+                'classification' => "01",
+                'url' => $path,
+                'description' => "Logo ".$escola->name,
+                'type' => 2,
+                'source' => "Logo da escola",
+                'trash' => false,
+                'logo' => $logo,
+            ]);
+
+        }else{
+
+
+            DB::table('images')->where('uid', $imgAtual->uid)->update([
+                'id_group' => $escola->id_group,
+                'uid_from_who' => $escola->uid,
+                'id_author' => $user->id,
+                'title' => $escola->name,
+                'nickname' => $imageName,
+                'category' => "escola",
+                'classification' => "01",
+                'url' => $path,
+                'description' => "Logo ".$escola->name,
+                'type' => 2,
+                'source' => "Logo da escola",
+                'logo' => $logo,
+
+            ]);
+
+            $uidimage = $imgAtual->uid;
+
+        }
+
+        $dados = ['uid' => $uidimage, 'nameFile'=> $imageName, 'path' => $path, 'type' => $image->extension()];
+
+        return response()->json($dados);
 
     }
 
@@ -266,20 +348,33 @@ class ImageController extends Controller
 
     public static function eraseImg($uid) {
 
-        $imagem = Image::where('uid',$uid)->first();
+        $imgagemDb = Image::where('uid', $uid)->first();
 
-        if ($imagem == null) {
-           return redirect()->back();
+        if ($imgagemDb == null) {
+           return response()->json(['message' => 'Erro ao excluir.']);
         }
 
-        // Deleta a imagem do servidor
-        if ($imagem->nickname != null) {
-            Storage::delete($imagem->nickname);
+        $galeria = Gallery::where('uid', $imgagemDb->uid_from_who)->first();
+
+        $imgGals = $galeria->imagens;
+
+        if ($imgGals !== null) {
+
+            foreach ($imgGals as $key => $value) {
+
+                if ($value['uid'] === $uid) {
+                    Storage::delete($value['url']); //Delentando a Imagem da Pasta
+                    unset($imgGals[$key]);
+                    //Image::where('uid', $uid)->delete();
+                }
+
+            }
+
+            Gallery::where('uid', $imgagemDb->uid_from_who)->update(['imagens' => $imgGals]); // Atualizando a galeria
+            $imgagemDb->delete();
         }
 
-        $imagem->delete();
-
-        return response()->json(['message' => 'Excluido foram salvos com sucesso.']);;
+        return response()->json(['message' => 'Excluido foram salvos com sucesso.']);
     }
 
 

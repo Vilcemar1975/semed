@@ -64,6 +64,7 @@ class GalleryController extends Controller
             return redirect()->route('editarescola', ['uid' => $uid])->with('errors', "O número de imagens e locais não coincide.");
         }
 
+        //Verifica se tem imagems
         if($request->file('photos') == null){
             return redirect()->route('editarescola', ['uid' =>  $escola->uid])->with('errors', "Selecione uma imagem.");
         }
@@ -78,6 +79,7 @@ class GalleryController extends Controller
 
         }
 
+        //Cria a galeria se não tiver, e atualiza quando tiver.
         if ($galeria == null){
             $uidgal = Str::uuid();
             $galeriadb = Gallery::create([
@@ -91,16 +93,10 @@ class GalleryController extends Controller
             $uidgal =  $uidgal;
         }else{
 
-            $imagensDB = $galeria->imagens;
-            for ($i=0; $i < count($uidgaleria); $i++) {
-                $imagensDB[] = $uidgaleria[$i];
-            }
-
             $galeriadb = Gallery::where('uid', $galeria->uid)->update([
                 'id_user' => $escola->id_user,
                 'id_group' => $escola->group,
                 'uid_from_who' => $escola->uid,
-                'imagens' => $imagensDB,
             ]);
 
             $uidgal = $galeria->uid;
@@ -129,7 +125,7 @@ class GalleryController extends Controller
 
                 $imageName = $image->hashName();
                 $path = $image->storeAs($url, $imageName);
-                $category = $escola->categoy != null ? $escola->categoy: "escola";
+                $category = "escola > galeria";
 
                 $img = Image::create([
                     'uid' => $uidimg,
@@ -154,7 +150,17 @@ class GalleryController extends Controller
 
             }
 
-            Gallery::where('uid', $uidgal)->update(['imagens' => $uidgaleria]);
+            $imagens = $galeria->imagens;
+            for ($i=0; $i < count($imagens); $i++) {
+                $imagensDB[] = $imagens[$i];
+            }
+
+            for ($f=0; $f < count($uidgaleria); $f++) {
+                $imagensDB[] = $uidgaleria[$f];
+            }
+
+
+            Gallery::where('uid', $uidgal)->update(['imagens' => $imagensDB]);
 
             return redirect()->route('editarescola', ['uid' => $uid])->with('success', "Salvo com sucesso!");
         }else{
@@ -162,6 +168,11 @@ class GalleryController extends Controller
 
         }
 
+        return response()->json(['message' => 'Imagens e textos foram salvos com sucesso.']);
+    }
+
+    public function SaveGalerieAPI($dados){
+        dd($dados);
         return response()->json(['message' => 'Imagens e textos foram salvos com sucesso.']);
     }
 

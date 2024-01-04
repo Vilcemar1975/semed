@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('type', 5)->nullable(); //jpeg, png, jpg
             $table->mediumText('description')->nullable();
             $table->string('source', 120)->nullable(); //Fonte da imagem se tiver
+            $table->boolean('logo')->default(false); //Se é uma logomarca sim ou não
             $table->boolean('trash')->default(false);
             $table->json('config')->nullable();
             $table->timestamps();

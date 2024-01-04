@@ -162,9 +162,13 @@
                 success: function(response) {
 
                 // Verifique se a resposta contém dados válidos
-                if (response && response.length > 0) {
+                if (response) {
 
-                    JSON.parse(response)
+                    // Listener para excluir imagens
+                    $('#list_img_galleries').on('click', '.botoaGaleriaExcluir', function () {
+                        $(this).closest('figure').remove();
+                    });
+
 
                 } else {
 
@@ -180,12 +184,7 @@
                 });
             });
 
-            // Manipule o clique no botão "Cancelar" dentro do modal
-            $('#EditorImgModal').on('click', '[data-modal-hide="EditorImgModal"]', function() {
-            // Feche o modal
-            $('#EditorImgModal').addClass('hidden');
-        });
 
-    });
+        });
 
 </script>

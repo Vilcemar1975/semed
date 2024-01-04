@@ -37,13 +37,18 @@
                         <div class="flex gap-2 phone:flex-wrap justify-between">
                             <div class="block text-center">
                                 @include('components.backoffice.label',['idname' => 'text','label' => "Logo Marca da Escola - (Opcional)"])
-                                <img src="{{asset($logo)}}" alt="" id="img_preview" class="w-[14rem] h-[9rem] mx-auto mb-3 rounded-lg">
+                                <img src="{{asset($logo['url'])}}" alt="" id="img_preview" class="w-[14rem] h-[9rem] mx-auto mb-3 rounded-lg">
                                 <label id="imglabel" for="image" class="px-2 py-2 text-center m-auto bg-green-200 hover:bg-green-400 rounded-lg uppercase text-[9pt] font-semibold">Selecione a Logo</label>
                                 <input type="file" name="image" id="image" accept="image/png, image/jpeg" class="hidden" onchange="previewImage(this)">
+                                {{-- <input id="uidschool" name="uidschool" type="hidden" value="{{$escola->uid}}">--}}
+                                {{-- <input id="uidimg_input" name="uidimg_input" type="hidden" value="{{ $logo['uid'] }}"> --}}
                             </div>
                             @include('javascript.img',[
                                     'idpreview' => 'img_preview',
                                     'idlabel' => 'imglabel',
+                                    'uidschool' => $escola->uid,
+                                    'uidimg' => $logo['uid'],
+                                    'logo' => true,
                                 ])
                             <div class="w-full">
                                 <div class="flex tablet:flex-wrap gap-2 justify-between text-azul-100 py-3 px-2 mt-2 bg-azul-400 rounded-md">
@@ -86,8 +91,13 @@
                     {{-- Pesquisa de usuário --}}
                     <div class="relative">
                         <div class="flex justify-between gap-2">
-                            @include('components.backoffice.fildText', ['idname' => "diretor", 'label' => "Diretor(a)", 'value' => $direcao,'max' => 0 , 'min' => 0])
-                            <input type="hidden" id="id_diretor" name="id_diretor">
+                            <div class="">
+                                @include('components.backoffice.fildText', ['idname' => "diretor_matricula", 'label' => "Matrícula", 'value' => $direcao['registration'], 'max' => 0 , 'min' => 0])
+                            </div>
+                            <div class="w-full">
+                                @include('components.backoffice.fildText', ['idname' => "diretor", 'label' => "Diretor(a)", 'value' => $direcao['name'], 'max' => 0 , 'min' => 0])
+                                <input type="hidden" id="id_diretor" name="id_diretor">
+                            </div>
                         </div>
                         <div id="searchResults" class="w-full absolute bg-white top-[75px] rounded-md shadow-md"></div>
                         @include('javascript.pesquisa_user')
@@ -200,6 +210,7 @@
             {{-- Galeria --}}
             <div class="hidden p-4 rounded-lg bg-gray-50" id="galeria" role="tabpanel" aria-labelledby="galeria-tab">
                 <div class="flex gap-3 flex-col">
+                    <h4 class="text-[7pt] text-center font-semibold text-gray-300">{{ $galleries->uid ?? ""}}</h4>
                     <form action="{{ route('gallerystore', ['uid' => $escola->uid ?? null])}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mx-auto my-2 text-center mb-3">
@@ -219,35 +230,39 @@
                     <hr>
                     @include('components.backoffice.label',['idname' => 'text','label' => "Galeria de Fotos"])
 
+
                 </div>
                 @include('javascript.gallery')
-                <div class="flex flex-wrap justify-between gap-3">
+                <div id="list_img_galleries" class="flex flex-wrap justify-between gap-3">
                     @isset($galleries)
                         @forelse ( $galleries->imagens as $gallery)
 
-                            <div class="relative w-[18rem] rounded-md bg-white">
+                            <figure id="img_list_{{$gallery['uid']}}" class="relative w-[18rem] rounded-md bg-white">
                                 <button type="button" data-modal-target="PreviewImgModal" data-modal-toggle="PreviewImgModal" class="h-full" onclick="viewImg('{{$gallery['url']}}')">
                                     <img src="{{asset($gallery['url'])}}" alt="" title="Imagem {{$loop->index+1}}" class="h-full rounded-md">
                                 </button>
                                 <div class="flex justify-between">
                                     <button type="button" id="botoaGaleriaEdit" data-modal-target="EditorImgModal" data-modal-toggle="EditorImgModal" data-uid="{{$gallery['uid']}}" class="botoaGaleriaEdit absolute bottom-3 w-[36px] h-[36px] right-2 text-white text-[16pt] bg-azul-100 hover:bg-azul-500 rounded-md disabled:bg-slate-400 disabled:text-slate-600"><i class="fa-solid fa-align-justify"></i></button>
-                                    <button type="button" id="botoaGaleriaExcluir" data-modal-target="ExcluirImgModal" data-modal-toggle="ExcluirImgModal" data-uidel="{{$gallery['uid']}}" class="botoaGaleriaExcluir absolute bottom-3 w-[36px] h-[36px] left-2 text-white text-[16pt] bg-red-600 hover:bg-red-800 rounded-md disabled:bg-slate-400 disabled:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+                                    <button type="button" id="botoaGaleriaExcluir"  data-uidel="img_list_{{$gallery['uid']}}" onclick="excluirTamb('img_list_{{$gallery['uid']}}')" class="botoaGaleriaExcluir absolute bottom-3 w-[36px] h-[36px] left-2 text-white text-[16pt] bg-red-600 hover:bg-red-800 rounded-md disabled:bg-slate-400 disabled:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
                                 </div>
-                            </div>
+                            </figure>
 
                         @empty
                             <p>Nenhuma Foto foi postada.</p>
                         @endforelse
                     @endisset
-
-                    <script>
-                        function viewImg(viewImg) {
-                            let img = "{{ asset('%')}}" .replace('%', viewImg);
-                            document.getElementById('previewFull').src = img;
-                        }
-                    </script>
-
                 </div>
+                <script>
+                    function viewImg(viewImg) {
+                        let img = "{{ asset('%')}}" .replace('%', viewImg);
+                        document.getElementById('previewFull').src = img;
+                    }
+
+                    function excluirTamb(id) {
+                        let figure = document.getElementById(id);
+                        figure.remove();
+                    }
+                </script>
             </div>
             {{-- Endereço --}}
             <div class="hidden p-4 rounded-lg bg-gray-50" id="endereco" role="tabpanel" aria-labelledby="endereco-tab">

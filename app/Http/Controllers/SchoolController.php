@@ -43,11 +43,10 @@ class SchoolController extends Controller
         }
 
         //Buscar Diretora
-        $direcao = $escola->direction;
         if($escola->direction['uid'] == null){
-            $direcao = "";
+            $direcao =  ["registration" => "", "name" =>  ""];
         }else{
-            $direcao = $escola->direction['registration']." | ".$escola->direction['name_full'];
+            $direcao = ["registration" => $escola->direction['registration'], "name" =>  $escola->direction['name_full']];
         }
 
         //Buscar Rede Social
@@ -64,12 +63,12 @@ class SchoolController extends Controller
             }
         }
 
-        $logoImg = Image::where('uid_from_who', $uid)->whereJsonContains('config->logo', true)->first();
+        $logoImg = Image::where('uid_from_who', $uid)->where('logo', true)->first();
 
         if ($logoImg != null) {
-            $logo = $logoImg->url ?? "storage/padrao/img.jpeg"; // Se a url estivar vazio
+            $logo = ['uid' => $logoImg->uid, 'url' => $logoImg->url ] ?? ['uid' => null , 'url' => "storage/padrao/img.jpeg" ] ; // Se a url estivar vazio
         }else{
-            $logo = "storage/padrao/img.jpeg";
+            $logo = ['uid' => null , 'url' => "storage/padrao/img.jpeg" ];
         }
 
         //Buscar Acesso para exposição
@@ -167,35 +166,33 @@ class SchoolController extends Controller
             //Salvar imagem
             if ($school->exists()) {
 
-                if ($request->hasFile('image')){
-
-                    $configImg = [
-                        'logo' => true,
-                        'inep' => $request->inep,
-                    ];
-
-                    $imgDados = [
-                        'uid_from_who' =>  $uuid,
-                        'id_author' => $user->id,
-                        'id_group' => $request->unit,
-                        'title' => $request->name,
-                        'nickname' => Str::slug(Str::lower($request->name), '-'),
-                        'unit' => $request->unit,
-                        'category' => "escola",
-                        'type' => 2,
-                        'classification' => "01",
-                        'description' => "Logo ".$request->name,
-                        'request' => $request,
-                        'source' => "Escola",
-                        'config' => $configImg,
-                        'fieldImg' => 'image', //Id do campo da imagem na view
-                        'folderSchool' =>  $request->inep,
-                    ];
-
-                    ImageController::ImageSaveSchool($imgDados, null);
 
 
-                }
+                $configImg = [
+                    'logo' => true,
+                    'inep' => $request->inep,
+                ];
+
+                $imgDados = [
+                    'uid_from_who' =>  $uuid,
+                    'id_author' => $user->id,
+                    'id_group' => $request->unit,
+                    'title' => $request->name,
+                    'nickname' => Str::slug(Str::lower($request->name), '-'),
+                    'unit' => $request->unit,
+                    'category' => "escola",
+                    'type' => 2,
+                    'classification' => "01",
+                    'description' => "Logo ".$request->name,
+                    'request' => $request,
+                    'source' => "Escola",
+                    'config' => $configImg,
+                    'fieldImg' => 'image', //Id do campo da imagem na view
+                    'folderSchool' =>  $request->inep,
+                    'logo' => true,
+                ];
+
+                ImageController::ImageSaveSchool($imgDados, null);
 
                 //Session::flash('success', "Criado com sucesso!");
 
@@ -217,7 +214,6 @@ class SchoolController extends Controller
 
     public  function EditSchool(Request $request, $uid){
 
-
         //Atualizar a tabela schools os dados
         $escola = School::where('uid', $uid)->first();
 
@@ -229,12 +225,12 @@ class SchoolController extends Controller
 
         //Trantando campo diretor
         $diretorRequest = $request->diretor;
+        $diretorMatricula = $request->diretor_matricula;
         $diretor = CoreController::direction(null, null, null);
         if( $diretorRequest != null){
             $dorcente = User::where('uid', $request->id_diretor)->first();
             if($dorcente != null){
-                $nameReg = explode("|", $request->diretor);
-                $diretor = CoreController::direction($request->id_diretor, $nameReg[0], $nameReg[1]);
+                $diretor = CoreController::direction($request->id_diretor, $diretorMatricula, $diretorRequest);
             }
         }
 
@@ -315,6 +311,7 @@ class SchoolController extends Controller
 
         ]);
 
+
         //Alterando a Imagem
         if ($request->hasFile('image')){
 
@@ -333,7 +330,7 @@ class SchoolController extends Controller
                 'category' => "escola",
                 'type' => 2,
                 'classification' => "01",
-                'description' => "Logo ".$request->name,
+                'description' => "Logo |".$request->name,
                 'request' => $request,
                 'source' => "Escola",
                 'config' => $configImg,

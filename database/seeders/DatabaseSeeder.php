@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory()->create([
              'uid' => Str::uuid(),
+             'matriculation' => 12345678,
              'name' => 'Vilcemar',
              'lastname' => 'Motta',
              'email' => 'vilcemar1@gmail.com',

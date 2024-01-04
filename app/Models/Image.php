@@ -23,6 +23,7 @@ class Image extends Model
         'type',
         'description',
         'source',
+        'logo',
         'trash',
         'config',
     ];

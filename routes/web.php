@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\CoreController;
@@ -51,6 +52,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/search/user/matricula', [Controller::class, 'SearchUserMatricual'])->name('searchusermatricula');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -117,6 +120,7 @@ Route::middleware('auth')->group(function () {
     /* Imagem criar, Salvar e Excluir */
     Route::post('/dash/img/search/{uid}', [ImageController::class, 'searchImageByUid'])->name('searchimg');
     Route::post('/dash/img/save/{uid}', [ImageController::class, 'saveImg'])->name('saveimg');
+    Route::post('/dash/img/saveoneimgscholl', [ImageController::class, 'imgUnicSaveSchoolLogo'])->name('saveoneimgscholl');
     Route::get('/dash/img/delete/{uid}', [ImageController::class, 'deleteImg'])->name('deleteimg');
     Route::get('/dash/img/erase/{uid}', [ImageController::class, 'eraseImg'])->name('eraseimg');
 

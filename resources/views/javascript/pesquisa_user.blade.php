@@ -1,4 +1,5 @@
 <script>
+
     $(document).ready(function () {
         $('#diretor').on('input', function () {
             var query = $(this).val();
@@ -34,11 +35,17 @@
                     var uid = selectedUser.data('uid');
                     var fullName = selectedUser.text();
 
+                    var nome = fullName.split('|');
+
                     // Preencher o campo searchInput
-                    $('#diretor').val(fullName);
+                    $('#diretor').val(nome[1]);
 
                     // Preencher o campo oculto id_diretor
                     $('#id_diretor').val(uid);
+
+                    // Preencher o campo oculto id_diretor
+                    $('#diretor_matricula').val(nome[0]);
+
 
                     // Limpar a div searchResults
                     results.html('');
@@ -47,5 +54,34 @@
                 results.html('<p>Nenhum resultado encontrado.</p>');
             }
         }
+
+        $('#diretor_matricula').on('blur', function () {
+            var query = $(this).val();
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                url: '/search/user/matricula',
+                type: 'GET',
+                data: { query: query },
+                headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (e) {
+
+                    if (e.flag) {
+                         // Preencher o campo searchInput
+                        $('#diretor').val(e.user.name+" "+e.user.lastname);
+
+                        // Preencher o campo oculto id_diretor
+                        $('#id_diretor').val(e.user.uid);
+                    }else{
+                        alert("Matricula não conresponde a nenhum diretor.");
+                    }
+
+                }
+            });
+
+        });
+
     });
+
 </script>
